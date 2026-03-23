@@ -4,37 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 45: La Odisea del Cacique Francisco</title>
-    <link rel="stylesheet" href="style.css?v=27">
+    <link rel="stylesheet" href="style.css?v=28">
     <style>
-        #countdown-screen { text-align: center; padding: 20px; background: #fff; min-height: 100vh; font-family: 'Segoe UI', sans-serif; }
-        .timer-box { display: flex; justify-content: center; gap: 10px; margin: 25px 0; }
-        .timer-unit { background: #002d62; color: white; padding: 12px 5px; border-radius: 10px; min-width: 75px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .timer-num { font-size: 1.8em; font-weight: bold; display: block; line-height: 1; }
-        .timer-label { font-size: 0.65em; text-transform: uppercase; letter-spacing: 1px; }
+        #countdown-screen { text-align: center; padding: 20px; background: #fff; min-height: 100vh; font-family: 'Segoe UI', Tahoma, sans-serif; }
         
-        .card-sabiduria { border: 2px solid #002d62; padding: 30px 20px; position: relative; background: #fcfcfc; border-radius: 15px; max-width: 500px; margin: 0 auto; }
-        .cita-texto { font-size: 1.2em; font-style: italic; color: #222; line-height: 1.4; margin-bottom: 10px; }
-        .cita-autor { display: block; margin-top: 15px; font-weight: bold; color: #ce1126; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9em; }
+        /* Ajuste de espacio entre Banner y Título */
+        .portal-header { margin-bottom: 40px; } 
+        .banner-cemi { width: 100%; max-width: 1200px; height: auto; border-bottom: 4px solid #ce1126; }
         
-        .gift-image-box { margin: 20px auto; width: 140px; height: 140px; border-radius: 50%; border: 4px solid #ce1126; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .gift-image-box img { width: 100%; height: 100%; object-fit: cover; }
+        .titulo-espera { 
+            margin-top: 50px; /* Aquí corregimos que no esté pegado al logo */
+            color: #002d62; 
+            font-size: 1.8em; 
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 30px; }
-        .step-box { padding: 10px 5px; border: 1px solid #eee; border-radius: 8px; font-size: 0.7em; opacity: 0.3; background: #f9f9f9; }
-        .step-box.active { opacity: 1; border: 2px solid #ce1126; background: #fff5f5; font-weight: bold; transform: scale(1.05); }
-        .step-box.past { opacity: 1; color: #002d62; border-color: #002d62; }
+        .timer-box { display: flex; justify-content: center; gap: 15px; margin: 40px 0; }
+        .timer-unit { background: #002d62; color: white; padding: 15px 10px; border-radius: 12px; min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .timer-num { font-size: 2em; font-weight: bold; display: block; line-height: 1; }
+        .timer-label { font-size: 0.7em; text-transform: uppercase; opacity: 0.8; }
+
+        /* Botón Secreto para la Guaca */
+        .btn-secreto {
+            margin-top: 60px;
+            background: none;
+            border: 1px solid #eee;
+            color: #ccc;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 0.8em;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .btn-secreto:hover { color: #ce1126; border-color: #ce1126; }
     </style>
 </head>
 <body>
 
 <div id="countdown-screen">
-    <header style="border-bottom:none; margin-bottom:0;">
+    <div class="portal-header">
         <img src="banner_final_cacique.jpg" alt="Portal Sagrado" class="banner-cemi">
-    </header>
+    </div>
     
-    <div class="container" style="margin-top:-30px;">
-        <h2 style="color:#002d62; margin-bottom:0;">Preparando el 45.º Sol</h2>
-        <p style="color:#666; font-size:0.85em;">Cacique Francisco, la cuenta regresiva ha comenzado.</p>
+    <div class="container">
+        <h2 class="titulo-espera">Preparando el 45.º Sol</h2>
+        <p style="color:#666; font-size:1em; margin-top: 10px;">Cacique Francisco, el portal se abrirá en:</p>
         
         <div class="timer-box">
             <div class="timer-unit"><span class="timer-num" id="days">00</span><span class="timer-label">Días</span></div>
@@ -43,81 +59,46 @@
             <div class="timer-unit"><span class="timer-num" id="secs">00</span><span class="timer-label">Seg</span></div>
         </div>
 
-        <div class="card card-sabiduria" id="sabiduria-card" style="display:none;">
-            <div class="gift-image-box">
-                <img src="banner_final_cacique.jpg" id="step-img" alt="Amuleto">
-            </div>
-            <h3 id="step-title" style="color:#002d62; margin:0 0 10px 0; font-size:1em; text-transform:uppercase;">Escalón de Poder</h3>
-            <p id="step-quote" class="cita-texto"></p>
-            <span id="step-author" class="cita-autor"></span>
-        </div>
+        <p style="color: #999; font-style: italic; max-width: 500px; margin: 0 auto;">"La paciencia es la virtud de los grandes líderes."</p>
 
-        <div class="steps-grid" id="steps-grid"></div>
+        <button class="btn-secreto" onclick="saltarContador()">Acceso Privado: Ver Misión Completa</button>
     </div>
 </div>
 
 <div id="main-mission" style="display: none;">
+    <header>
+         <img src="banner_final_cacique.jpg" alt="Misión 45" class="banner-cemi">
+         <h1>Misión 45: El Areyto del Cacique</h1>
+    </header>
     </div>
 
 <script>
-    const FECHA_AREYTO = new Date("April 2, 2026 00:00:00").getTime();
-    
-    const SABIDURIA = [
-        { d: "2026-03-26", t: "Cimiento", c: '"La felicidad no es algo que se pospone para el futuro; es algo que se diseña para el presente."', a: "Jim Rohn" },
-        { d: "2026-03-27", t: "Templo", c: '"Aquel que tiene salud, tiene esperanza; y aquel que tiene esperanza, lo tiene todo."', a: "Proverbio Árabe" },
-        { d: "2026-03-28", t: "Carácter", c: '"La felicidad de tu vida depende de la calidad de tus pensamientos."', autor: "Marco Aurelio" },
-        { d: "2026-03-29", t: "Evolución", c: '"El hombre que ve el mundo a los 50 igual que a los 20, ha desperdiciado 30 años de su vida."', a: "Muhammad Ali" },
-        { d: "2026-03-30", t: "Ímpetu", c: '"Nada grande se ha logrado jamás sin entusiasmo."', a: "Ralph Waldo Emerson" },
-        { d: "2026-03-31", t: "Legado", c: '"La riqueza de un hombre no se mide por lo que tiene, sino por lo que es."', a: "Henry David Thoreau" },
-        { d: "2026-04-01", t: "Visión", c: '"El amor no consiste en mirarse el uno al otro, sino en mirar juntos en la misma dirección."', a: "Antoine de Saint-Exupéry" }
-    ];
+    const FECHA_OBJETIVO = new Date("April 2, 2026 00:00:00").getTime();
 
-    function updatePortal() {
-        const now = new Date().getTime();
-        const diff = FECHA_AREYTO - now;
+    function actualizarReloj() {
+        const ahora = new Date().getTime();
+        const distancia = FECHA_OBJETIVO - ahora;
 
-        if (diff <= 0) {
-            document.getElementById("countdown-screen").style.display = "none";
-            document.getElementById("main-mission").style.display = "block";
+        if (distancia < 0) {
+            saltarContador();
             return;
         }
 
-        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-
-        renderSteps();
+        document.getElementById("days").innerText = Math.floor(distancia / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        document.getElementById("hours").innerText = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        document.getElementById("mins").innerText = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        document.getElementById("secs").innerText = Math.floor((distancia % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }
 
-    function renderSteps() {
-        const grid = document.getElementById("steps-grid");
-        grid.innerHTML = "";
-        const today = new Date().toISOString().split('T')[0];
-        let anyActive = false;
-
-        SABIDURIA.forEach(s => {
-            const div = document.createElement("div");
-            div.className = "step-box";
-            if (today === s.d) {
-                div.className += " active";
-                anyActive = true;
-                document.getElementById("sabiduria-card").style.display = "block";
-                document.getElementById("step-title").innerText = "Escalón: " + s.t;
-                document.getElementById("step-quote").innerText = s.c;
-                document.getElementById("step-author").innerText = "— " + s.a;
-            } else if (today > s.d) {
-                div.className += " past";
-            }
-            div.innerText = s.t;
-            grid.appendChild(div);
-        });
-
-        if (!anyActive) { document.getElementById("sabiduria-card").style.display = "none"; }
+    // FUNCIÓN PARA VER LA MISIÓN SIN ESPERAR
+    function saltarContador() {
+        document.getElementById("countdown-screen").style.display = "none";
+        document.getElementById("main-mission").style.display = "block";
     }
 
-    setInterval(updatePortal, 1000);
-    window.onload = updatePortal;
+    setInterval(actualizarReloj, 1000);
+    window.onload = actualizarReloj;
 </script>
+
 </body>
 </html>
