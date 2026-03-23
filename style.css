@@ -5,9 +5,9 @@ section { scroll-margin-top: 10px; }
 
 body {
     background-color: #ffffff; 
-    background-image: radial-gradient(#b87333 1px, transparent 1px);
-    background-size: 25px 25px;
-    color: #4a3121; 
+    /* PATRÓN DE PETROGLIFOS TAÍNOS (Espirales) INYECTADO EN SVG */
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23002d62' fill-opacity='0.06'%3E%3Cpath d='M40 10c-16.5 0-30 13.5-30 30s13.5 30 30 30 30-13.5 30-30-13.5-30-30-30zm0 55c-13.8 0-25-11.2-25-25s11.2-25 25-25 25 11.2 25 25-11.2 25-25 25zm0-40c-8.2 0-15 6.8-15 15s6.8 15 15 15 15-6.8 15-15-6.8-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    color: #1a1a1a; 
     font-family: 'Marcellus', serif;
     margin: 0; padding: 0;
     line-height: 1.6;
@@ -16,12 +16,12 @@ body {
 header {
     background-color: #ffffff;
     text-align: center;
-    padding: 0; /* Quitamos el espacio para que el logo llene todo */
-    border-bottom: 3px solid #b87333; 
+    padding: 0; 
+    border-bottom: 4px solid #ce1126; /* Rojo Bandera */
 }
 
 .logo-cemi {
-    width: 100%; /* El logo ahora es del 100% del ancho de la pantalla */
+    width: 100%; 
     max-width: 100%; 
     display: block;
     margin: 0 auto;
@@ -32,18 +32,17 @@ header h1, header p { display: none; }
 nav {
     display: flex;
     overflow-x: auto;
-    background: #f8f9fa; 
+    background: #002d62; /* Azul Bandera */
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid #e0e0e0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 nav a {
     flex: 0 0 auto;
     padding: 15px 20px; 
-    color: #b87333; 
+    color: #ffffff; 
     text-decoration: none;
     font-weight: bold;
     text-transform: uppercase;
@@ -54,46 +53,49 @@ nav a {
 .container { padding: 20px 15px; max-width: 650px; margin: auto; }
 
 .card {
-    background: rgba(255, 255, 255, 0.97); 
+    background: rgba(255, 255, 255, 0.96); 
     border: 1px solid #e0e0e0; 
+    border-top: 4px solid #002d62; /* Acento Azul */
     border-radius: 12px; 
     padding: 25px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     position: relative;
 }
 
 h2 { 
-    color: #b87333; 
-    border-bottom: 2px solid #b87333;
+    color: #002d62; /* Azul Bandera */
+    border-bottom: 2px solid #ce1126; /* Rojo Bandera */
     padding-bottom: 10px; margin-top: 0; 
     font-size: 1.4em;
 }
 
-/* Estilo elegante para tus mensajes personales */
+/* Estilo para los mensajes personales */
 .mensaje-diario {
-    background: #fffdfa;
-    border-left: 4px solid #b87333;
+    background: #fdf2f3; /* Rojito muy pálido */
+    border-left: 4px solid #ce1126; /* Rojo Bandera */
     padding: 15px 20px;
     margin-bottom: 25px;
     border-radius: 0 8px 8px 0;
 }
 
-.cita {
-    font-style: italic;
-    color: #8b4513;
-    margin-bottom: 10px;
+.cita { font-style: italic; color: #002d62; margin-bottom: 10px; font-size: 0.95em; }
+.texto-amor { color: #1a1a1a; font-size: 1em; line-height: 1.7; }
+
+/* Sección de Cultura Taína en cada día */
+.cultura-taina {
+    background: #f4f8fc; /* Azulito muy pálido */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #b3cce6;
     font-size: 0.95em;
 }
+.cultura-titulo { color: #002d62; font-weight: bold; margin-bottom: 5px; display: block; }
 
-.texto-amor {
-    color: #4a3121;
-    font-size: 1em;
-    line-height: 1.7;
-}
-
+/* Botones de Acción */
 .btn-mision {
-    background-color: #b87333; 
+    background-color: #ce1126; /* Rojo */
     color: #ffffff;
     border: none;
     padding: 15px;
@@ -103,30 +105,46 @@ h2 {
     margin-top: 15px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
+.btn-mision:hover { background-color: #a60d1e; }
 
-.btn-mision:hover { background-color: #a0652a; }
+/* Botones de Herramientas (Drive y Maps) */
+.btn-herramientas {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.btn-mapa, .btn-foto {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: white;
+}
+.btn-mapa { background-color: #002d62; } /* Azul para mapas */
+.btn-foto { background-color: #218c74; } /* Verde para Drive/Fotos */
 
 .ofrenda-box {
     background: #fff8f0; 
     padding: 15px;
     border-radius: 8px;
-    border-left: 5px solid #e76f51; 
+    border-left: 5px solid #d35400; 
     font-size: 0.95em;
     margin-top: 15px;
-    color: #4a3121;
 }
 
 .glosario-item { margin-bottom: 18px; }
-.glosario-word { font-weight: bold; color: #b87333; text-transform: uppercase;}
+.glosario-word { font-weight: bold; color: #ce1126; text-transform: uppercase;}
 
 footer { 
     text-align: center; 
     padding: 30px 15px; 
-    background: #f8f9fa; 
-    color: #4a3121; 
+    background: #002d62; 
+    color: #ffffff; 
     font-size: 0.8em; 
     margin-top: 30px; 
-    border-top: 1px solid #e0e0e0;
 }
