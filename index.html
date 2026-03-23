@@ -4,53 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 45: La Odisea del Cacique Francisco</title>
-    <link rel="stylesheet" href="style.css?v=28">
+    <link rel="stylesheet" href="style.css?v=29">
     <style>
-        #countdown-screen { text-align: center; padding: 20px; background: #fff; min-height: 100vh; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        #countdown-screen { text-align: center; background: #fff; min-height: 100vh; padding-bottom: 50px; }
         
-        /* Ajuste de espacio entre Banner y Título */
-        .portal-header { margin-bottom: 40px; } 
-        .banner-cemi { width: 100%; max-width: 1200px; height: auto; border-bottom: 4px solid #ce1126; }
+        /* Banner y Título: Espaciado Corregido */
+        .banner-cemi { width: 100%; max-width: 100%; height: auto; display: block; border-bottom: 5px solid #ce1126; }
         
         .titulo-espera { 
-            margin-top: 50px; /* Aquí corregimos que no esté pegado al logo */
+            margin-top: 60px; /* Espacio extra para que no pegue al logo */
             color: #002d62; 
-            font-size: 1.8em; 
+            font-size: 2em; 
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .timer-box { display: flex; justify-content: center; gap: 15px; margin: 40px 0; }
-        .timer-unit { background: #002d62; color: white; padding: 15px 10px; border-radius: 12px; min-width: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .timer-num { font-size: 2em; font-weight: bold; display: block; line-height: 1; }
-        .timer-label { font-size: 0.7em; text-transform: uppercase; opacity: 0.8; }
+        .timer-unit { background: #002d62; color: white; padding: 15px 10px; border-radius: 12px; min-width: 85px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .timer-num { font-size: 2.2em; font-weight: bold; display: block; }
+        .timer-label { font-size: 0.7em; text-transform: uppercase; }
 
-        /* Botón Secreto para la Guaca */
-        .btn-secreto {
-            margin-top: 60px;
-            background: none;
-            border: 1px solid #eee;
-            color: #ccc;
-            padding: 10px 20px;
+        .btn-acceso {
+            margin-top: 40px;
+            background: #fff;
+            border: 2px solid #ce1126;
+            color: #ce1126;
+            padding: 12px 25px;
             cursor: pointer;
-            font-size: 0.8em;
-            border-radius: 20px;
+            font-weight: bold;
+            border-radius: 30px;
             transition: 0.3s;
         }
-        .btn-secreto:hover { color: #ce1126; border-color: #ce1126; }
+        .btn-acceso:hover { background: #ce1126; color: #fff; }
+
+        /* Estilos de la Misión Oculta */
+        #main-mission { display: none; padding: 20px; text-align: center; background: #f4f4f4; }
+        .seccion-mision { background: white; padding: 40px; border-radius: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
 <div id="countdown-screen">
-    <div class="portal-header">
-        <img src="banner_final_cacique.jpg" alt="Portal Sagrado" class="banner-cemi">
-    </div>
+    <img src="banner_final_cacique.jpg" alt="Portal Sagrado" class="banner-cemi">
     
     <div class="container">
         <h2 class="titulo-espera">Preparando el 45.º Sol</h2>
-        <p style="color:#666; font-size:1em; margin-top: 10px;">Cacique Francisco, el portal se abrirá en:</p>
+        <p style="color:#666;">Cacique Francisco, la cuenta regresiva ha comenzado.</p>
         
         <div class="timer-box">
             <div class="timer-unit"><span class="timer-num" id="days">00</span><span class="timer-label">Días</span></div>
@@ -59,45 +60,50 @@
             <div class="timer-unit"><span class="timer-num" id="secs">00</span><span class="timer-label">Seg</span></div>
         </div>
 
-        <p style="color: #999; font-style: italic; max-width: 500px; margin: 0 auto;">"La paciencia es la virtud de los grandes líderes."</p>
-
-        <button class="btn-secreto" onclick="saltarContador()">Acceso Privado: Ver Misión Completa</button>
+        <button class="btn-acceso" onclick="abrirMision()">Acceso Privado: Ver Misión Completa</button>
     </div>
 </div>
 
-<div id="main-mission" style="display: none;">
-    <header>
-         <img src="banner_final_cacique.jpg" alt="Misión 45" class="banner-cemi">
-         <h1>Misión 45: El Areyto del Cacique</h1>
-    </header>
+<div id="main-mission">
+    <div class="seccion-mision">
+        <h1 style="color: #002d62;">¡Bienvenida, Guaca! 🏹</h1>
+        <p>Aquí es donde pondremos el Mapa de los 45 Soles y la Bóveda.</p>
+        <hr>
+        <p style="font-style: italic; color: #666;">(Ahora que puedes ver esto, solo tienes que pegar aquí tu código de los soles y el mapa que teníamos antes).</p>
+        
+        <div style="background: #002d62; color: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+            <h3>Bóveda de Tesoros</h3>
+            <p>Estado: **BLOQUEADA PARA FRANCISCO**</p>
+        </div>
     </div>
+</div>
 
 <script>
-    const FECHA_OBJETIVO = new Date("April 2, 2026 00:00:00").getTime();
+    const FECHA_AREYTO = new Date("April 2, 2026 00:00:00").getTime();
 
-    function actualizarReloj() {
+    function reloj() {
         const ahora = new Date().getTime();
-        const distancia = FECHA_OBJETIVO - ahora;
+        const diff = FECHA_AREYTO - ahora;
 
-        if (distancia < 0) {
-            saltarContador();
+        if (diff <= 0) {
+            abrirMision();
             return;
         }
 
-        document.getElementById("days").innerText = Math.floor(distancia / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById("hours").innerText = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById("mins").innerText = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById("secs").innerText = Math.floor((distancia % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }
 
-    // FUNCIÓN PARA VER LA MISIÓN SIN ESPERAR
-    function saltarContador() {
+    function abrirMision() {
         document.getElementById("countdown-screen").style.display = "none";
         document.getElementById("main-mission").style.display = "block";
+        document.body.style.background = "#f4f4f4";
     }
 
-    setInterval(actualizarReloj, 1000);
-    window.onload = actualizarReloj;
+    setInterval(reloj, 1000);
+    window.onload = reloj;
 </script>
 
 </body>
