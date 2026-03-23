@@ -4,88 +4,117 @@ html {
     scroll-behavior: smooth;
 }
 section {
-    scroll-margin-top: 70px;
+    /* Aumentamos el margen superior para que no choque con el header más grande */
+    scroll-margin-top: 120px;
 }
 
 body {
-    background-color: #f4e4bc; 
-    color: #5d3a1a; 
+    background-color: #ffffff; /* FONDO BLANCO LIMPIO */
+    color: #4a3121; /* Marrón oscuro suave para el texto */
     font-family: 'Marcellus', serif;
     margin: 0; padding: 0;
     line-height: 1.6;
 }
 
 header {
-    background-color: #8b4513;
-    color: #f4e4bc;
+    background-color: #ffffff; /* Header blanco también */
+    color: #4a3121;
     text-align: center;
-    padding: 30px 15px;
-    border-bottom: 8px solid #5d3a1a;
+    padding: 40px 15px; /* Más espacio */
+    border-bottom: 1px solid #e0e0e0; /* Bordes muy sutiles */
 }
 
 .logo-cemi {
-    max-width: 180px;
-    margin-bottom: 10px;
-    filter: drop-shadow(2px 4px 6px black);
+    /* ¡LOGO GIGANTE! Aumentamos el tamaño máximo y ancho */
+    max-width: 350px;
+    width: 80%; /* Responsivo en celulares */
+    margin-bottom: 15px;
+    filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.1)); /* Sombra más sutil y moderna */
+}
+
+/* Ocultamos el texto del header para que solo brille el logo grande */
+header h1, header p {
+    display: none;
 }
 
 nav {
     display: flex;
     overflow-x: auto;
-    background: #d4a373;
+    background: #f8f9fa; /* Fondo gris muy claro para la navegación */
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 nav a {
     flex: 0 0 auto;
-    padding: 15px 20px;
-    color: #5d3a1a;
+    padding: 18px 25px; /* Botones más grandes */
+    color: #8b4513; /* Color marrón para los links */
     text-decoration: none;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 0.85em;
+    letter-spacing: 1px;
 }
 
-.container { padding: 20px; max-width: 600px; margin: auto; }
+.container { padding: 30px 20px; max-width: 650px; margin: auto; }
 
 .card {
-    background: #faedcd;
-    border: 3px solid #d4a373;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 5px 5px 0px #d4a373;
+    background: #ffffff; /* Tarjetas blancas */
+    border: 1px solid #e0e0e0; /* Borde sutil gris */
+    border-radius: 12px; /* Bordes más redondeados */
+    padding: 25px;
+    margin-bottom: 30px;
+    /* Sombra moderna y suave (no desplazada) */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     position: relative;
 }
 
-h2 { color: #bc6c25; border-bottom: 2px solid #8b4513; padding-bottom: 5px; margin-top: 0; }
+h2 { 
+    color: #b87333; /* Color cobre/marrón pulido para títulos */
+    border-bottom: 2px solid #b87333;
+    padding-bottom: 10px; margin-top: 0; 
+    font-size: 1.5em;
+}
 
 .btn-mision {
-    background-color: #8b4513;
-    color: #f4e4bc;
+    background-color: #b87333; /* Color cobre pulido */
+    color: #ffffff;
     border: none;
     padding: 15px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: bold;
     margin-top: 15px;
     font-size: 1.1em;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-mision:hover {
+    background-color: #a0652a; /* Oscurece un poco al pasar el mouse */
 }
 
 .ofrenda-box {
-    background: #e9c46a;
-    padding: 10px;
+    background: #fff8f0; /* Fondo naranja extremadamente pálido para resaltar */
+    padding: 15px;
     border-radius: 8px;
-    border-left: 5px solid #e76f51;
-    font-size: 0.9em;
-    margin-top: 10px;
-    color: #5d3a1a;
+    border-left: 5px solid #e76f51; /* Mantenemos el acento naranja fuerte */
+    font-size: 0.95em;
+    margin-top: 15px;
+    color: #4a3121;
 }
 
-.glosario-item { margin-bottom: 15px; }
-.glosario-word { font-weight: bold; color: #8b4513; text-transform: uppercase;}
+.glosario-item { margin-bottom: 18px; }
+.glosario-word { font-weight: bold; color: #b87333; text-transform: uppercase;}
 
-footer { text-align: center; padding: 30px; background: #5d3a1a; color: #f4e4bc; font-size: 0.7em; margin-top: 20px; }
+footer { 
+    text-align: center; 
+    padding: 40px; 
+    background: #f8f9fa; /* Fondo gris claro */
+    color: #4a3121; 
+    font-size: 0.8em; 
+    margin-top: 30px; 
+    border-top: 1px solid #e0e0e0;
+}
