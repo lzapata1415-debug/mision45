@@ -250,4 +250,81 @@
 </footer>
 
 <script>
-    let puntos = parseInt(localStorage.getItem("puntosC
+    let puntos = parseInt(localStorage.getItem("puntosCacique_v19")) || 0;
+    let nivelActual = parseInt(localStorage.getItem("nivelCacique_v19")) || 1;
+
+    const scoreDisplay = document.getElementById("scoreDisplay");
+    const sol2 = document.getElementById("sol2");
+    const sol3 = document.getElementById("sol3");
+    const sol4 = document.getElementById("sol4");
+    const btnSol1 = document.getElementById("btn-sol1");
+    const btnSol2 = document.getElementById("btn-sol2");
+    const btnSol3 = document.getElementById("btn-sol3");
+    const btnSol4 = document.getElementById("btn-sol4");
+
+    function actualizarPantalla() {
+        scoreDisplay.innerText = puntos;
+        if(nivelActual >= 2) sol2.style.display = "block";
+        if(nivelActual >= 3) sol3.style.display = "block";
+        if(nivelActual >= 4) sol4.style.display = "block";
+
+        if(nivelActual > 1) btnSol1.style.display = "none";
+        if(nivelActual > 2) btnSol2.style.display = "none";
+        if(nivelActual > 3) btnSol3.style.display = "none";
+        if(nivelActual > 4) {
+            btnSol4.style.display = "none";
+            if(puntos >= 1000) {
+                setTimeout(function() {
+                    alert("¡HAU! HAS ALCANZADO LOS 1000 PUNTOS DE VALOR. Eres un verdadero Cacique. ¡La Guaca te entregará ahora tu GRAN PREMIO FINAL en el Yucayeque!");
+                }, 500);
+            }
+        }
+    }
+
+    function completarMision(sol, puntosGanados) {
+        if(confirm("¿Estás seguro de que la Guaca validó esta misión y ofrenda?")) {
+            puntos += puntosGanados;
+            nivelActual = sol + 1;
+            localStorage.setItem("puntosCacique_v19", puntos);
+            localStorage.setItem("nivelCacique_v19", nivelActual);
+            actualizarPantalla();
+            
+            if(sol < 4) {
+                setTimeout(function() {
+                    alert("¡Misión Cumplida! Has ganado tu Recompensa Especial del Día. Exígesela a tu Guaca antes de continuar.");
+                }, 100);
+            }
+
+            setTimeout(function() {
+                if(document.getElementById("sol" + nivelActual)) {
+                    document.getElementById("sol" + nivelActual).scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 400);
+        }
+    }
+
+    function reiniciarJuego() {
+        if(confirm("¿Seguro que quieres borrar todo el progreso y volver a 0 puntos?")) {
+            localStorage.removeItem("puntosCacique_v19");
+            localStorage.removeItem("nivelCacique_v19");
+            location.reload();
+        }
+    }
+
+    function abrirBovedaSecreta() {
+        let pass = prompt("Acceso restringido. Solo la Guaca conoce la palabra secreta:");
+        if(pass && pass.toLowerCase() === "yocahu") {
+            let panelAdmin = document.getElementById("admin-panel");
+            panelAdmin.style.display = "block";
+            panelAdmin.scrollIntoView({ behavior: 'smooth' });
+            alert("¡Bienvenida, Gran Guaca! Bóveda de Itinerario desbloqueada.");
+        } else if (pass) {
+            alert("Palabra incorrecta. ¡Los espíritus de Borikén te bloquean el paso!");
+        }
+    }
+
+    window.onload = actualizarPantalla;
+</script>
+
+</body>
+</html>
