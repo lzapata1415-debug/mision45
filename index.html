@@ -4,171 +4,182 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 45: La Odisea del Cacique Francisco</title>
-    <link rel="stylesheet" href="style.css?v=38">
-    <style>
-        /* Estilos del Countdown */
-        #countdown-screen { text-align: center; background: #fff; min-height: 100vh; display: block; padding-bottom: 50px; }
-        .banner-cemi-top { width: 100%; max-width: 100%; height: auto; display: block; border-bottom: 6px solid #ce1126; }
-        .titulo-espera { margin-top: 80px; color: #002d62; font-size: 2.2em; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; }
-        .timer-box { display: flex; justify-content: center; gap: 15px; margin: 40px 0; }
-        .timer-unit { background: #002d62; color: white; padding: 15px; border-radius: 12px; min-width: 85px; }
-        .timer-num { font-size: 2.2em; font-weight: bold; display: block; }
-        .btn-acceso-guaca { margin-top: 60px; background: none; border: 1px solid #f0f0f0; color: #eee; padding: 10px 20px; cursor: pointer; border-radius: 20px; font-size: 0.7em; }
-        
-        #main-mission-container { display: none; }
-
-        /* Estilos Admin Panel (Tu Guía Horaria) */
-        .guia-dia { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 6px solid #ce1126; box-shadow: 0 4px 10px rgba(0,0,0,0.1); color: #333; }
-        .hora-hito { font-weight: bold; color: #ce1126; display: inline-block; width: 85px; }
-        .btn-map-admin { display: inline-block; margin-top: 10px; padding: 5px 10px; background: #002d62; color: white; text-decoration: none; border-radius: 5px; font-size: 0.8em; }
-    </style>
+    <link rel="stylesheet" href="style.css?v=21">
 </head>
 <body>
 
-<div id="countdown-screen">
-    <img src="banner_final_cacique.jpg" class="banner-cemi-top">
-    <h2 class="titulo-espera">Preparando el 45.º Sol</h2>
-    <div class="timer-box">
-        <div class="timer-unit"><span class="timer-num" id="days">00</span><span>Días</span></div>
-        <div class="timer-unit"><span class="timer-num" id="hours">00</span><span>Hrs</span></div>
-        <div class="timer-unit"><span class="timer-num" id="mins">00</span><span>Min</span></div>
-        <div class="timer-unit"><span class="timer-num" id="secs">00</span><span>Seg</span></div>
-    </div>
-    <button class="btn-acceso-guaca" onclick="accesoGuaca()">Acceso Privado (Guaca)</button>
+<header>
+    <img src="banner_final_cacique.jpg" alt="Banner Misión 45" class="banner-cemi">
+    <h1>MISION 45</h1>
+    <p>La Odisea del Cacique Francisco</p>
+</header>
+
+<nav>
+    <a href="#intro">Inicio</a>
+    <a href="#soles">Los Soles</a>
+    <a href="#mapa">Ruta</a>
+    <a href="#galeria">Galería</a>
+    <a href="#lore">Sabiduría</a>
+    <a href="#" onclick="abrirBovedaSecreta()" style="color: #ffd700;">🔑 Bóveda</a>
+</nav>
+
+<div class="container">
+    <section id="intro">
+        <div class="card">
+            <h2>El Llamado de Yocahú 🌿</h2>
+            <p>"¡Hau, Cacique Francisco! Escucha la voz de Yocahú, que sopla a través del mar, desde las altas montañas de <strong>Quisqueya</strong> (tu tierra natal) hasta las costas de <strong>Borikén</strong> (la tierra que te forjó)."</p>
+            
+            <div class="cultura-taina" style="border-left: 4px solid #ce1126;">
+                <span class="cultura-titulo">📜 Las Reglas del Areyto</span>
+                <p>Tu misión es descifrar los oráculos y cumplir las pruebas. <strong>Cada día recibirás una Recompensa Especial Diaria</strong>. ¡Acumula 1000 puntos para reclamar el <strong>Gran Premio Final</strong>!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="puntos">
+        <div class="card" style="background-color: #fff; border: 1px solid #ce1126; text-align: center;">
+            <h2 style="color: #002d62; border-bottom: none;">Progreso de Valor 🏆</h2>
+            <h3 style="font-size: 2.2em; color: #ce1126;"><span id="scoreDisplay">0</span> / 1000 pts</h3>
+        </div>
+    </section>
+
+    <section id="soles">
+        <div id="sol1" class="card">
+            <span class="leyenda-area">Leyenda: El Cimiento del Guerrero</span>
+            <h2>SOL 1: Jueves (El origen de todo) 💧</h2>
+            <div class="mensaje-diario">
+                <p class="cita">"Quererse a uno mismo es el principio de una historia de amor que dura toda la vida." — Oscar Wilde</p>
+                <p class="texto-amor">Baby, celebro tu fuerza y el gran hombre que eres hoy a tus 45 soles.</p>
+            </div>
+
+            <h4 class="parada-titulo">📍 Parada 1: El Despertar</h4>
+            <p><strong>Oráculo:</strong> "Donde el Gigante de Piedra toca el cielo, busca el aroma a pan fresco..."</p>
+            <p><strong>Prueba:</strong> ¿Qué dulce de vitrina tiene nombre de objeto de costura? (50 pts)</p>
+
+            <h4 class="parada-titulo">📍 Parada 2: La Arena y el Mar</h4>
+            <p><strong>Oráculo:</strong> "Baja a la playa donde anclaban las inmensas naves de metal..."</p>
+            <p><strong>Prueba:</strong> Escribe "Cacique 45" con uvas de playa en la arena. (75 pts)</p>
+
+            <button id="btn-sol1" class="btn-mision" onclick="completarMision(1, 250)">¡Validar Jueves!</button>
+        </div>
+
+        <div id="sol2" class="card" style="display:none;">
+            <span class="leyenda-area">Leyenda: El Templo de la Familia</span>
+            <h2>SOL 2: Viernes (Tu raíz y tu legado) 🔥</h2>
+            <div class="mensaje-diario">
+                <p class="cita">"La fuerza de un hombre reside en su carácter." — Herman Hesse</p>
+            </div>
+            <h4 class="parada-titulo">📍 Parada Única: El Río Blanco</h4>
+            <p><strong>Oráculo:</strong> "Busca el charco de agua fría con voces grabadas por nuestros abuelos."</p>
+            <button id="btn-sol2" class="btn-mision" onclick="completarMision(2, 250)">¡Validar Viernes!</button>
+        </div>
+
+        <div id="sol3" class="card" style="display:none;">
+            <span class="leyenda-area">Leyenda: El Sendero de la Química</span>
+            <h2>SOL 3: Sábado (Nuestro camino juntos) 🌽</h2>
+            <h4 class="parada-titulo">📍 Parada Única: Los Enchumbaos</h4>
+            <p><strong>Oráculo:</strong> "Busca la estatua del pescador en el pueblo de los Enchumbaos."</p>
+            <button id="btn-sol3" class="btn-mision" onclick="completarMision(3, 250)">¡Validar Sábado!</button>
+        </div>
+
+        <div id="sol4" class="card" style="display:none;">
+            <span class="leyenda-area">Leyenda: El Horizonte del Cacique</span>
+            <h2>SOL 4: Domingo (Tu energía de acción) 🥁</h2>
+            <h4 class="parada-titulo">📍 Parada Única: El Árbol Sagrado</h4>
+            <p><strong>Oráculo:</strong> "Busca el refugio donde las obreras aladas hacen oro dulce."</p>
+            <button id="btn-sol4" class="btn-mision" onclick="completarMision(4, 250)">¡Reclamar Premio Final!</button>
+        </div>
+    </section>
+
+    <section id="mapa">
+        <div class="card">
+            <h2>Ruta de la Odisea 🗺️</h2>
+            <p>Cacique, usa este radar sagrado para navegar por los puntos de tu misión.</p>
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 15px; text-align: center;">
+                <p style="color: #002d62; font-weight: bold;">📍 MAPA INTERACTIVO ACTIVADO</p>
+                <a href="https://www.google.com/maps/dir/Villas+del+Mar,+Lo%C3%ADza/Panader%C3%ADa+Jireh+by+El+Yunque/Playa+Los+Machos,+Ceiba/Broadway+Gastro+Bar,+Fajardo/La+Estaci%C3%ADn,+Fajardo" target="_blank" class="btn-mision" style="display: inline-block; text-decoration: none; background-color: #002d62;">Abrir Ruta en Google Maps</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria">
+        <div class="card">
+            <h2>Galería del Areyto 📸</h2>
+            <a href="https://drive.google.com/drive/folders/1DaFBpUUaA-286sCJve1PcnLfyRTvvc0G?usp=drive_link" target="_blank" class="btn-mision" style="background-color: #218c74; text-align: center; display: block; text-decoration: none;">🖼️ Abrir Bóveda de Fotos</a>
+        </div>
+    </section>
+
+    <section id="lore">
+        <div class="card">
+            <h2>Sabiduría Ancestral 🌿</h2>
+            <div class="glosario-grid">
+                <p><strong>AREYTO:</strong> Fiesta taína para celebrar la vida.</p>
+                <p><strong>BAGUA:</strong> El mar, fuente de respeto.</p>
+                <p><strong>BORIKÉN:</strong> Nombre taíno de Puerto Rico.</p>
+                <p><strong>BURÉN:</strong> Plancha de piedra para cocinar (tu BBQ).</p>
+                <p><strong>GUACA:</strong> Tu compañera y guía sagrada (Tú).</p>
+                <p><strong>QUISQUEYA:</strong> Nombre taíno de Rep. Dominicana.</p>
+                <p><strong>YOCAHÚ:</strong> El Gran Espíritu protector.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="admin-panel" style="display: none;">
+        <div class="card" style="border: 3px solid #b8860b; background-color: #fffdf0;">
+            <h2 style="color: #b8860b; text-align: center;">📜 ITINERARIO MAESTRO (SOLO GUACA)</h2>
+            
+            <div style="background: #002d62; color: white; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffcc00;">
+                <h3 style="color: #ffcc00; margin-top: 0; text-align: center;">🎁 BÓVEDA DE REGALOS</h3>
+                <p><strong>1. Ritual del Rey:</strong> Masaje + Facial + Manicura/Pedicura en casa.</p>
+                <p><strong>2. Borrón y Cuenta Nueva:</strong> Gestión de tarea administrativa pesada por parte de la Guaca.</p>
+            </div>
+
+            <div class="guia-administrativa">
+                <h3 style="color: #002d62;">📅 JUEVES: Ruta del Este</h3>
+                <p><strong>09:00 AM:</strong> Salida de Villas del Mar, Loíza.</p>
+                <p><strong>09:25 AM - Parada 1: Panadería Jireh.</strong> R: El Dedal. Tip: Foto brindando con café.</p>
+                <p><strong>10:15 AM - Parada 2: Playa Los Machos.</strong> R: Roosevelt Roads. Challenge: "Cacique 45" en arena.</p>
+                <p><strong>01:00 PM - Parada 3: Broadway Gastro Bar.</strong> R: Caldo. Tip: Buscar objeto de película clásica.</p>
+                <p><strong>04:00 PM - Parada 4: La Estación.</strong> R: Esso. Tip: Ex-puesto de gasolina.</p>
+
+                <h3 style="color: #ce1126;">📅 VIERNES: Río Sagrado</h3>
+                <p><strong>10:00 AM:</strong> Charco El Hippie, Naguabo. R: Petroglifos. Ofrenda: Piedra del fondo del río.</p>
+
+                <h3 style="color: #002d62;">📅 SÁBADO: Costa Enchumbada</h3>
+                <p><strong>11:30 AM:</strong> Malecón de Naguabo. R: Inundaciones por El Yunque. Challenge: Bote con nombre de mujer.</p>
+
+                <h3 style="color: #ce1126;">📅 DOMINGO: Árbol de Vida</h3>
+                <p><strong>11:00 AM:</strong> Venta de Miel y Ceiba Sagrada. R: Abejas. Challenge: Abrazar la Ceiba.</p>
+            </div>
+            
+            <p style="text-align: center; margin-top: 20px; font-weight: bold; color: #b8860b;">¡Todo bajo control, Gran Guaca! 🤝</p>
+        </div>
+    </section>
 </div>
 
-<div id="main-mission-container">
-    <header>
-        <img src="banner_final_cacique.jpg" alt="Banner Misión 45" class="banner-cemi">
-        <h1>MISION 45</h1>
-        <p>La Odisea del Cacique Francisco</p>
-    </header>
-
-    <nav>
-        <a href="#intro">Inicio</a>
-        <a href="#soles">Soles</a>
-        <a href="#mapa">Ruta</a>
-        <a href="#galeria">Fotos</a>
-        <a href="#lore">Sabiduría</a>
-        <a href="#" onclick="abrirBovedaSecreta()" style="color: #ffd700;">🔑 Bóveda</a>
-    </nav>
-
-    <div class="container">
-        <section id="intro">
-            <div class="card">
-                <h2>El Llamado de Yocahú 🌿</h2>
-                <p>"¡Hau, Cacique Francisco! Tu misión es descifrar los oráculos día a día y cumplir todas las pruebas de acción. <strong>Cada día recibirás una Recompensa Especial</strong> de manos de tu Guaca."</p>
-            </div>
-        </section>
-
-        <section id="puntos">
-            <div class="card" style="text-align: center;">
-                <h2 style="border:none;">Progreso del Cacique</h2>
-                <h3 style="font-size: 2.2em; color: #ce1126;"><span id="scoreDisplay">0</span> / 1000 pts</h3>
-            </div>
-        </section>
-
-        <section id="mapa">
-            <div class="card">
-                <h2>Mapa de la Odisea 🗺️</h2>
-                <p>Cacique, aquí tienes el radar para localizar tus objetivos. Usa tu sabiduría para llegar a cada punto.</p>
-                <div style="background: #eee; padding: 40px; text-align: center; border-radius: 15px; border: 2px dashed #ccc;">
-                    <p style="font-weight: bold; color: #002d62;">Radar Activado</p>
-                    <p style="font-size: 0.9em;">(Consulta los oráculos en la sección 'Soles' para saber a dónde ir)</p>
-                    <a href="https://www.google.com/maps" target="_blank" class="btn-mision" style="display:inline-block; text-decoration:none;">Abrir Google Maps</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="soles">
-            <div id="sol1" class="card">
-                <h2>SOL 1: Jueves (El origen de todo) 💧</h2>
-                <p><strong>Parada 1: El Despertar.</strong> Oráculo: "Donde el Gigante de Piedra toca el cielo... busca el aroma a pan fresco."</p>
-                <button id="btn-sol1" class="btn-mision" onclick="completarMision(1, 250)">Validar Jueves</button>
-            </div>
-            <div id="sol2" class="card" style="display:none;"><h2>SOL 2: Viernes</h2><button id="btn-sol2" class="btn-mision" onclick="completarMision(2, 250)">Validar Viernes</button></div>
-            <div id="sol3" class="card" style="display:none;"><h2>SOL 3: Sábado</h2><button id="btn-sol3" class="btn-mision" onclick="completarMision(3, 250)">Validar Sábado</button></div>
-            <div id="sol4" class="card" style="display:none;"><h2>SOL 4: Domingo</h2><button id="btn-sol4" class="btn-mision" onclick="completarMision(4, 250)">¡Finalizar Odisea!</button></div>
-        </section>
-
-        <section id="admin-panel" style="display: none;">
-            <div class="card" style="border: 3px solid #b8860b; background-color: #fffdf0;">
-                <h2 style="color: #b8860b; text-align: center;">📜 GUÍA MAESTRA DE LA GUACA</h2>
-
-                <div style="background: #002d62; color: white; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffcc00;">
-                    <h3 style="color: #ffcc00; margin-top: 0; text-align: center;">🗝️ RECOMPENSAS (BÓVEDA)</h3>
-                    <p><strong>1. Ritual del Rey:</strong> Masaje + Facial + Manicura/Pedicura.</p>
-                    <p><strong>2. Borrón y Cuenta Nueva:</strong> Gestión de tarea administrativa pesada por parte de la Guaca para liberar tiempo del Cacique.</p>
-                </div>
-
-                <div class="guia-dia">
-                    <h3>📅 JUEVES: Ruta del Este</h3>
-                    <p><span class="hora-hito">09:25 AM</span> <strong>Parada 1: Panadería Jireh</strong><br>Dirección: Carr. 3, Fajardo. <br>R: El Dedal. Tip: Pedir algo de vitrina.</p>
-                    <p><span class="hora-hito">10:15 AM</span> <strong>Parada 2: Playa Los Machos</strong><br>Dirección: Ceiba (Antigua Base). <br>R: Roosevelt Roads. Tip: Hacer el mensaje en arena.</p>
-                    <p><span class="hora-hito">01:00 PM</span> <strong>Parada 3: Broadway Gastro Bar</strong><br>Dirección: Fajardo Pueblo. <br>R: Caldo. Tip: Buscar el objeto decorativo de película.</p>
-                    <p><span class="hora-hito">04:00 PM</span> <strong>Parada 4: La Estación</strong><br>Dirección: Carr. 987, Las Croabas. <br>R: Esso. Tip: Es un ex-puesto de gasolina.</p>
-                </div>
-
-                <div class="guia-dia" style="border-left-color: #002d62;">
-                    <h3>📅 VIERNES: El Río Sagrado</h3>
-                    <p><span class="hora-hito">Libre</span> <strong>Charco El Hippie, Río Blanco</strong><br>Dirección: Carr. 191, Naguabo. <br>R: Petroglifos. Tip: Piedras grabadas por taínos.</p>
-                </div>
-
-                <div class="guia-dia">
-                    <h3>📅 SÁBADO: Costa de los Enchumbaos</h3>
-                    <p><span class="hora-hito">Libre</span> <strong>Malecón de Naguabo</strong><br>Dirección: Carr. 3, Naguabo. <br>R: Se inundan por lluvias de El Yunque. Tip: Estatua del Pescador.</p>
-                </div>
-
-                <div class="guia-dia" style="border-left-color: #002d62;">
-                    <h3>📅 DOMINGO: El Árbol de Vida</h3>
-                    <p><span class="hora-hito">Libre</span> <strong>Venta de Miel (Cerca de Ceiba/Naguabo)</strong><br>Dirección: Sector La Ceiba. <br>R: Abejas. Tip: Abrazar la Ceiba milenaria.</p>
-                </div>
-
-                <p style="text-align: center; font-weight: bold; color: #b8860b;">¡Misión bajo control, Guaca!</p>
-            </div>
-        </section>
-    </div>
-</div>
+<footer>
+    <p>Diseñado por la Guaca para su Cacique Francisco © 2026</p>
+    <p style="font-size: 0.8em; margin-top:20px; color:#a0a0a0; cursor:pointer;" onclick="reiniciarJuego()">Resetear Sistema</p>
+</footer>
 
 <script>
-    // --- COUNTDOWN ---
-    const TARGET = new Date("April 2, 2026 00:00:00").getTime();
-    function updateCountdown() {
-        const diff = TARGET - new Date().getTime();
-        if (diff <= 0) { mostrarPortal(); return; }
-        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-    }
-    function accesoGuaca() { if(prompt("Llave:") === "guaca45") mostrarPortal(); }
-    function mostrarPortal() {
-        document.getElementById("countdown-screen").style.display = "none";
-        document.getElementById("main-mission-container").style.display = "block";
-        window.scrollTo(0,0);
-        actualizarPantalla();
-    }
-    setInterval(updateCountdown, 1000);
-
-    // --- LÓGICA DEL JUEGO ---
     let puntos = parseInt(localStorage.getItem("puntosCacique_v19")) || 0;
-    let nivel = parseInt(localStorage.getItem("nivelCacique_v19")) || 1;
+    let nivelActual = parseInt(localStorage.getItem("nivelCacique_v19")) || 1;
 
     function actualizarPantalla() {
         document.getElementById("scoreDisplay").innerText = puntos;
-        for(let i=2; i<=4; i++) {
-            if(nivel >= i) document.getElementById("sol"+i).style.display = "block";
-            if(nivel > i-1) document.getElementById("btn-sol"+(i-1)).style.display = "none";
-        }
+        if(nivelActual >= 2) document.getElementById("sol2").style.display = "block";
+        if(nivelActual >= 3) document.getElementById("sol3").style.display = "block";
+        if(nivelActual >= 4) document.getElementById("sol4").style.display = "block";
     }
 
     function completarMision(sol, pts) {
         if(confirm("¿Misión validada por la Guaca?")) {
-            puntos += pts; nivel = sol + 1;
+            puntos += pts; nivelActual = sol + 1;
             localStorage.setItem("puntosCacique_v19", puntos);
-            localStorage.setItem("nivelCacique_v19", nivel);
+            localStorage.setItem("nivelCacique_v19", nivelActual);
             actualizarPantalla();
-            alert("¡Misión cumplida! Exige tu recompensa diaria.");
+            alert("¡Misión Cumplida! Reclama tu recompensa del día.");
         }
     }
 
@@ -179,7 +190,14 @@
         }
     }
 
-    window.onload = updateCountdown;
+    function reiniciarJuego() {
+        if(confirm("¿Seguro que quieres borrar el progreso?")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    window.onload = actualizarPantalla;
 </script>
 </body>
 </html>
