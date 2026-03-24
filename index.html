@@ -6,26 +6,39 @@
     <title>Gesta de los 45 Soles - Cacique Francisco</title>
     <style>
         :root {
-            /* Colores PR/DR y Taínos */
             --primary-blue: #005697;
             --primary-red: #ED1C24;
             --taino-gold: #D4AF37;
-            --bg-sand: #F4F1EA; /* Arena suave y elegante */
+            --bg-sand: #F4F1EA; 
             --card-bg: #FFFFFF;
-            --text-dark: #2C3539; /* Gris muy oscuro para el texto, más elegante que el negro puro */
+            --text-dark: #2C3539; 
             --locked-overlay: rgba(255, 255, 255, 0.7);
         }
         
         body {
-            font-family: 'Georgia', serif; /* Fuente elegante y clásica */
+            font-family: 'Georgia', serif; 
             background-color: var(--bg-sand);
             color: var(--text-dark);
             margin: 0;
             padding: 0;
             line-height: 1.7;
+            position: relative;
         }
 
-        /* HEADER BANNER - Arte completo y sin recortes */
+        /* FONDO DE JEROGLÍFICOS TAÍNOS - Sutil y elegante */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* AQUÍ LLAMA A LA IMAGEN DEL FONDO */
+            background-image: url('fondo.jpg'); 
+            background-size: 400px; /* Tamaño del patrón */
+            background-repeat: repeat;
+            opacity: 0.10; /* Transparencia al 10% para que no compita con el texto */
+            z-index: -1;
+        }
+
+        /* HEADER BANNER - Arte completo */
         header.banner {
             width: 100%;
             max-width: 1000px;
@@ -34,13 +47,12 @@
         }
         header.banner img {
             width: 100%;
-            height: auto; /* Esto arregla que la foto no se corte */
+            height: auto; 
             display: block;
-            border-radius: 0 0 20px 20px; /* Bordes suaves abajo */
+            border-radius: 0 0 20px 20px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* NAVEGACIÓN PRINCIPAL (Menú moderno tipo "píldoras") */
         nav {
             max-width: 900px;
             margin: 20px auto;
@@ -56,7 +68,7 @@
             color: var(--primary-blue);
             padding: 12px 24px;
             cursor: pointer;
-            border-radius: 30px; /* Botones redondeados modernos */
+            border-radius: 30px; 
             font-weight: bold;
             font-size: 15px;
             font-family: 'Arial', sans-serif;
@@ -66,11 +78,10 @@
         nav button:hover, nav button.active {
             background: var(--primary-blue);
             color: var(--card-bg);
-            transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+            transform: translateY(-2px); 
             box-shadow: 0 6px 15px rgba(0, 86, 151, 0.3);
         }
 
-        /* CONTENEDOR PRINCIPAL Y TARJETAS */
         main {
             max-width: 900px;
             margin: 20px auto;
@@ -79,31 +90,28 @@
         
         .page { 
             display: none; 
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.95); /* Ligeramente transparente para ver el fondo */
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Sombra elegante */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
             margin-bottom: 40px;
         }
         .page.active { display: block; }
 
-        /* TIPOGRAFÍA Y ACENTOS ROJO/AZUL */
         h1, h2 { color: var(--primary-blue); text-align: center; margin-bottom: 30px; font-family: 'Arial', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
         h3, h4 { color: var(--primary-red); margin-top: 30px; font-family: 'Arial', sans-serif; }
         
         .quote { font-style: italic; color: var(--primary-blue); font-size: 1.1em; text-align: center; margin: 30px 0; }
         strong { color: var(--text-dark); }
         
-        /* GRÁFICA DE PROGRESO */
-        .progress-container { text-align: center; margin-bottom: 40px; padding: 20px; background: #F9F8F6; border-radius: 15px; }
+        .progress-container { text-align: center; margin-bottom: 40px; padding: 20px; background: rgba(249, 248, 246, 0.9); border-radius: 15px; }
         progress { width: 100%; height: 18px; appearance: none; border-radius: 10px; overflow: hidden; margin-top: 10px; }
         progress::-webkit-progress-bar { background-color: #E0E0E0; }
         progress::-webkit-progress-value { background-color: var(--primary-blue); }
         #puntosTexto { font-size: 22px; font-family: 'Arial', sans-serif; color: var(--primary-red); display: block; margin-top: 10px;}
 
-        /* DISEÑO DE LA AGENDA (Misiones) */
         .parada-wrapper { position: relative; margin-bottom: 30px; }
-        .parada { background: #FAF9F6; padding: 30px; border-radius: 15px; border-left: 5px solid var(--taino-gold); }
+        .parada { background: rgba(250, 249, 246, 0.9); padding: 30px; border-radius: 15px; border-left: 5px solid var(--taino-gold); }
         .parada.locked { filter: blur(4px); opacity: 0.8; }
         
         .locked-overlay {
@@ -111,34 +119,30 @@
             background: var(--locked-overlay);
             display: flex; justify-content: center; align-items: center;
             flex-direction: column; z-index: 10; border-radius: 15px;
-            backdrop-filter: blur(2px); /* Efecto cristal moderno */
+            backdrop-filter: blur(2px); 
         }
         .locked-overlay .lock-icon { font-size: 40px; margin-bottom: 10px; }
         .locked-overlay .lock-text { font-size: 20px; font-family: 'Arial', sans-serif; font-weight: bold; color: var(--primary-red); }
 
-        /* GALERÍA */
         .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
         .galeria-grid .foto-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
         .galeria-grid .foto-card:hover { transform: translateY(-5px); }
         .galeria-grid img { width: 100%; height: 250px; object-fit: cover; display: block; }
         .galeria-grid .foto-caption { padding: 15px; text-align: center; font-family: 'Arial', sans-serif; color: var(--primary-blue); font-weight: bold; }
 
-        /* FORMULARIOS Y BOTONES */
-        .password-box { text-align: center; margin: 20px 0; padding: 40px; background: #FAF9F6; border-radius: 15px; }
+        .password-box { text-align: center; margin: 20px 0; padding: 40px; background: rgba(250, 249, 246, 0.9); border-radius: 15px; }
         input[type="password"] { padding: 15px; font-size: 16px; width: 80%; max-width: 300px; border: 1px solid #ccc; border-radius: 30px; margin-bottom: 20px; text-align: center; outline: none; }
         input[type="password"]:focus { border-color: var(--primary-blue); }
         button.btn-submit { padding: 15px 40px; background: var(--primary-blue); color: white; border: none; font-size: 16px; cursor: pointer; border-radius: 30px; font-weight: bold; transition: 0.3s; }
         button.btn-submit:hover { background: var(--primary-red); }
         .error-msg { color: var(--primary-red); font-weight: bold; display: none; margin-top: 15px; font-family: 'Arial', sans-serif; }
 
-        /* ADMIN PANEL */
-        .admin-panel { background: #FFF5F5; padding: 30px; border-radius: 15px; }
+        .admin-panel { background: rgba(255, 245, 245, 0.95); padding: 30px; border-radius: 15px; }
         .admin-controls button { margin: 5px; padding: 10px 20px; background: white; color: var(--primary-blue); border: 1px solid var(--primary-blue); cursor: pointer; border-radius: 20px; transition: 0.3s; }
         .admin-controls button:hover { background: var(--primary-blue); color: white; }
         .btn-reset { background: var(--primary-red) !important; color: white !important; width: 100%; margin-top: 30px !important; font-size: 18px; padding: 15px !important; }
         #countdown { font-size: 35px; font-family: 'Arial', sans-serif; font-weight: bold; color: var(--primary-red); text-align: center; margin: 20px 0; }
         
-        /* Listas y viñetas */
         ul { list-style-type: none; padding-left: 0; }
         ul li { position: relative; padding-left: 20px; margin-bottom: 10px; }
         ul li::before { content: "•"; color: var(--taino-gold); position: absolute; left: 0; font-size: 1.5em; line-height: 1; top: -2px; }
@@ -147,7 +151,7 @@
 <body>
 
 <header class="banner">
-    <img src="Cacique Francisco 45.jpg" alt="Misión 45 - Cacique de Quisqueya y Borikén">
+    <img src="header.jpg" alt="Misión 45 - Cacique de Quisqueya y Borikén">
 </header>
 
 <nav>
