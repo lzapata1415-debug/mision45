@@ -4,107 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 45: La Odisea del Cacique Francisco</title>
-    <link rel="stylesheet" href="style.css?v=29">
+    <link rel="stylesheet" href="style.css?v=31">
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        #countdown-screen { text-align: center; background: #fff; min-height: 100vh; padding-bottom: 50px; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: #fff; }
+        #countdown-screen { text-align: center; min-height: 100vh; padding-bottom: 50px; }
+        .banner-cemi { width: 100%; max-width: 100%; height: auto; display: block; border-bottom: 6px solid #ce1126; }
         
-        /* Banner y Título: Espaciado Corregido */
-        .banner-cemi { width: 100%; max-width: 100%; height: auto; display: block; border-bottom: 5px solid #ce1126; }
-        
-        .titulo-espera { 
-            margin-top: 60px; /* Espacio extra para que no pegue al logo */
-            color: #002d62; 
-            font-size: 2em; 
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        .titulo-espera { margin-top: 80px; color: #002d62; font-size: 2.2em; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; padding: 0 10px; }
+        .timer-box { display: flex; justify-content: center; gap: 15px; margin: 50px 0; }
+        .timer-unit { background: #002d62; color: white; padding: 20px 10px; border-radius: 15px; min-width: 90px; box-shadow: 0 8px 20px rgba(0,45,98,0.2); }
+        .timer-num { font-size: 2.5em; font-weight: bold; display: block; }
+        .timer-label { font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
 
-        .timer-box { display: flex; justify-content: center; gap: 15px; margin: 40px 0; }
-        .timer-unit { background: #002d62; color: white; padding: 15px 10px; border-radius: 12px; min-width: 85px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .timer-num { font-size: 2.2em; font-weight: bold; display: block; }
-        .timer-label { font-size: 0.7em; text-transform: uppercase; }
+        .btn-privado { margin-top: 50px; background: none; border: 1px solid #f0f0f0; color: #eee; padding: 10px 20px; cursor: pointer; font-size: 0.7em; border-radius: 20px; transition: 0.3s; }
+        .btn-privado:hover { color: #ce1126; border-color: #ce1126; }
 
-        .btn-acceso {
-            margin-top: 40px;
-            background: #fff;
-            border: 2px solid #ce1126;
-            color: #ce1126;
-            padding: 12px 25px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 30px;
-            transition: 0.3s;
-        }
-        .btn-acceso:hover { background: #ce1126; color: #fff; }
+        /* --- ESTILOS DE LA MISIÓN SECRETA (MAPA DE SOLES) --- */
+        #main-mission { display: none; padding: 40px 20px; text-align: center; background: #f9f9f9; min-height: 100vh; }
+        .mapa-header { color: #002d62; font-size: 1.5em; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px; }
 
-        /* Estilos de la Misión Oculta */
-        #main-mission { display: none; padding: 20px; text-align: center; background: #f4f4f4; }
-        .seccion-mision { background: white; padding: 40px; border-radius: 20px; max-width: 800px; margin: 20px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .grid-soles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
+        .sol-btn { background: #fff; border: 2px solid #ddd; color: #999; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 1.2em; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .sol-btn:hover { border-color: #ce1126; color: #ce1126; transform: scale(1.1); }
+        .sol-btn.active { background: #fff5f5; border-color: #ce1126; color: #ce1126; box-shadow: 0 6px 15px rgba(206,17,38,0.2); font-weight: bold;}
+        .sol-final { grid-column: 1 / -1; width: 100%; max-width: 200px; margin: 20px auto 0; border-radius: 50px; color: #fff; background: #002d62; font-weight: bold; }
+        .sol-final:hover { background: #ce1126; color: #fff; }
+
+        /* --- ESTILOS DEL "BRAZALETE" (VENTANA EMERGENTE) --- */
+        #brazalete-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .brazalete-content { background: #fff; border-radius: 20px; padding: 30px; width: 85%; max-width: 450px; text-align: center; position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.3); }
+        .btn-cerrar { position: absolute; top: -15px; right: -15px; background: #ce1126; color: #fff; border: 3px solid #fff; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-weight: bold; font-size: 1.2em; line-height: 1;}
+        .img-era { width: 100%; height: 250px; border-radius: 15px; object-fit: cover; margin-bottom: 20px; border: 4px solid #002d62; }
+        .txt-mensaje { font-size: 1.2em; font-style: italic; color: #333; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <div id="countdown-screen">
     <img src="banner_final_cacique.jpg" alt="Portal Sagrado" class="banner-cemi">
-    
     <div class="container">
         <h2 class="titulo-espera">Preparando el 45.º Sol</h2>
-        <p style="color:#666;">Cacique Francisco, la cuenta regresiva ha comenzado.</p>
-        
         <div class="timer-box">
             <div class="timer-unit"><span class="timer-num" id="days">00</span><span class="timer-label">Días</span></div>
-            <div class="timer-unit"><span class="timer-num" id="hours">00</span><span class="timer-label">Horas</span></div>
+            <div class="timer-unit"><span class="timer-num" id="hours">00</span><span class="timer-label">Hrs</span></div>
             <div class="timer-unit"><span class="timer-num" id="mins">00</span><span class="timer-label">Min</span></div>
             <div class="timer-unit"><span class="timer-num" id="secs">00</span><span class="timer-label">Seg</span></div>
         </div>
-
-        <button class="btn-acceso" onclick="abrirMision()">Acceso Privado: Ver Misión Completa</button>
+        <button class="btn-privado" onclick="accesoGuaca()">Acceso Privado</button>
     </div>
 </div>
 
 <div id="main-mission">
-    <div class="seccion-mision">
-        <h1 style="color: #002d62;">¡Bienvenida, Guaca! 🏹</h1>
-        <p>Aquí es donde pondremos el Mapa de los 45 Soles y la Bóveda.</p>
-        <hr>
-        <p style="font-style: italic; color: #666;">(Ahora que puedes ver esto, solo tienes que pegar aquí tu código de los soles y el mapa que teníamos antes).</p>
-        
-        <div style="background: #002d62; color: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
-            <h3>Bóveda de Tesoros</h3>
-            <p>Estado: **BLOQUEADA PARA FRANCISCO**</p>
+    <h1 class="mapa-header">El Camino de los 45 Soles 🏹</h1>
+    <p style="color: #666; margin-bottom: 40px;">Este es tu taller secreto, Guaca. Francisco no puede entrar. Haz clic en los soles para pre-visualizar el viaje.</p>
+    
+    <div class="grid-soles" id="grid-soles">
         </div>
+    <p style="font-size: 0.8em; color: #999; margin-top: 30px;">(El Sol 45 aparecerá al completar el camino)</p>
+</div>
+
+<div id="brazalete-modal">
+    <div class="brazalete-content">
+        <button class="btn-cerrar" onclick="cerrarBrazalete()">×</button>
+        <img src="banner_final_cacique.jpg" id="img-brazalete" class="img-era" alt="Momento de Era">
+        <p id="txt-brazalete" class="txt-mensaje"></p>
     </div>
 </div>
 
 <script>
     const FECHA_AREYTO = new Date("April 2, 2026 00:00:00").getTime();
+    
+    // DEFINICIÓN DE LAS ERAS (Aquí están los mensajes y las fotos)
+    const ERAS_DATA = [
+        { hasta: 10, img: "era1.jpg", msg: "Era de Cimientos (Soles 1-10):\nDonde nació la curiosidad del futuro Cacique." }, // Pon aquí tu foto de niño
+        { hasta: 20, img: "era2.jpg", msg: "Era de Viento (Soles 11-20):\nExplorando horizontes, forjando la energía." }, // Pon aquí tu foto adolescente
+        { hasta: 30, img: "era3.jpg", msg: "Era del Guerrero (Soles 21-30):\nConstruyendo la 'Armadura'. El inicio del camino empresarial." }, // Pon aquí tu foto de joven adulto/trabajo
+        { hasta: 40, img: "era4.jpg", msg: "Era del Areyto (Soles 31-40):\nEl encuentro de dos islas. Cuando la química superó al destino." }, // Pon aquí tu foto juntos
+        { hasta: 44, img: "era5.jpg", msg: "Era del Legado (Soles 41-44):\nLa verdadera riqueza. El Cacique que cuida y ama profundamente." }, // Pon aquí tu foto actual/familiar
+        { hasta: 45, img: "era6.jpg", msg: "¡EL SOL FINAL!\n¡Hau, Francisco! 45 soles de sazón y fuerza.\nHoy comienza tu mejor Odisea." } // Pon aquí tu foto imponente actual
+    ];
 
-    function reloj() {
+    function actualizarContador() {
         const ahora = new Date().getTime();
         const diff = FECHA_AREYTO - ahora;
-
         if (diff <= 0) {
-            abrirMision();
+            saltarAlAreyto();
             return;
         }
-
         document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
         document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
         document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
         document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }
 
-    function abrirMision() {
-        document.getElementById("countdown-screen").style.display = "none";
-        document.getElementById("main-mission").style.display = "block";
-        document.body.style.background = "#f4f4f4";
+    // GENERACIÓN DEL MAPA DE SOLES
+    function generarMapa() {
+        const grid = document.getElementById("grid-soles");
+        grid.innerHTML = "";
+        for (let i = 1; i <= 44; i++) {
+            const btn = document.createElement("button");
+            btn.className = "sol-btn";
+            btn.innerHTML = i;
+            btn.onclick = () => verEra(i);
+            grid.appendChild(btn);
+        }
     }
 
-    setInterval(reloj, 1000);
-    window.onload = reloj;
-</script>
+    // FUNCIÓN PARA VER EL MENSAJE DE LA ERA
+    function verEra(ano) {
+        let eraValida = ERAS_DATA.find(era => ano <= era.hasta);
+        if (eraValida) {
+            document.getElementById("img-brazalete").src = eraValida.img;
+            document.getElementById("txt-brazalete").innerText = eraValida.msg;
+            document.getElementById("brazalete-modal").style.display = "flex";
+        }
+    }
 
+    function cerrarBrazalete() {
+        document.getElementById("brazalete-modal").style.display = "none";
+    }
+
+    // ACCESO SEGURO SOLO PARA TI
+    function accesoGuaca() {
+        const pass = prompt("Introduce la Llave de la Guaca:");
+        if (pass === "guaca45") {
+            generarMapa();
+            document.getElementById("countdown-screen").style.display = "none";
+            document.getElementById("main-mission").style.display = "block";
+            window.scrollTo(0,0);
+        } else {
+            alert("Acceso denegado. Solo la Guaca tiene la llave.");
+        }
+    }
+
+    function saltarAlAreyto() {
+        // Lógica para el día 2 de abril (mostrar mapa real con interacciones)
+        generarMapa();
+        document.getElementById("countdown-screen").style.display = "none";
+        document.getElementById("main-mission").style.display = "block";
+    }
+
+    setInterval(actualizarContador, 1000);
+    window.onload = actualizarContador;
+</script>
 </body>
 </html>
