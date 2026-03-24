@@ -4,168 +4,265 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión 45: La Odisea del Cacique Francisco</title>
-    <link rel="stylesheet" href="style.css?v=20">
+    <link rel="stylesheet" href="style.css?v=40">
+    <style>
+        /* --- ESTILOS DEL PORTAL (COUNTDOWN) --- */
+        #countdown-screen { text-align: center; background: #fff; min-height: 100vh; display: block; padding-bottom: 50px; }
+        .banner-cemi-top { width: 100%; max-width: 100%; height: auto; display: block; border-bottom: 6px solid #ce1126; }
+        .titulo-espera { margin-top: 80px; color: #002d62; font-size: 2.2em; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; }
+        .timer-box { display: flex; justify-content: center; gap: 15px; margin: 40px 0; }
+        .timer-unit { background: #002d62; color: white; padding: 15px; border-radius: 12px; min-width: 85px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .timer-num { font-size: 2.2em; font-weight: bold; display: block; }
+        .btn-guaca-hidden { margin-top: 60px; background: none; border: 1px solid #f0f0f0; color: #eee; padding: 10px 20px; cursor: pointer; border-radius: 20px; font-size: 0.7em; }
+        
+        #main-mission-container { display: none; }
+
+        /* --- ESTILOS DE LA MISIÓN --- */
+        .card { background: white; padding: 25px; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .leyenda-header { color: #ce1126; font-weight: bold; text-transform: uppercase; font-size: 0.8em; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+        .parada-box { border-left: 4px solid #002d62; padding-left: 15px; margin-top: 25px; }
+        .ofrenda-label { background: #fff5f5; color: #ce1126; padding: 10px; border-radius: 8px; font-size: 0.9em; margin-top: 10px; border: 1px dashed #ce1126; }
+    </style>
 </head>
 <body>
 
-<header>
-    <img src="banner_final_cacique.jpg" alt="Banner Misión 45" class="banner-cemi">
-    <h1>MISION 45</h1>
-    <p>La Odisea del Cacique Francisco</p>
-</header>
+<div id="countdown-screen">
+    <img src="banner_final_cacique.jpg" class="banner-cemi-top">
+    <h2 class="titulo-espera">Preparando el 45.º Sol</h2>
+    <div class="timer-box">
+        <div class="timer-unit"><span class="timer-num" id="days">00</span><span>Días</span></div>
+        <div class="timer-unit"><span class="timer-num" id="hours">00</span><span>Hrs</span></div>
+        <div class="timer-unit"><span class="timer-num" id="mins">00</span><span>Min</span></div>
+        <div class="timer-unit"><span class="timer-num" id="secs">00</span><span>Seg</span></div>
+    </div>
+    <button class="btn-guaca-hidden" onclick="accesoGuaca()">Acceso Privado (Guaca)</button>
+</div>
 
-<nav>
-    <a href="#intro">Inicio</a>
-    <a href="#soles">Los Soles</a>
-    <a href="#mapa">Ruta</a>
-    <a href="#galeria">Galería</a>
-    <a href="#lore">Sabiduría</a>
-    <a href="#" onclick="abrirBovedaSecreta()" style="color: #ffd700;">🔑 Bóveda</a>
-</nav>
+<div id="main-mission-container">
+    <header>
+        <img src="banner_final_cacique.jpg" alt="Misión 45" class="banner-cemi">
+        <h1>MISION 45</h1>
+        <p>La Odisea del Cacique Francisco</p>
+    </header>
 
-<div class="container">
-    <section id="intro">
-        <div class="card">
-            <h2>El Llamado de Yocahú 🌿</h2>
-            <p>"¡Hau, Cacique Francisco! Escucha la voz de Yocahú, que sopla a través del mar, desde las altas montañas de <strong>Quisqueya</strong> (tu tierra natal) hasta las costas de <strong>Borikén</strong> (la tierra que te forjó). Eres un Cacique de dos Yucayeques, unido por la misma sangre taína y las mismas estrellas."</p>
-            
-            <div class="cultura-taina" style="border-left: 4px solid #ce1126;">
-                <span class="cultura-titulo">📜 Las Reglas del Areyto</span>
-                <p style="margin-top: 5px;">Tu misión es descifrar los oráculos día a día y cumplir todas las pruebas de acción. <strong>Cada día, al completar tu ruta y ganar tus puntos, recibirás una Recompensa Especial Diaria</strong> de manos de tu Guaca. Si tu sabiduría falla, deberás entregar una 'Ofrenda' para poder continuar.</p>
-                <p>¡Acumula tus puntos en los 4 Soles para demostrar tu valor y reclamar el <strong>Gran Premio Final</strong> en tu Yucayeque! Que el espíritu del Coquí guíe tus pasos.</p>
+    <nav>
+        <a href="#intro">Inicio</a>
+        <a href="#soles">Soles</a>
+        <a href="#mapa">Ruta</a>
+        <a href="#lore">Sabiduría</a>
+        <a href="#" onclick="abrirBovedaSecreta()" style="color: #ffd700;">🔑 Bóveda</a>
+    </nav>
+
+    <div class="container">
+        <section id="intro">
+            <div class="card">
+                <h2>El Llamado de Yocahú 🌿</h2>
+                <p>"¡Hau, Cacique Francisco! Escucha la voz de Yocahú... Has completado cuarenta y cinco soles sobre la tierra de Borikén. Tu misión es descifrar los oráculos. Si tu sabiduría falla, deberás entregar una 'Ofrenda' de acción a tu Guaca."</p>
             </div>
-        </div>
-    </section>
-
-    <section id="puntos">
-        <div class="card" style="background-color: #fff; border: 1px solid #ce1126;">
-            <h2 style="text-align: center; color: #002d62; border-bottom: none;">Tu Progreso de Cacique 🏆</h2>
-            <h3 style="text-align: center; font-size: 2.2em; margin: 5px 0; color: #ce1126;"><span id="scoreDisplay">0</span> / 1000 pts</h3>
-        </div>
-    </section>
-
-    <section id="soles">
-        <div id="sol1" class="card">
-            <h2>SOL 1: Jueves (El origen de todo) 💧</h2>
-            
-            <div class="mensaje-diario">
-                <p class="cita">"Quererse a uno mismo es el principio de una historia de amor que dura toda la vida." — Oscar Wilde</p>
-                <p class="texto-amor"><strong>Baby Feliz cumpleaños!</strong><br><br>A tus 45 años, has construido una versión de ti que admiro profundamente. El amor propio no es egoísmo, es saber cuidar el templo que eres para poder entregarte a los demás. Que este nuevo año de vida sea para seguir priorizando tu paz, tus sueños y esa fuerza interna que te hace único.<br><br><strong>Celebro tu fuerza y el gran hombre que eres hoy.</strong></p>
+            <div class="card" style="text-align: center;">
+                <h3>Progreso: <span id="scoreDisplay" style="color:#ce1126;">0</span> / 1000 pts</h3>
             </div>
+        </section>
 
-            <div class="btn-herramientas">
-                <a href="https://drive.google.com/drive/folders/1DaFBpUUaA-286sCJve1PcnLfyRTvvc0G?usp=drive_link" target="_blank" class="btn-foto">📸 Bóveda de Fotos</a>
-            </div>
+        <section id="soles">
+            <div id="sol1" class="card">
+                <span class="leyenda-header">Leyenda: La Bendición de Atabey</span>
+                <h2>SOL 1: Jueves 2 de abril 💧</h2>
+                <p class="cita">"Quererse a uno mismo es el principio de una historia de amor..." — Oscar Wilde</p>
+                <p><strong>Baby Feliz cumpleaños!</strong> Celebro tu fuerza y el gran hombre que eres hoy.</p>
+                
+                <div class="parada-box">
+                    <h4>📍 Parada 1: El Despertar</h4>
+                    <p><strong>Oráculo:</strong> "Busca el batey donde el aroma a pan fresco te devuelve el aliento."</p>
+                    <p><strong>Trivia (50 pts):</strong> ¿Qué dulce de vitrina tiene nombre de objeto de costura?</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Un beso de impacto (firme) y seguir la marcha.</div>
+                </div>
 
-            <h4 style="color: #002d62; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">📍 Parada 1: El Despertar</h4>
-            <p><strong>Oráculo:</strong> "Donde el Gigante de Piedra toca el cielo, busca el batey donde el aroma a pan fresco te devuelve el aliento..."</p>
-            <p><strong>Prueba 1 (50 pts):</strong> ¿Qué dulce de vitrina tiene nombre de algo que usas para no hincarte el dedo al coser?</p>
-            <p><strong>Prueba 2 (75 pts):</strong> Identifica al animal del mural.</p>
-            <div class="ofrenda-box"><p><strong>🌿 Ofrenda:</strong> Un beso de impacto (firme) a tu Guaca y seguir la marcha.</p></div>
+                <div class="parada-box">
+                    <h4>📍 Parada 2: El Nido de Metal</h4>
+                    <p><strong>Oráculo:</strong> "Donde los hombres de metal tenían sus barcos. Los pinos dan sombra."</p>
+                    <p><strong>Trivia (50 pts):</strong> ¿Cómo le decía todo Puerto Rico a esta base naval gigante de Ceiba?</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Cargar a tu Guaca estilo Cacique por 20 pasos sobre la arena.</div>
+                </div>
 
-            <h4 style="color: #002d62; border-bottom: 1px dashed #ccc; padding-bottom: 5px; margin-top: 30px;">📍 Parada 2: La Arena y el Mar</h4>
-            <p><strong>Oráculo:</strong> "Baja hacia la costa este, a la playa donde los antiguos guerreros del norte anclaban sus inmensas naves de metal."</p>
-            <p><strong>Prueba 1 (50 pts):</strong> ¿Cuál es el nombre de la base naval que operaba en estas costas?</p>
-            <p><strong>Prueba 2 (75 pts):</strong> Escribe "Cacique 45" con uvas de playa en la arena.</p>
-            <div class="ofrenda-box"><p><strong>🌿 Ofrenda:</strong> Cargar a tu Guaca estilo "Cacique" por 20 pasos sobre la arena.</p></div>
+                <div class="parada-box">
+                    <h4>📍 Parada 3: Broadway</h4>
+                    <p><strong>Oráculo:</strong> "Batey con luces de Broadway. Allí el plátano se vuelve arte."</p>
+                    <p><strong>Trivia (50 pts):</strong> ¿Qué líquido sagrado le echan al mofongo en la cocina?</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Encuentra un objeto que un guerrero usaría como arma o herramienta.</div>
+                </div>
 
-            <h4 style="color: #002d62; border-bottom: 1px dashed #ccc; padding-bottom: 5px; margin-top: 30px;">📍 Parada 3: El Gran Escenario</h4>
-            <p><strong>Oráculo:</strong> "Busca el teatro del sabor, donde el mofongo es la estrella y las luces de una calle famosa iluminan tu banquete."</p>
-            <p><strong>Prueba 1 (50 pts):</strong> ¿Qué líquido secreto le echan al mofongo aquí para que sea jugoso?</p>
-            <p><strong>Prueba 2 (75 pts):</strong> Identifica un objeto decorativo de una película clásica en el local.</p>
-            <div class="ofrenda-box"><p><strong>🌿 Ofrenda:</strong> Encontrar en el local un objeto que un guerrero taíno usaría como arma o herramienta.</p></div>
-
-            <h4 style="color: #002d62; border-bottom: 1px dashed #ccc; padding-bottom: 5px; margin-top: 30px;">📍 Parada 4: Las Bombas de Fuego</h4>
-            <p><strong>Oráculo:</strong> "Donde antes se alimentaban las bestias de metal con líquido negro, hoy se alimentan los guerreros con el fuego del burén."</p>
-            <p><strong>Prueba 1 (50 pts):</strong> ¿Qué marca de gasolina operaba antiguamente aquí?</p>
-            <div class="ofrenda-box"><p><strong>🌿 Ofrenda:</strong> Darle una vuelta completa cargando a tu Guaca por el área de las antiguas bombas.</p></div>
-
-            <button id="btn-sol1" class="btn-mision" style="margin-top: 30px;" onclick="completarMision(1, 250)">¡Validar Jueves y Reclamar Recompensa!</button>
-        </div>
-
-        <div id="sol2" class="card" style="display:none;">
-            <h2>SOL 2: Viernes (Tu raíz y tu legado) 🔥</h2>
-            <div class="mensaje-diario">
-                <p class="cita">"La fuerza de un hombre reside en su carácter, y su carácter se revela en el amor que entrega a los suyos." — Herman Hesse</p>
-                <p class="texto-amor"><strong>Baby Feliz cumpleaños!</strong><br><br>En el tiempo que hemos compartido, he sido testigo del padre ejemplar y del hijo fuera de serie que eres. Ver la ternura, el respeto y la entrega con la que cuidas a tu familia me confirma los valores y principios que rigen tu vida. Esa integridad es la que me hace admirarte profundamente y la razón por la que quiero caminar y construir un futuro a tu lado.<br><br><strong>Brindo por tus valores y por todo lo que nos falta construir.</strong></p>
+                <div class="parada-box">
+                    <h4>📍 Parada 4: Las Bombas</h4>
+                    <p><strong>Oráculo:</strong> "Antiguas bombas de gasolina que ahora sirven alegría."</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Darle una vuelta completa cargando a tu Guaca por el área de las bombas.</div>
+                </div>
+                <button id="btn-sol1" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(1, 250)">Validar Jueves</button>
             </div>
 
-            <h4 style="color: #002d62; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">📍 Parada Única: El Río Blanco</h4>
-            <p><strong>Oráculo:</strong> "Busca el charco donde el agua baja fría. Las piedras tienen voces grabadas por nuestros abuelos."</p>
-            <p><strong>Prueba 1 (50 pts):</strong> ¿Cómo se llaman los dibujos que los indios grabaron en estas rocas?</p>
-            <div class="ofrenda-box">
-                <p><strong>🌿 Ofrenda:</strong> Entra al agua fría y trae una piedra perfectamente redonda del fondo para tu Guaca.</p>
-            </div>
-            <button id="btn-sol2" class="btn-mision" onclick="completarMision(2, 250)">¡Validar Viernes y Reclamar Recompensa!</button>
-        </div>
+            <div id="sol2" class="card" style="display:none;">
+                <span class="leyenda-header">Leyenda: La Furia de Guabancex</span>
+                <h2>SOL 2: Viernes Santo 3 de abril 🔥</h2>
+                <p class="cita">"La fuerza de un hombre reside en su carácter..." — Herman Hesse</p>
 
-        <div id="sol3" class="card" style="display:none;">
-            <h2>SOL 3: Sábado (Nuestro camino juntos) 🌽</h2>
-            <div class="mensaje-diario">
-                <p class="cita">"El amor no se mide por el tiempo que pasamos juntos, sino por la huella que dejamos el uno en el otro." — Anónimo</p>
-                <p class="texto-amor"><strong>Baby Feliz cumpleaños!</strong><br><br>Agradezco profundamente cada minuto que hemos compartido. Deseo hoy crecer el uno en la vida del otro para seguir sumando experiencias que nos hagan felices y momentos que transformen en mejores personas. Quiero permanecer juntos en los tiempos difíciles, atesorar los días buenos, conociéndonos, disfrutando con pasión cada descubrimiento paso a paso.<br><br><strong>Por nuestro camino y por la huella que seguimos dejando.</strong></p>
-            </div>
+                <div class="parada-box">
+                    <h4>📍 Parada 1: El Charco Sagrado</h4>
+                    <p><strong>Oráculo:</strong> "Agua fría. Las piedras tienen voces grabadas por nuestros abuelos."</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Entra al agua fría y trae una piedra redonda del fondo para tu Guaca.</div>
+                </div>
 
-            <h4 style="color: #002d62; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">📍 Parada Única: Los Enchumbaos</h4>
-            <p><strong>Oráculo:</strong> "Busca la estatua del pescador. Estás en el pueblo de 'Los Enchumbaos'."</p>
-            <p><strong>Prueba 1 (50 pts):</strong> ¿Por qué le dicen así a la gente de Naguabo? (Pista: Mira hacia El Yunque).</p>
-            <p><strong>Prueba 2 (75 pts):</strong> Identifica un bote en el muelle que tenga nombre de mujer.</p>
-            <div class="ofrenda-box">
-                <p><strong>🌿 Ofrenda:</strong> Traerle a tu Guaca un tesoro del mar (concha o piedra lisa) de la orilla en menos de 60 segundos.</p>
-            </div>
-            <button id="btn-sol3" class="btn-mision" onclick="completarMision(3, 250)">¡Validar Sábado y Reclamar Recompensa!</button>
-        </div>
+                <div class="parada-box">
+                    <h4>📍 Parada 2: Costa de Azúcar</h4>
+                    <p><strong>Oráculo:</strong> "Monta tu Burén (BBQ) donde antes salía el azúcar hacia el mundo."</p>
+                    <p><strong>Trivia (50 pts):</strong> ¿De qué planta alta y dulce vivía este pueblo (Yabucoa)?</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Montar el campamento de playa (sillas y equipo) tú solo en tiempo récord.</div>
+                </div>
 
-        <div id="sol4" class="card" style="display:none;">
-            <h2>SOL 4: Domingo (Tu energía de acción) 🥁</h2>
-            <div class="mensaje-diario">
-                <p class="cita">"Vivir no es solo existir, es dejar una huella de bien en cada paso que damos." — Séneca</p>
-                <p class="texto-amor"><strong>Baby Feliz cumpleaños!</strong><br><br>Celebro tu vida porque eres un hombre de acción, de esos que no solo hablan de valores, sino que los viven cada día. Tu energía y tu forma de enfrentar los retos con gallardía son una inspiración. Que este nuevo año te traiga salud y muchísima alegría para seguir disfrutando de las bendiciones que has sembrado con tanto trabajo.<br><br><strong>A seguir conquistando soles con esa misma gallardía y luz.</strong></p>
+                <div class="parada-box">
+                    <h4>📍 Parada 3: El Mirador</h4>
+                    <p><strong>Oráculo:</strong> "Sube a la montaña antes de que el Sol se despida. Mira al horizonte."</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Señala los 4 puntos cardinales usando solo la posición del sol.</div>
+                </div>
+                <button id="btn-sol2" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(2, 250)">Validar Viernes</button>
             </div>
 
-            <h4 style="color: #002d62; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">📍 Parada Única: El Árbol Sagrado</h4>
-            <p><strong>Oráculo:</strong> "Cerca de casa, busca el refugio de piedra donde miles de obreras aladas hacen oro dulce."</p>
-            <p><strong>Prueba 1 (50 pts):</strong> ¿Qué animalito produce la miel que venden aquí?</p>
-            <p><strong>Prueba 2 (75 pts):</strong> Abraza la Ceiba sagrada de la entrada para recibir energía de tus 45 soles.</p>
-            <div class="ofrenda-box">
-                <p><strong>🌿 Ofrenda:</strong> Realiza 15 sentadillas de poder frente al árbol sagrado.</p>
+            <div id="sol3" class="card" style="display:none;">
+                <span class="leyenda-header">Leyenda: Ruta de la Abundancia</span>
+                <h2>SOL 3: Sábado de Gloria 4 de abril 🌽</h2>
+                <p class="cita">"El amor no se mide por el tiempo..." — Anónimo</p>
+
+                <div class="parada-box">
+                    <h4>📍 Parada 1: Los Enchumbaos</h4>
+                    <p><strong>Oráculo:</strong> "Busca la estatua del pescador. Pueblo de los Enchumbaos."</p>
+                    <p><strong>Trivia (50 pts):</strong> ¿Por qué le dicen así a la gente de Naguabo?</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Traer un tesoro del mar (concha/piedra) de la orilla en menos de 60 seg.</div>
+                </div>
+
+                <div class="parada-box">
+                    <h4>📍 Parada 2: Los Búnkers</h4>
+                    <p><strong>Oráculo:</strong> "Búnkers de cemento donde los soldados se escondían en la 2da Guerra Mundial."</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Realiza 15 'push-ups' de guerrero frente a la estructura.</div>
+                </div>
+
+                <div class="parada-box">
+                    <h4>📍 Parada 3: El Horizonte</h4>
+                    <p><strong>Oráculo:</strong> "¿Sobre qué tipo de formación estamos comiendo? (Risco/Acantilado)."</p>
+                </div>
+                <button id="btn-sol3" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(3, 250)">Validar Sábado</button>
             </div>
-            <button id="btn-sol4" class="btn-mision" onclick="completarMision(4, 250)">¡Desbloquear el Gran Premio Final!</button>
-        </div>
-    </section>
 
-    <section id="galeria">
-        <div class="card">
-            <h2>Galería del Areyto 📸</h2>
-            <p>Inmortaliza cada momento de esta aventura. Entra a nuestra bóveda sagrada.</p>
-            <a href="https://drive.google.com/drive/folders/1DaFBpUUaA-286sCJve1PcnLfyRTvvc0G?usp=drive_link" target="_blank" class="btn-mision" style="background-color: #218c74; text-align: center; display: block; text-decoration: none;">🖼️ Abrir Bóveda de Fotos (Drive)</a>
-        </div>
-    </section>
+            <div id="sol4" class="card" style="display:none;">
+                <span class="leyenda-header">Leyenda: El Areyto Final</span>
+                <h2>SOL 4: Domingo de Resurrección 5 de abril 🥁</h2>
+                <p class="cita">"Vivir no es solo existir..." — Séneca</p>
 
-    <section id="lore">
-        <div class="card">
-            <h2>La Leyenda de tu Emblema 🗿</h2>
-            <p style="font-size: 0.9em; line-height: 1.8;"><strong>EL ARCO DEL CACIQUE:</strong> Tu nombre, tallado en lo alto, demuestra que eres el líder absoluto de esta odisea.<br>
-            <strong>LA FUSIÓN:</strong> La piedra izquierda se baña en el Azul de <em>Quisqueya</em>, y la derecha en el Rojo fuego de <em>Borikén</em>. En el centro se unen, representando la sangre de dos islas en un solo corazón.<br>
-            <strong>EL SOL:</strong> El rostro de Yocahú vigila desde arriba, dándote luz en este nuevo año.<br>
-            <strong>LA ROSA DE BAYAHIBE:</strong> El petroglifo inferior izquierdo es la flor nacional de República Dominicana, tu cuna y raíz.<br>
-            <strong>EL COQUÍ:</strong> A la derecha, el espíritu de la isla que te forjó como guerrero y padre.<br>
-            <strong>LAS ESPIRALES (45):</strong> Para los taínos, la espiral es el viento, el agua y la vida infinita. Tus 45 soles no son una línea recta, sino una energía que sigue creciendo.</p>
-        </div>
+                <div class="parada-box">
+                    <h4>📍 Parada 1: La Cueva</h4>
+                    <p><strong>Oráculo:</strong> "Refugio de piedra donde obreras aladas hacen oro dulce."</p>
+                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Realiza 15 sentadillas frente a la Ceiba sagrada.</div>
+                </div>
 
-        <div class="card">
-            <h2>Sabiduría Ancestral (Glosario) 🌿</h2>
-            <div class="glosario-item"><span class="glosario-word">AREYTO:</span> La fiesta máxima taína de cantos y comida para celebrar la vida.</div>
-            <div class="glosario-item"><span class="glosario-word">ATABEY:</span> La Diosa Madre, señora de las aguas dulces y los ríos.</div>
-            <div class="glosario-item"><span class="glosario-word">BAGUA:</span> El mar, fuente de alimento y respeto para los taínos.</div>
-            <div class="glosario-item"><span class="glosario-word">BATEY:</span> Plaza ceremonial o lugar de reunión en el centro de la aldea.</div>
-            <div class="glosario-item"><span class="glosario-word">BORIKÉN:</span> "Tierra del alto y sagrado señor". Nombre taíno de Puerto Rico, la tierra que te forjó.</div>
-            <div class="glosario-item"><span class="glosario-word">BURÉN:</span> Plancha antigua de barro o piedra al fuego para cocinar. Tu BBQ es tu burén moderno.</div>
-            <div class="glosario-item"><span class="glosario-word">CACIQUE:</span> Jefe, líder y protector de la tribu. Título de máximo honor.</div>
-            <div class="glosario-item"><span class="glosario-word">CASABE:</span> Pan tradicional taíno hecho de raíz de yuca, vital para los guerreros.</div>
-            <div class="glosario-item"><span class="glosario-word">CEMÍ:</span> Tótem o deidad protectora de piedra. El logo principal es tu Cemí con 45 soles.</div>
-            <div class="glosario-item"><span class="glosario-word">COQUÍ:</span> Pequeña rana sagrada, símbolo de Borikén y guía en la noche.</div>
-            <div class="glosario-item"><span class="glosario-word">GUACA:</span> Tu compañera, administradora de tu región y guía sagrada de esta Odisea.</div>
-            <div class="glosario-item"><span class="glosario-word">JURACÁN:</span> Dios del caos y los vientos destructivos. De aquí proviene la palabra "huracán".</div>
-            <div class="glosario-item"><span class="glosario-word">QUISQUEYA:</span> "Madre de todas las tierras". Nombre taíno de la República Dominicana, tu cuna.</div>
-            <div class="glosario-item
+                <div class="parada-box">
+                    <h4>📍 Parada 2: Las Picúas</h4>
+                    <p><strong>Oráculo:</strong> "Costa que tiene nombre de pez con dientes largos."</p>
+                    <p><strong>Trivia (50 pts):</strong> ¿Qué pez agresivo y flaco le da el nombre a esta playa?</p>
+                </div>
+
+                <div class="parada-box">
+                    <h4>📍 Parada 3: Dos Tiempos</h4>
+                    <p><strong>Oráculo:</strong> "¿Sobre qué se cocina el casabe? (R: El Burén)."</p>
+                </div>
+                <button id="btn-sol4" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(4, 250)">¡Finalizar Misión!</button>
+            </div>
+        </section>
+
+        <section id="lore">
+            <div class="card">
+                <h2>La Leyenda de tu Emblema 🗿</h2>
+                <p><strong>EL ARCO:</strong> Tu nombre tallado como líder. | <strong>LA FUSIÓN:</strong> Sangre de dos islas. | <strong>LA ROSA:</strong> Tu raíz de Quisqueya. | <strong>EL COQUÍ:</strong> La fuerza de Borikén. | <strong>45 ESPIRALES:</strong> Energía infinita.</p>
+            </div>
+            <div class="card">
+                <h2>Sabiduría Ancestral (Glosario) 🌿</h2>
+                <p><strong>AREYTO:</strong> Fiesta sagrada. | <strong>BURÉN:</strong> Piedra de cocinar. | <strong>CEMÍ:</strong> Tótem protector. | <strong>GUACA:</strong> Tu guía (Layra). | <strong>YOCAHÚ:</strong> Espíritu Creador.</p>
+            </div>
+        </section>
+
+        <section id="admin-panel" style="display: none;">
+            <div class="card" style="border: 3px solid #b8860b; background-color: #fffdf0;">
+                <h2 style="color: #b8860b; text-align: center;">📜 GUÍA MAESTRA DE LA GUACA</h2>
+                
+                <div style="background: #002d62; color: white; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffcc00;">
+                    <h3 style="color: #ffcc00; margin-top: 0; text-align: center;">🗝️ TRIBUTOS REALES (REGALOS)</h3>
+                    <p><strong>I. Ritual del Rey:</strong> Masaje + Facial + Manicura/Pedicura.</p>
+                    <p><strong>II. Borrón y Cuenta Nueva:</strong> Gestión administrativa resuelta por la Guaca.</p>
+                </div>
+
+                <div style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left:5px solid #ce1126;">
+                    <h3>📅 JUEVES (Este)</h3>
+                    <p>09:25 - Panadería Jireh (R: El Dedal) | 10:15 - Playa Los Machos (R: Roosevelt Roads) | 01:00 - Broadway (R: Caldo) | 04:00 - La Estación (R: Esso).</p>
+                </div>
+                <div style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left:5px solid #002d62;">
+                    <h3>📅 VIERNES (Sureste)</h3>
+                    <p>10:35 - Charco El Hippie (R: Petroglifos) | 12:30 - Playa Guayanés (R: Caña) | 04:30 - Mirador Carr. 901.</p>
+                </div>
+                <div style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left:5px solid #ce1126;">
+                    <h3>📅 SÁBADO (Abundancia)</h3>
+                    <p>09:50 - Malecón Naguabo (R: Lluvia Yunque) | 11:30 - Humacao (R: 2da Guerra) | 02:00 - Nuevo Horizonte (R: Acantilado).</p>
+                </div>
+                <div style="background:white; padding:15px; border-radius:10px; border-left:5px solid #002d62;">
+                    <h3>📅 DOMINGO (Areyto)</h3>
+                    <p>10:35 - Cueva María de la Cruz (R: Abejas) | 12:00 - Las Picúas (R: Picúa) | 04:30 - Dos Tiempos (R: El Burén).</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    const TARGET = new Date("April 2, 2026 00:00:00").getTime();
+    function countdown() {
+        const diff = TARGET - new Date().getTime();
+        if (diff <= 0) { showMain(); return; }
+        document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24)).toString().padStart(2,'0');
+        document.getElementById("hours").innerText = Math.floor((diff % (1000*60*60*24))/(1000*60*60)).toString().padStart(2,'0');
+        document.getElementById("mins").innerText = Math.floor((diff % (1000*60*60))/(1000*60)).toString().padStart(2,'0');
+        document.getElementById("secs").innerText = Math.floor((diff % (1000*60))/1000).toString().padStart(2,'0');
+    }
+    function accesoGuaca() { if(prompt("Llave:") === "guaca45") showMain(); }
+    function showMain() {
+        document.getElementById("countdown-screen").style.display = "none";
+        document.getElementById("main-mission-container").style.display = "block";
+        window.scrollTo(0,0);
+        updateUI();
+    }
+    setInterval(countdown, 1000);
+
+    let pts = parseInt(localStorage.getItem("pts_v40")) || 0;
+    let lvl = parseInt(localStorage.getItem("lvl_v40")) || 1;
+
+    function updateUI() {
+        document.getElementById("scoreDisplay").innerText = pts;
+        for(let i=2; i<=4; i++) {
+            if(lvl >= i) document.getElementById("sol"+i).style.display = "block";
+            if(lvl > i-1) document.getElementById("btn-sol"+(i-1)).style.display = "none";
+        }
+    }
+
+    function ganarPuntos(s, p) {
+        if(confirm("¿Validado por la Guaca?")) {
+            pts += p; lvl = s + 1;
+            localStorage.setItem("pts_v40", pts); localStorage.setItem("lvl_v40", lvl);
+            updateUI(); alert("¡Misión cumplida!");
+        }
+    }
+
+    function abrirBovedaSecreta() {
+        if(prompt("Clave:").toLowerCase() === "yocahu") {
+            document.getElementById("admin-panel").style.display = "block";
+            document.getElementById("admin-panel").scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    window.onload = countdown;
+</script>
+</body>
+</html>
