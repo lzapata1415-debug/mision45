@@ -3,266 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión 45: La Odisea del Cacique Francisco</title>
-    <link rel="stylesheet" href="style.css?v=40">
+    <title>Gesta 45 Soles - Cacique Francisco</title>
     <style>
-        /* --- ESTILOS DEL PORTAL (COUNTDOWN) --- */
-        #countdown-screen { text-align: center; background: #fff; min-height: 100vh; display: block; padding-bottom: 50px; }
-        .banner-cemi-top { width: 100%; max-width: 100%; height: auto; display: block; border-bottom: 6px solid #ce1126; }
-        .titulo-espera { margin-top: 80px; color: #002d62; font-size: 2.2em; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; }
-        .timer-box { display: flex; justify-content: center; gap: 15px; margin: 40px 0; }
-        .timer-unit { background: #002d62; color: white; padding: 15px; border-radius: 12px; min-width: 85px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .timer-num { font-size: 2.2em; font-weight: bold; display: block; }
-        .btn-guaca-hidden { margin-top: 60px; background: none; border: 1px solid #f0f0f0; color: #eee; padding: 10px 20px; cursor: pointer; border-radius: 20px; font-size: 0.7em; }
+        :root {
+            --primary: #2C4C3B; /* Verde selva */
+            --secondary: #D4AF37; /* Dorado Anacaona */
+            --bg: #FDFBF7; /* Arena clara */
+            --text: #333333;
+            --wood: #8B5A2B;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--secondary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        nav button {
+            background: transparent;
+            border: 1px solid var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        nav button:hover, nav button.active {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        main {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .page { display: none; }
+        .page.active { display: block; }
         
-        #main-mission-container { display: none; }
+        h1, h2, h3 { color: var(--primary); }
+        .quote { font-style: italic; color: var(--wood); border-left: 4px solid var(--secondary); padding-left: 10px; }
+        
+        /* Gráfica de Progreso */
+        .progress-container { margin: 20px 0; text-align: center; }
+        progress { width: 100%; height: 25px; appearance: none; }
+        progress::-webkit-progress-bar { background-color: #eee; border-radius: 10px; }
+        progress::-webkit-progress-value { background-color: var(--secondary); border-radius: 10px; }
+        
+        /* Agenda Reveal Logic */
+        .parada { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+        .locked { filter: blur(4px); opacity: 0.5; pointer-events: none; user-select: none; }
+        .locked::after {
+            content: "🔒 MISIÓN BLOQUEADA (Requiere más puntos)";
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;
+        }
+        .parada-wrapper { position: relative; }
 
-        /* --- ESTILOS DE LA MISIÓN --- */
-        .card { background: white; padding: 25px; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .leyenda-header { color: #ce1126; font-weight: bold; text-transform: uppercase; font-size: 0.8em; letter-spacing: 1px; margin-bottom: 5px; display: block; }
-        .parada-box { border-left: 4px solid #002d62; padding-left: 15px; margin-top: 25px; }
-        .ofrenda-label { background: #fff5f5; color: #ce1126; padding: 10px; border-radius: 8px; font-size: 0.9em; margin-top: 10px; border: 1px dashed #ce1126; }
+        /* Galería */
+        .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .galeria-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 2px solid var(--secondary); }
+        
+        /* Formularios */
+        .password-box { text-align: center; margin: 40px 0; padding: 20px; background: #f9f9f9; border: 1px solid #ccc; border-radius: 8px; }
+        input[type="password"] { padding: 10px; font-size: 16px; width: 60%; max-width: 300px; }
+        button.btn-submit { padding: 10px 20px; background: var(--primary); color: white; border: none; font-size: 16px; cursor: pointer; }
+        
+        /* Admin */
+        .admin-panel { background: #ffe4e1; padding: 20px; border-radius: 8px; }
+        .admin-panel button { margin: 5px; padding: 10px; background: var(--wood); color: white; border: none; cursor: pointer; }
+        .btn-reset { background: darkred !important; width: 100%; margin-top: 20px !important; font-size: 18px; }
+        
+        #countdown { font-size: 24px; font-weight: bold; color: darkred; text-align: center; margin: 20px 0; }
     </style>
 </head>
 <body>
 
-<div id="countdown-screen">
-    <img src="banner_final_cacique.jpg" class="banner-cemi-top">
-    <h2 class="titulo-espera">Preparando el 45.º Sol</h2>
-    <div class="timer-box">
-        <div class="timer-unit"><span class="timer-num" id="days">00</span><span>Días</span></div>
-        <div class="timer-unit"><span class="timer-num" id="hours">00</span><span>Hrs</span></div>
-        <div class="timer-unit"><span class="timer-num" id="mins">00</span><span>Min</span></div>
-        <div class="timer-unit"><span class="timer-num" id="secs">00</span><span>Seg</span></div>
-    </div>
-    <button class="btn-guaca-hidden" onclick="accesoGuaca()">Acceso Privado (Guaca)</button>
-</div>
-
-<div id="main-mission-container">
-    <header>
-        <img src="banner_final_cacique.jpg" alt="Misión 45" class="banner-cemi">
-        <h1>MISION 45</h1>
-        <p>La Odisea del Cacique Francisco</p>
-    </header>
-
+<header>
+    <h2>Gesta de los 45 Soles</h2>
     <nav>
-        <a href="#intro">Inicio</a>
-        <a href="#soles">Soles</a>
-        <a href="#mapa">Ruta</a>
-        <a href="#lore">Sabiduría</a>
-        <a href="#" onclick="abrirBovedaSecreta()" style="color: #ffd700;">🔑 Bóveda</a>
+        <button onclick="showPage('inicio')" class="active" id="nav-inicio">Inicio</button>
+        <button onclick="showPage('agenda')" id="nav-agenda">Mi Agenda</button>
+        <button onclick="showPage('galeria')" id="nav-galeria">Galería</button>
+        <button onclick="showPage('glosario')" id="nav-glosario">Glosario</button>
+        <button onclick="showPage('boveda')" id="nav-boveda">La Bóveda</button>
+        <button onclick="showPage('admin')" id="nav-admin">Admin</button>
     </nav>
+</header>
 
-    <div class="container">
-        <section id="intro">
-            <div class="card">
-                <h2>El Llamado de Yocahú 🌿</h2>
-                <p>"¡Hau, Cacique Francisco! Escucha la voz de Yocahú... Has completado cuarenta y cinco soles sobre la tierra de Borikén. Tu misión es descifrar los oráculos. Si tu sabiduría falla, deberás entregar una 'Ofrenda' de acción a tu Guaca."</p>
+<main>
+    <section id="inicio" class="page active">
+        <h2>Página 1: Inicio – El Ciclo de los 3 Soles</h2>
+        
+        <div class="progress-container">
+            <h3>📊 Progreso de la Gesta</h3>
+            <progress id="progressBar" value="0" max="1000"></progress>
+            <p><strong id="puntosTexto">0 / 1000 Puntos Completados</strong></p>
+        </div>
+
+        <h3>Introducción de la Gesta:</h3>
+        <p>"¡Hau, Cacique Francisco! Escucha la voz de Yocahú, que sopla a través del mar, desde las altas montañas de Quisqueya (tu tierra natal) hasta las costas de Borikén (la tierra que te forjó). Eres un Cacique de dos Yucayeques, unido por la misma sangre taína y las mismas estrellas." Has completado cuarenta y cinco soles sobre la tierra.</p>
+        <p>Cacique Francisco, tu destino no se labra en un solo día. Esta gesta se compone de 3 Soles Sagrados. El Jueves es tu Rebelión y Retorno, el Viernes es tu Purificación y Deleite, y el Sábado será tu Consagración Final.</p>
+        <p>Solo si acumulas los puntos de cada jornada, serás digno de los misterios del tercer día. <strong>¡Meta Final: 1,000 Puntos!</strong></p>
+
+        <h3>Las Reglas de la Gesta:</h3>
+        <ul>
+            <li><strong>Ubicación Sagrada:</strong> El mapa es secreto. Tu Guaca te guiará por las sendas de Borikén. Solo cuando lleguen al punto exacto, se revelará la energía del lugar.</li>
+            <li><strong>La Señal Ancestral (Oráculo):</strong> Al llegar a cada parada, aparecerá un mensaje enigmático. Deberás leerlo para entender la esencia de ese batey y lo que los ancestros esperan de ti allí.</li>
+            <li><strong>El Reto de Sabiduría (Prueba):</strong> Es el desafío que debes resolver en el sitio. Observa, pregunta y descubre los secretos del lugar para ganar tus Puntos de Valor.</li>
+            <li><strong>El Registro del Guerrero (Documentación):</strong> Para desbloquear el siguiente paso, deberás dejar constancia de tu hazaña con una foto o video y cumplir la Ofrenda de acción. Una vez documentado, la Guaca validará tu progreso.</li>
+        </ul>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn-submit" onclick="showPage('agenda')">➡️ Comenzar Gesta: Sol 1 (Jueves)</button>
+        </div>
+    </section>
+
+    <section id="agenda" class="page">
+        <h2>Agenda de la Gesta (Revelación Progresiva)</h2>
+        
+        <h3>☀️ SOL 1 (Jueves 2 de Abril): El Despertar de Guahayona</h3>
+        <p><strong>La Bendición de Atabey:</strong><br>"Como la Diosa Madre y señora de las aguas dulces, Atabey bendice hoy tu inicio. Todo gran imperio comienza con un cimiento sólido, y hoy regresas al origen para reconocer tu fuerza. Que las aguas de Borikén limpien tu camino y el sol de la mañana ilumine tu rastro."</p>
+        
+        <p><strong>Mensaje del Oráculo para el Cacique (Sol 1)</strong><br>
+        <span class="quote">"Quererse a uno mismo es el principio de una historia de amor que dura toda la vida." — Oscar Wilde.</span><br>
+        "Baby, ¡Feliz cumpleaños! A tus 45 años, has construido una versión de ti que admiro profundamente. El amor propio no es egoísmo, es saber cuidar el templo que eres para poder entregarte a los demás. Que este nuevo año de vida sea para seguir priorizando tu paz, tus sueños y esa fuerza interna que te hace único. Celebro tu resiliencia y el gran hombre que eres hoy. Eres el Cacique de tu propio destino."</p>
+
+        <p><strong>(Guía Espiritual) La Leyenda del Día: Guahayona, el Guerrero-Navegante Rebelde</strong><br>
+        Hoy caminas bajo la sombra de Guahayona, el cacique que rompió el maleficio de la cueva y se atrevió a llevar a su pueblo más allá del mundo conocido, abandonando lo familiar para explorar lo desconocido. Como el Venus matutino, hoy íntegras tus opuestos: la fuerza del guerrero y la sabiduría del navegante. Eres el símbolo vivo de la resiliencia; aquel que muere y renace con más poder en cada ciclo.</p>
+
+        <div class="parada-wrapper">
+            <div id="jueves-p1" class="parada">
+                <h4>📍 Parada 1: Ubicación Sagrada</h4>
+                <p><strong>Umbral del Yucayeque:</strong> Como Guahayona en busca de la esencia de la tierra, has cruzado el portal hacia tu primer gran batey. Atabey te recibe en este rincón de Palmer, donde el aroma a grano tostado y pan recién horneado confirma que la travesía de la Guaca ha comenzado bajo su protección.</p>
+                <p><strong>La Señal:</strong> Busca el tesoro blanco que nace de la palma y se adorna con los frutos de la tierra lejana. No es pan, pero alimenta el alma; es una joya de nieve que cruje al morder y guarda el dulzor de los ancestros.</p>
+                <p><strong>Reto de Sabiduría (La Alquimia del Manjar):</strong> La Ceremonia del Gusto (20 pts): Debes reclamar y degustar el Dulce de la Casa. No es un simple bocado; es una prueba de tus sentidos. Tu lengua debe ser el instrumento tras el primer bocado, deberás identificar los elementos ocultos que componen este postre.</p>
+                <p><strong>El Registro (10 pts):</strong> Captura del Dulce de la Casa antes de que su rastro desaparezca de la tierra junto a tu primer café de la Odisea.</p>
+                <p><strong>Ofrenda (10 pts):</strong> Beso de impacto para que el Oráculo abra los senderos hacia la montaña sagrada.</p>
+                <p><em>Subtotal Parada 1: 40 pts</em></p>
             </div>
-            <div class="card" style="text-align: center;">
-                <h3>Progreso: <span id="scoreDisplay" style="color:#ce1126;">0</span> / 1000 pts</h3>
+        </div>
+
+        <div class="parada-wrapper">
+            <div id="jueves-p2" class="parada locked">
+                <h4>📍 Parada 2: Ubicación Sagrada</h4>
+                <p><strong>Umbral del Yucayeque:</strong> Has dejado atrás el aroma del pan para encontrarte con el abrazo de Karaya (la luna/el mar). En Ceiba, donde los vientos cuentan historias de Roosevelt Roads, la costa te espera para purificar el espíritu.</p>
+                <p><strong>La Señal:</strong> Busca el camino donde el metal de los carros descansa sobre la arena. No busques portones ni muros; el refugio es un bohío de madera que mira fijamente hacia donde nace el sol sobre las aguas.</p>
+                <p><strong>Reto de Sabiduría (10 pts):</strong> La Vigilancia del Guerrero: Al estacionarte, identifica cuántos bohíos (gazebos) de madera protegen la orilla en tu zona inmediata.</p>
+                <p><strong>El Secreto de la Arena (10 pts):</strong> Camina hacia la orilla y encuentra una piedra o caracol que haya sido "esculpido" por el mar. El Oráculo validará tu hallazgo si logras describir su forma única.</p>
+                <p><strong>El Registro:</strong> Foto de tu nombre "Cacique 45" escrito en la arena con uvas de playa (20 pts). El Sello de la Guaca: Reportar el número de bohíos contados (5 pts).</p>
+                <p><strong>Ofrenda:</strong> Cargar a la Guaca 20 pasos. (20 pts)</p>
+                <p><em>Subtotal Parada 2: 65 pts</em></p>
             </div>
-        </section>
+        </div>
 
-        <section id="soles">
-            <div id="sol1" class="card">
-                <span class="leyenda-header">Leyenda: La Bendición de Atabey</span>
-                <h2>SOL 1: Jueves 2 de abril 💧</h2>
-                <p class="cita">"Quererse a uno mismo es el principio de una historia de amor..." — Oscar Wilde</p>
-                <p><strong>Baby Feliz cumpleaños!</strong> Celebro tu fuerza y el gran hombre que eres hoy.</p>
-                
-                <div class="parada-box">
-                    <h4>📍 Parada 1: El Despertar</h4>
-                    <p><strong>Oráculo:</strong> "Busca el batey donde el aroma a pan fresco te devuelve el aliento."</p>
-                    <p><strong>Trivia (50 pts):</strong> ¿Qué dulce de vitrina tiene nombre de objeto de costura?</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Un beso de impacto (firme) y seguir la marcha.</div>
-                </div>
+        <div class="parada-wrapper">
+            <div id="jueves-p3" class="parada locked">
+                <h4>📍 Parada 3: Ubicación Sagrada</h4>
+                <p><strong>Umbral del Yucayeque:</strong> Has navegado las aguas de Ceiba y ahora, como Guahayona transformado en lucero de la tarde, arribas al Batey de las Sombras Luminosas. En Fajardo, las cuevas se vuelven templos de cristal y el fuego ya no consume madera, sino que brilla en hilos de luz (neón) sobre las paredes, celebrando tu renacimiento en este nuevo ciclo de vida.</p>
+                <p><strong>La Señal:</strong> Busca el caney donde los espíritus del teatro susurran historias de otros mundos. No busques el sol de Atabey, busca la luz que imita a las luciérnagas gigantes en las paredes y el muro que guarda la memoria de los maestros del escenario. Allí, donde el cristal choca y la música vibra, se esconde la última prueba de tu odisea.</p>
+                <p><strong>Reto de Sabiduría (La Alquimia del Rostro Oculto):</strong> 1. La Pócima del Misterio: Debes invocar al Phantom of the Opera. Tu paladar, ahora refinado por el viaje, debe actuar como el Cemí de la Verdad. 2. El Descifrado de la Sombra (15 pts): Tras el primer contacto con esta pócima mística, deberás identificar qué elementos de la tierra y el bosque (ingredientes) componen su esencia.</p>
+                <p><strong>El Registro:</strong> Evidencia del Guerrero (15 pts): Inmortalizar tu imagen en el Mural Clásico del local, donde la figura del Cacique 45 se funda con el arte del escenario para el reporte eterno de la Guaca.</p>
+                <p><strong>El Sello de la Sabiduría (30 pts):</strong> Grabar El Discurso de Guahayona: "Hoy, bajo la bendición de Atabey y con la fuerza de Guahayona, cierro el ciclo de la cueva. He navegado 45 soles, sorteando tormentas y conquistando mis propios miedos. Dejo a mi espalda lo que ya no me pertenece y reclamo, en este nuevo Yucayeque, mi derecho a la paz, al amor propio y a la abundancia. (Levanta la pócima del Phantom of the Opera a la altura de los ojos) Brindo por el hombre que renace hoy. Por la resiliencia que corre por mis venas y por el fuego sagrado que nunca se apaga. ¡Por mis 45 ciclos! ¡Por la victoria de la Guaca! (Bebe un sorbo solemne y asiente con autoridad)"</p>
+                <p><strong>Ofrenda:</strong> Beso de Victoria + Abrazo de 45 segundos. (20 pts)</p>
+                <p><em>Subtotal Parada 3: 80 pts</em></p>
+            </div>
+        </div>
 
-                <div class="parada-box">
-                    <h4>📍 Parada 2: El Nido de Metal</h4>
-                    <p><strong>Oráculo:</strong> "Donde los hombres de metal tenían sus barcos. Los pinos dan sombra."</p>
-                    <p><strong>Trivia (50 pts):</strong> ¿Cómo le decía todo Puerto Rico a esta base naval gigante de Ceiba?</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Cargar a tu Guaca estilo Cacique por 20 pasos sobre la arena.</div>
-                </div>
+        <div class="parada-wrapper">
+            <div id="jueves-p4" class="parada locked">
+                <h4>📍 Parada 4: Ubicación Sagrada</h4>
+                <p><strong>Umbral del Yucayeque:</strong> Has navegado las rutas de Borikén y conquistado los retos del día. Como Guahayona que regresa de su expedición con el espíritu fortalecido por 45 soles de sabiduría, es momento de cruzar el último portal. Atabey te guía de vuelta al Bohío Sagrado para que el Guerrero descanse y reciba los frutos de su valentía.</p>
+                <p><strong>La Señal:</strong> "Busca el umbral de madera que custodia tu paz. Tras esa puerta, el aire ha cambiado; el silencio es una máscara que oculta la verdadera recompensa. No busques más mapas, tus pasos te han traído al centro de tu propio imperio."</p>
+                <p><strong>Reto de Sabiduría (La Invocación del Umbral) (30 pts):</strong> El Pulso del Portal: Antes de abrir, coloca tu mano sobre la puerta y realiza una respiración profunda. Siente la vibración de la madera; es el latido de la tierra que te da la bienvenida. La Oración a los Cemis: Para que el portal se abra con la bendición de los dioses, debes recitar en voz alta y con autoridad la siguiente invocación: "Atabey, Madre de las Aguas y la Tierra, Yucahú, Señor de las Alturas de Borikén: Ante este portal se detiene Guahayona, tras haber navegado el mar y cruzado el fuego. He caminado cuarenta y cinco soles de sabiduría. Abran hoy el umbral de mi yucayeque para que el Guerrero encuentre su descanso y el hombre reciba lo que el destino ha sembrado."</p>
+                <p><strong>El Cruce Final:</strong> Entra con el espíritu ligero. Tu misión es simplemente dejar que el destino te envuelva al cruzar el umbral del Sol 45.</p>
+                <p><strong>El Registro:</strong> La Crónica del Regreso (20 pts): Grabación de video ininterrumpida desde que recitas la oración y la llave gira, hasta que tus pies toquen el suelo interior.</p>
+                <p><strong>Estatus de la Misión – Jueves:</strong> Puntos Acumulados de la Jornada: 250 Puntos (Misión de Guahayona Completada). El Gran Premio: Acceso Total al Gran Areyto de Renacimiento.</p>
+                <p><strong>Ofrenda (15 pts):</strong> El Sello de la Guaca. Al cruzar la puerta y descubrir tu recompensa, entrega un Beso de Alianza a la Cacica.</p>
+            </div>
+        </div>
 
-                <div class="parada-box">
-                    <h4>📍 Parada 3: Broadway</h4>
-                    <p><strong>Oráculo:</strong> "Batey con luces de Broadway. Allí el plátano se vuelve arte."</p>
-                    <p><strong>Trivia (50 pts):</strong> ¿Qué líquido sagrado le echan al mofongo en la cocina?</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Encuentra un objeto que un guerrero usaría como arma o herramienta.</div>
-                </div>
+        <div class="parada-wrapper">
+            <div id="viernes" class="parada locked">
+                <h3>🌿 SOL 2: VIERNES (La Calma de Anacaona)</h3>
+                <p><em>La Flor de Oro: Paz, Sensualidad y Refugio.</em></p>
+                <p><strong>📍 Parada 1: El Saludo a Karaya (Picnic de Café en la Arena)</strong><br>
+                Reto de Sabiduría: Identificar 3 sonidos de la naturaleza. (30 pts)<br>Registro: Foto al horizonte con pies en arena. (20 pts)<br>Ofrenda: Agradecimiento escrito en la arena. (15 pts)</p>
+                <p><strong>📍 Parada 2: Spa en el Bohío</strong><br>
+                Reto de Sabiduría: Identificar ingrediente secreto en desayuno (30 pts) + Ceremonia del Tacto (Silencio Sagrado). (40 pts)<br>Registro: Foto ambiente spa o pies/manos. (20 pts)<br>Ofrenda: Masaje recíproco de 5 min. (20 pts)</p>
+                <p><strong>📍 Parada 3: El Areyto de los Cuerpos</strong><br>
+                Reto de Sabiduría: Las 5 Estampas de la Pasión (Susurro, Fluido, Abrazo, Cacao, Danza). (100 pts)<br>Ofrenda: Beso de cierre. (25 pts)<br><em>Subtotal Viernes: 300 pts</em></p>
+            </div>
+        </div>
 
-                <div class="parada-box">
-                    <h4>📍 Parada 4: Las Bombas</h4>
-                    <p><strong>Oráculo:</strong> "Antiguas bombas de gasolina que ahora sirven alegría."</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Darle una vuelta completa cargando a tu Guaca por el área de las bombas.</div>
-                </div>
-                <button id="btn-sol1" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(1, 250)">Validar Jueves</button>
+        <div class="parada-wrapper">
+            <div id="sabado" class="parada locked">
+                <h3>🔥 SOL 3: SÁBADO (La Consagración de Agüeybaná)</h3>
+                <p><em>El Gran Cacique: Fraternidad, Fuego y Descanso Real.</em></p>
+                <p><strong>📍 Parada 1: El Sustento del Guerrero (Desayuno en Casa)</strong><br>
+                Reto de Sabiduría: Mencionar 3 momentos de fuerza previos. (50 pts)<br>Registro: Foto con desayuno listo. (25 pts)<br>Ofrenda: Gesto de servicio a la familia. (15 pts)</p>
+                <p><strong>📍 Parada 2: Batey de Vacia Talega (Loíza - BBQ)</strong><br>
+                Reto de Sabiduría: Maestro del Fuego (BBQ término perfecto). (100 pts)<br>Registro: Foto frente a las brasas y mar. (50 pts)<br>Ofrenda: Primer bocado para la Guaca. (25 pts)</p>
+                <p><strong>📍 Parada 3: El Remanso de la Guaca (Piscina y Netflix)</strong><br>
+                Reto de Sabiduría: Flotación silenciosa 3 min. (50 pts)<br>Registro: Foto brindis piscina o Netflix. (50 pts)<br>Ofrenda Final: Entrega del mando a la Cacica (35 pts) + Bono de Gracia (50 pts).<br><em>Subtotal Sábado: 450 pts</em></p>
+            </div>
+        </div>
+
+        <div id="decreto-final" class="parada locked" style="background: var(--secondary); color: white;">
+            <h3>📜 El Decreto Final del Oráculo</h3>
+            <p>"Francisco, en lo simple, en lo cotidiano y en los pequeños detalles es que se demuestra el amor que sentimos. A través de estos 3 días, hemos recordado que nuestra historia no se escribe con grandes monumentos, sino con cada paso que damos juntos. Gracias le doy a la vida por el regalo de haberme cruzado contigo y por la oportunidad de desvivirnos y seguir creciendo juntos. <strong>¡Felices 45 Soles, mi Cacique Eterno!</strong>"</p>
+        </div>
+
+    </section>
+
+    <section id="galeria" class="page">
+        <h2>El Camino de los 45 Soles</h2>
+        <p>Un recorrido por las memorias y las lunas compartidas. *(Aquí se cargarán las fotos de tus años pasados).*</p>
+        <div class="galeria-grid">
+            <img src="https://via.placeholder.com/300x200?text=Foto+1+del+Cacique" alt="Memoria 1">
+            <img src="https://via.placeholder.com/300x200?text=Foto+2+del+Cacique" alt="Memoria 2">
+            <img src="https://via.placeholder.com/300x200?text=Foto+3+del+Cacique" alt="Memoria 3">
+            <img src="https://via.placeholder.com/300x200?text=Foto+4+del+Cacique" alt="Memoria 4">
+            <img src="https://via.placeholder.com/300x200?text=Foto+5+del+Cacique" alt="Memoria 5">
+            <img src="https://via.placeholder.com/300x200?text=Foto+6+del+Cacique" alt="Memoria 6">
+        </div>
+    </section>
+
+    <section id="glosario" class="page">
+        <h2>Glosario y Leyendas del Yucayeque</h2>
+        <ul>
+            <li><strong>Atabey:</strong> Diosa Madre, entidad suprema de la fertilidad y las aguas dulces. Representa tu origen.</li>
+            <li><strong>Guahayona:</strong> El primer héroe mítico, símbolo de transformación, viaje y resiliencia.</li>
+            <li><strong>Yucayeque:</strong> Poblado o comunidad.</li>
+            <li><strong>Batey:</strong> Espacio sagrado de reunión y ceremonia.</li>
+            <li><strong>Areyto:</strong> Canto, baile y celebración épica de la tribu.</li>
+            <li><strong>Cemí:</strong> Deidad o espíritu ancestral.</li>
+            <li><strong>Guaca:</strong> Tesoro sagrado o lugar de gran poder espiritual.</li>
+            <li><strong>Karaya:</strong> El mar / La luna. El elemento de purificación.</li>
+            <li><strong>Bohío:</strong> El hogar, el refugio sagrado del Cacique.</li>
+            <li><strong>Anacaona:</strong> "Flor de Oro", símbolo de belleza, paz y arte.</li>
+            <li><strong>Agüeybaná:</strong> "El Gran Cacique", símbolo de mando y sol del centro.</li>
+        </ul>
+    </section>
+
+    <section id="boveda" class="page">
+        <div id="login-boveda" class="password-box">
+            <h2>Acceso Restringido a la Bóveda</h2>
+            <p>Ingresa la palabra de poder (Password) para visualizar el contenido:</p>
+            <input type="password" id="pass-boveda" placeholder="Palabra de poder...">
+            <button class="btn-submit" onclick="checkBoveda()">Entrar</button>
+            <p id="error-boveda" style="color:red; display:none;">Palabra incorrecta. Los Cemíes te niegan el paso.</p>
+        </div>
+
+        <div id="content-boveda" style="display:none;">
+            <h2>La Bóveda (Guía de Navegación)</h2>
+            <ul>
+                <li><strong>Parada 1: RICO PAN BAKERY 2 (Palmer, Río Grande)</strong> <a href="https://maps.app.goo.gl/198S5Nj7GLL6oU53A" target="_blank">[📍 GPS]</a></li>
+                <li><strong>Parada 2: Playa Los Machos, Ceiba.</strong> <a href="https://maps.app.goo.gl/tsdLthiZpy4XnPdcA" target="_blank">[📍 GPS]</a>
+                    <ul>
+                        <li>Tiempo de Trayecto: 32 minutos aprox. (24.4 km) por la PR-3 Este.</li>
+                        <li>Estacionamiento: Carretera de arena que bordea la costa. Estacionarse directamente frente a la playa o cerca de los bohíos.</li>
+                    </ul>
+                </li>
+                <li><strong>Parada 3: Broadway Gastro Bar, Fajardo.</strong> <a href="https://maps.app.goo.gl/ossfGS31HX5SNEpE8" target="_blank">[📍 GPS]</a>
+                    <ul>
+                        <li>Logística: 18 a 22 minutos (13 km) desde Playa Los Machos.</li>
+                        <li>Dirección: Calle Garrido Morales #5, Fajardo.</li>
+                        <li>Teléfono: +1 787-604-3331.</li>
+                        <li>Horario (Jueves): 4:00 PM – 11:00 PM.</li>
+                        <li>Detalle: Famosos por cócteles teatrales como "Phantom of the Opera" y aperitivos como Chistabolas. Mural de luces de neón ideal para fotos.</li>
+                    </ul>
+                </li>
+                <li><strong>OBJETIVO 4: Villas del Mar, Loiza</strong> <a href="https://maps.app.goo.gl/tGoJVgGQjUTtqNbe" target="_blank">[📍 GPS]</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="admin" class="page">
+        <div id="login-admin" class="password-box">
+            <h2>Panel del Oráculo (Admin)</h2>
+            <input type="password" id="pass-admin" placeholder="Contraseña de la Cacica...">
+            <button class="btn-submit" onclick="checkAdmin()">Entrar</button>
+            <p id="error-admin" style="color:red; display:none;">Acceso denegado.</p>
+        </div>
+
+        <div id="content-admin" style="display:none;" class="admin-panel">
+            <h2>Control Maestro de la Gesta</h2>
+            
+            <div id="countdown-container">
+                <h3>⏳ Tiempo hasta el Despertar de Guahayona:</h3>
+                <div id="countdown">Calculando...</div>
             </div>
 
-            <div id="sol2" class="card" style="display:none;">
-                <span class="leyenda-header">Leyenda: La Furia de Guabancex</span>
-                <h2>SOL 2: Viernes Santo 3 de abril 🔥</h2>
-                <p class="cita">"La fuerza de un hombre reside en su carácter..." — Herman Hesse</p>
+            <h3>Asignar Puntos (Desbloquea Agenda):</h3>
+            <button onclick="addPoints(40)">+ Completar Jueves Parada 1 (40 pts)</button>
+            <button onclick="addPoints(65)">+ Completar Jueves Parada 2 (65 pts)</button>
+            <button onclick="addPoints(80)">+ Completar Jueves Parada 3 (80 pts)</button>
+            <button onclick="addPoints(65)">+ Completar Jueves Parada 4 (65 pts)</button>
+            <button onclick="addPoints(300)">+ Completar Viernes (300 pts)</button>
+            <button onclick="addPoints(450)">+ Completar Sábado (450 pts)</button>
 
-                <div class="parada-box">
-                    <h4>📍 Parada 1: El Charco Sagrado</h4>
-                    <p><strong>Oráculo:</strong> "Agua fría. Las piedras tienen voces grabadas por nuestros abuelos."</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Entra al agua fría y trae una piedra redonda del fondo para tu Guaca.</div>
-                </div>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 2: Costa de Azúcar</h4>
-                    <p><strong>Oráculo:</strong> "Monta tu Burén (BBQ) donde antes salía el azúcar hacia el mundo."</p>
-                    <p><strong>Trivia (50 pts):</strong> ¿De qué planta alta y dulce vivía este pueblo (Yabucoa)?</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Montar el campamento de playa (sillas y equipo) tú solo en tiempo récord.</div>
-                </div>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 3: El Mirador</h4>
-                    <p><strong>Oráculo:</strong> "Sube a la montaña antes de que el Sol se despida. Mira al horizonte."</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Señala los 4 puntos cardinales usando solo la posición del sol.</div>
-                </div>
-                <button id="btn-sol2" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(2, 250)">Validar Viernes</button>
-            </div>
-
-            <div id="sol3" class="card" style="display:none;">
-                <span class="leyenda-header">Leyenda: Ruta de la Abundancia</span>
-                <h2>SOL 3: Sábado de Gloria 4 de abril 🌽</h2>
-                <p class="cita">"El amor no se mide por el tiempo..." — Anónimo</p>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 1: Los Enchumbaos</h4>
-                    <p><strong>Oráculo:</strong> "Busca la estatua del pescador. Pueblo de los Enchumbaos."</p>
-                    <p><strong>Trivia (50 pts):</strong> ¿Por qué le dicen así a la gente de Naguabo?</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Traer un tesoro del mar (concha/piedra) de la orilla en menos de 60 seg.</div>
-                </div>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 2: Los Búnkers</h4>
-                    <p><strong>Oráculo:</strong> "Búnkers de cemento donde los soldados se escondían en la 2da Guerra Mundial."</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Realiza 15 'push-ups' de guerrero frente a la estructura.</div>
-                </div>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 3: El Horizonte</h4>
-                    <p><strong>Oráculo:</strong> "¿Sobre qué tipo de formación estamos comiendo? (Risco/Acantilado)."</p>
-                </div>
-                <button id="btn-sol3" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(3, 250)">Validar Sábado</button>
-            </div>
-
-            <div id="sol4" class="card" style="display:none;">
-                <span class="leyenda-header">Leyenda: El Areyto Final</span>
-                <h2>SOL 4: Domingo de Resurrección 5 de abril 🥁</h2>
-                <p class="cita">"Vivir no es solo existir..." — Séneca</p>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 1: La Cueva</h4>
-                    <p><strong>Oráculo:</strong> "Refugio de piedra donde obreras aladas hacen oro dulce."</p>
-                    <div class="ofrenda-label">🌿 <strong>Ofrenda:</strong> Realiza 15 sentadillas frente a la Ceiba sagrada.</div>
-                </div>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 2: Las Picúas</h4>
-                    <p><strong>Oráculo:</strong> "Costa que tiene nombre de pez con dientes largos."</p>
-                    <p><strong>Trivia (50 pts):</strong> ¿Qué pez agresivo y flaco le da el nombre a esta playa?</p>
-                </div>
-
-                <div class="parada-box">
-                    <h4>📍 Parada 3: Dos Tiempos</h4>
-                    <p><strong>Oráculo:</strong> "¿Sobre qué se cocina el casabe? (R: El Burén)."</p>
-                </div>
-                <button id="btn-sol4" class="btn-mision" style="margin-top:20px;" onclick="ganarPuntos(4, 250)">¡Finalizar Misión!</button>
-            </div>
-        </section>
-
-        <section id="lore">
-            <div class="card">
-                <h2>La Leyenda de tu Emblema 🗿</h2>
-                <p><strong>EL ARCO:</strong> Tu nombre tallado como líder. | <strong>LA FUSIÓN:</strong> Sangre de dos islas. | <strong>LA ROSA:</strong> Tu raíz de Quisqueya. | <strong>EL COQUÍ:</strong> La fuerza de Borikén. | <strong>45 ESPIRALES:</strong> Energía infinita.</p>
-            </div>
-            <div class="card">
-                <h2>Sabiduría Ancestral (Glosario) 🌿</h2>
-                <p><strong>AREYTO:</strong> Fiesta sagrada. | <strong>BURÉN:</strong> Piedra de cocinar. | <strong>CEMÍ:</strong> Tótem protector. | <strong>GUACA:</strong> Tu guía (Layra). | <strong>YOCAHÚ:</strong> Espíritu Creador.</p>
-            </div>
-        </section>
-
-        <section id="admin-panel" style="display: none;">
-            <div class="card" style="border: 3px solid #b8860b; background-color: #fffdf0;">
-                <h2 style="color: #b8860b; text-align: center;">📜 GUÍA MAESTRA DE LA GUACA</h2>
-                
-                <div style="background: #002d62; color: white; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffcc00;">
-                    <h3 style="color: #ffcc00; margin-top: 0; text-align: center;">🗝️ TRIBUTOS REALES (REGALOS)</h3>
-                    <p><strong>I. Ritual del Rey:</strong> Masaje + Facial + Manicura/Pedicura.</p>
-                    <p><strong>II. Borrón y Cuenta Nueva:</strong> Gestión administrativa resuelta por la Guaca.</p>
-                </div>
-
-                <div style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left:5px solid #ce1126;">
-                    <h3>📅 JUEVES (Este)</h3>
-                    <p>09:25 - Panadería Jireh (R: El Dedal) | 10:15 - Playa Los Machos (R: Roosevelt Roads) | 01:00 - Broadway (R: Caldo) | 04:00 - La Estación (R: Esso).</p>
-                </div>
-                <div style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left:5px solid #002d62;">
-                    <h3>📅 VIERNES (Sureste)</h3>
-                    <p>10:35 - Charco El Hippie (R: Petroglifos) | 12:30 - Playa Guayanés (R: Caña) | 04:30 - Mirador Carr. 901.</p>
-                </div>
-                <div style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left:5px solid #ce1126;">
-                    <h3>📅 SÁBADO (Abundancia)</h3>
-                    <p>09:50 - Malecón Naguabo (R: Lluvia Yunque) | 11:30 - Humacao (R: 2da Guerra) | 02:00 - Nuevo Horizonte (R: Acantilado).</p>
-                </div>
-                <div style="background:white; padding:15px; border-radius:10px; border-left:5px solid #002d62;">
-                    <h3>📅 DOMINGO (Areyto)</h3>
-                    <p>10:35 - Cueva María de la Cruz (R: Abejas) | 12:00 - Las Picúas (R: Picúa) | 04:30 - Dos Tiempos (R: El Burén).</p>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
+            <button class="btn-reset" onclick="resetGesta()">⚠️ RESETEAR GESTA (Puntos a 0)</button>
+        </div>
+    </section>
+</main>
 
 <script>
-    const TARGET = new Date("April 2, 2026 00:00:00").getTime();
-    function countdown() {
-        const diff = TARGET - new Date().getTime();
-        if (diff <= 0) { showMain(); return; }
-        document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24)).toString().padStart(2,'0');
-        document.getElementById("hours").innerText = Math.floor((diff % (1000*60*60*24))/(1000*60*60)).toString().padStart(2,'0');
-        document.getElementById("mins").innerText = Math.floor((diff % (1000*60*60))/(1000*60)).toString().padStart(2,'0');
-        document.getElementById("secs").innerText = Math.floor((diff % (1000*60))/1000).toString().padStart(2,'0');
+    // --- NAVEGACIÓN ---
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(pageId).classList.add('active');
+        document.getElementById('nav-' + pageId).classList.add('active');
     }
-    function accesoGuaca() { if(prompt("Llave:") === "guaca45") showMain(); }
-    function showMain() {
-        document.getElementById("countdown-screen").style.display = "none";
-        document.getElementById("main-mission-container").style.display = "block";
-        window.scrollTo(0,0);
-        updateUI();
-    }
-    setInterval(countdown, 1000);
 
-    let pts = parseInt(localStorage.getItem("pts_v40")) || 0;
-    let lvl = parseInt(localStorage.getItem("lvl_v40")) || 1;
+    // --- LÓGICA DE PUNTOS Y REVELACIÓN DE AGENDA ---
+    let totalPuntos = parseInt(localStorage.getItem('caciquePuntos')) || 0;
 
     function updateUI() {
-        document.getElementById("scoreDisplay").innerText = pts;
-        for(let i=2; i<=4; i++) {
-            if(lvl >= i) document.getElementById("sol"+i).style.display = "block";
-            if(lvl > i-1) document.getElementById("btn-sol"+(i-1)).style.display = "none";
+        // Actualizar barra y texto de progreso
+        document.getElementById('progressBar').value = totalPuntos;
+        document.getElementById('puntosTexto').innerText = totalPuntos + " / 1000 Puntos Completados";
+
+        // Lógica para desbloquear (revelar) las misiones de la agenda según los puntos
+        // Parada 1 siempre visible.
+        if(totalPuntos >= 40) document.getElementById('jueves-p2').classList.remove('locked');
+        else document.getElementById('jueves-p2').classList.add('locked');
+
+        if(totalPuntos >= 105) document.getElementById('jueves-p3').classList.remove('locked');
+        else document.getElementById('jueves-p3').classList.add('locked');
+
+        if(totalPuntos >= 185) document.getElementById('jueves-p4').classList.remove('locked');
+        else document.getElementById('jueves-p4').classList.add('locked');
+
+        if(totalPuntos >= 250) document.getElementById('viernes').classList.remove('locked');
+        else document.getElementById('viernes').classList.add('locked');
+
+        if(totalPuntos >= 550) document.getElementById('sabado').classList.remove('locked');
+        else document.getElementById('sabado').classList.add('locked');
+
+        if(totalPuntos >= 1000) document.getElementById('decreto-final').classList.remove('locked');
+        else document.getElementById('decreto-final').classList.add('locked');
+    }
+
+    // --- FUNCIONES DEL ADMIN ---
+    function addPoints(pts) {
+        totalPuntos += pts;
+        if(totalPuntos > 1000) totalPuntos = 1000;
+        localStorage.setItem('caciquePuntos', totalPuntos);
+        updateUI();
+        alert("Puntos validados. Total actual: " + totalPuntos);
+    }
+
+    function resetGesta() {
+        if(confirm("¿Segura que quieres borrar todo el progreso y volver a 0?")) {
+            totalPuntos = 0;
+            localStorage.setItem('caciquePuntos', totalPuntos);
+            updateUI();
         }
     }
 
-    function ganarPuntos(s, p) {
-        if(confirm("¿Validado por la Guaca?")) {
-            pts += p; lvl = s + 1;
-            localStorage.setItem("pts_v40", pts); localStorage.setItem("lvl_v40", lvl);
-            updateUI(); alert("¡Misión cumplida!");
+    // --- CONTRASEÑAS (Cámbialas aquí si lo deseas) ---
+    const PASSWORD_BOVEDA = "cacique45"; // Contraseña para Francisco
+    const PASSWORD_ADMIN = "oraculo2026"; // Contraseña para ti
+
+    function checkBoveda() {
+        if(document.getElementById('pass-boveda').value === PASSWORD_BOVEDA) {
+            document.getElementById('login-boveda').style.display = 'none';
+            document.getElementById('content-boveda').style.display = 'block';
+        } else {
+            document.getElementById('error-boveda').style.display = 'block';
         }
     }
 
-    function abrirBovedaSecreta() {
-        if(prompt("Clave:").toLowerCase() === "yocahu") {
-            document.getElementById("admin-panel").style.display = "block";
-            document.getElementById("admin-panel").scrollIntoView({ behavior: 'smooth' });
+    function checkAdmin() {
+        if(document.getElementById('pass-admin').value === PASSWORD_ADMIN) {
+            document.getElementById('login-admin').style.display = 'none';
+            document.getElementById('content-admin').style.display = 'block';
+        } else {
+            document.getElementById('error-admin').style.display = 'block';
         }
     }
-    window.onload = countdown;
+
+    // --- COUNTDOWN (Jueves 2 de Abril 2026) ---
+    const targetDate = new Date("April 2, 2026 08:00:00").getTime();
+    
+    setInterval(function() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        
+        if (distance < 0) {
+            document.getElementById("countdown").innerHTML = "¡LA GESTA HA COMENZADO!";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    }, 1000);
+
+    // Inicializar la interfaz al cargar la página
+    updateUI();
+
 </script>
 </body>
 </html>
