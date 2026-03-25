@@ -4,30 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gesta de los 45 Soles - Cacique Francisco</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@600;700&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --primary-blue: #005697;
             --primary-red: #ED1C24;
             --taino-gold: #D4AF37;
-            --bg-sand: #F4F1EA; 
+            --taino-dark: #2C3539;
+            --bg-sand: #F4F1EA;
             --card-bg: #FFFFFF;
-            --text-dark: #2C3539; 
-            --locked-overlay: rgba(255, 255, 255, 0.7);
+            --text-dark: #2C3539;
         }
-        
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Philosopher', sans-serif; 
+            font-family: 'Philosopher', sans-serif;
             background-color: var(--bg-sand);
             color: var(--text-dark);
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             line-height: 1.7;
-            position: relative;
             font-size: 17px;
         }
 
@@ -35,147 +34,477 @@
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('fondo.jpg'); 
-            background-size: 400px; 
+            background-image: url('fondo.jpg');
+            background-size: 400px;
             background-repeat: repeat;
-            opacity: 0.10; 
+            opacity: 0.10;
             z-index: -1;
         }
 
+        /* ══════════════════════════════════════
+           VIDEO SPLASH SCREEN
+        ══════════════════════════════════════ */
+        #video-splash {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            transition: opacity 0.8s ease;
+        }
+        #video-splash.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #intro-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .splash-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+        }
+        .splash-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 40px 20px 60px;
+            width: 100%;
+        }
+        .splash-title {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--taino-gold);
+            font-size: clamp(20px, 5vw, 36px);
+            text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .splash-subtitle {
+            font-family: 'Philosopher', sans-serif;
+            color: rgba(255,255,255,0.85);
+            font-size: clamp(14px, 3vw, 18px);
+            margin-bottom: 35px;
+            font-style: italic;
+        }
+        .btn-enter {
+            font-family: 'Cinzel', serif;
+            background: var(--taino-gold);
+            color: var(--taino-dark);
+            border: none;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(212,175,55,0.5);
+        }
+        .btn-enter:hover {
+            background: #fff;
+            color: var(--taino-dark);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(212,175,55,0.8);
+        }
+        .btn-skip {
+            display: block;
+            margin-top: 16px;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Philosopher', sans-serif;
+            transition: color 0.2s;
+        }
+        .btn-skip:hover { color: rgba(255,255,255,0.9); }
+
+        /* ══════════════════════════════════════
+           HEADER & NAV
+        ══════════════════════════════════════ */
         header.banner {
             width: 100%;
             max-width: 1000px;
             margin: 0 auto;
-            position: relative;
         }
         header.banner img {
-            width: 100%;
-            height: auto; 
+            width: 100%; height: auto;
             display: block;
-            border-radius: 0 0 20px 20px; 
+            border-radius: 0 0 20px 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         nav {
-            max-width: 900px;
-            margin: 20px auto;
+            background: var(--taino-dark);
+            max-width: 1000px;
+            margin: 0 auto 20px;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
-            padding: 0 15px;
+            gap: 8px;
+            padding: 14px 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 6px 20px rgba(44,53,57,0.3);
         }
         nav button {
-            background: var(--card-bg);
-            border: none;
-            color: var(--primary-blue);
-            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid rgba(212,175,55,0.35);
+            color: rgba(212,175,55,0.75);
+            padding: 10px 22px;
             cursor: pointer;
-            border-radius: 30px; 
+            border-radius: 30px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 15px;
             font-family: 'Philosopher', sans-serif;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
         }
         nav button:hover, nav button.active {
-            background: var(--primary-blue);
-            color: var(--card-bg);
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 15px rgba(0, 86, 151, 0.3);
+            background: var(--taino-gold);
+            color: var(--taino-dark);
+            border-color: var(--taino-gold);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(212,175,55,0.4);
         }
 
         @media (max-width: 600px) {
             nav {
-                flex-wrap: nowrap; 
-                overflow-x: auto;  
+                flex-wrap: nowrap;
+                overflow-x: auto;
                 justify-content: flex-start;
-                padding-bottom: 10px;
+                padding-bottom: 14px;
                 -webkit-overflow-scrolling: touch;
+                border-radius: 0;
             }
-            nav::-webkit-scrollbar { display: none; } 
+            nav::-webkit-scrollbar { display: none; }
             nav { -ms-overflow-style: none; scrollbar-width: none; }
-            nav button {
-                flex: 0 0 auto; 
-                white-space: nowrap;
-                padding: 10px 18px;
-                font-size: 15px;
-            }
+            nav button { flex: 0 0 auto; white-space: nowrap; padding: 9px 16px; font-size: 14px; }
             .page { padding: 25px 20px; }
-            h1, h2 { font-size: 24px; margin-bottom: 20px; }
-            .galeria-grid { grid-template-columns: 1fr; } 
+            h1, h2 { font-size: 22px; margin-bottom: 20px; }
+            .galeria-grid { grid-template-columns: 1fr; }
+            .sol-timeline { flex-direction: column; gap: 10px; }
+            .sol-connector { display: none; }
         }
 
-        main {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-        
-        .page { 
-            display: none; 
-            background: rgba(255, 255, 255, 0.95); 
+        /* ══════════════════════════════════════
+           MAIN LAYOUT
+        ══════════════════════════════════════ */
+        main { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+
+        .page {
+            display: none;
+            background: rgba(255,255,255,0.96);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             margin-bottom: 40px;
         }
         .page.active { display: block; }
 
         h1, h2 { font-family: 'Cinzel Decorative', serif; color: var(--primary-blue); text-align: center; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
         h3, h4 { font-family: 'Cinzel', serif; color: var(--primary-red); margin-top: 30px; font-weight: 700; }
-        
+
         .quote { font-style: italic; color: var(--primary-blue); font-size: 1.1em; text-align: center; margin: 30px 0; font-weight: 700; }
         strong { color: var(--text-dark); font-weight: 700; }
-        
-        .progress-container { text-align: center; margin-bottom: 40px; padding: 20px; background: rgba(249, 248, 246, 0.9); border-radius: 15px; }
-        progress { width: 100%; height: 18px; appearance: none; border-radius: 10px; overflow: hidden; margin-top: 10px; }
-        progress::-webkit-progress-bar { background-color: #E0E0E0; }
-        progress::-webkit-progress-value { background-color: var(--primary-blue); }
-        #puntosTexto { font-size: 22px; color: var(--primary-red); display: block; margin-top: 10px; font-weight: 700;}
 
-        #countdown-container { background: #FFF5F5; padding: 20px; border-radius: 15px; text-align: center; border: 2px solid var(--primary-red); margin-bottom: 30px; }
-        #countdown { font-family: 'Philosopher', sans-serif; font-size: 35px; font-weight: bold; color: var(--primary-red); margin-top: 10px; }
+        /* ══════════════════════════════════════
+           COUNTDOWN — DARK/GOLD
+        ══════════════════════════════════════ */
+        #countdown-container {
+            background: var(--taino-dark);
+            padding: 22px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(44,53,57,0.25);
+        }
+        #countdown-container h3 {
+            color: rgba(212,175,55,0.8);
+            margin-top: 0;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+        #countdown {
+            font-family: 'Cinzel', serif;
+            font-size: 38px;
+            font-weight: bold;
+            color: var(--taino-gold);
+            margin-top: 6px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212,175,55,0.4);
+        }
 
+        /* ══════════════════════════════════════
+           PROGRESS BAR — WITH MILESTONES
+        ══════════════════════════════════════ */
+        .progress-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 20px 12px;
+            background: rgba(44,53,57,0.04);
+            border-radius: 15px;
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+        .progress-container h3 { margin-top: 0; }
+
+        .progress-bar-wrap {
+            position: relative;
+            margin: 16px 0 6px;
+        }
+        .progress-track {
+            width: 100%;
+            height: 14px;
+            background: #e0ddd5;
+            border-radius: 10px;
+            overflow: visible;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--taino-gold));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.6s ease;
+            position: relative;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0;
+            height: 100%; width: 30px;
+            background: rgba(255,255,255,0.35);
+            border-radius: 0 10px 10px 0;
+        }
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 0;
+            margin-top: 6px;
+        }
+        .milestone-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            color: #999;
+            gap: 2px;
+            flex: 1;
+        }
+        .milestone-item span:first-child { font-size: 16px; line-height: 1; }
+        .milestone-item.reached { color: var(--taino-gold); }
+        #puntosTexto {
+            font-size: 20px;
+            color: var(--taino-dark);
+            display: block;
+            margin-top: 12px;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+        }
+        #puntosTexto span { color: var(--taino-gold); }
+
+        /* ══════════════════════════════════════
+           TIMELINE 3 SOLES
+        ══════════════════════════════════════ */
+        .sol-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin: 0 0 35px;
+            padding: 20px;
+            background: var(--taino-dark);
+            border-radius: 15px;
+        }
+        .sol-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            max-width: 180px;
+        }
+        .sol-dot {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            border: 2px solid rgba(212,175,55,0.3);
+            background: rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+        .sol-dot.done { background: var(--primary-blue); border-color: var(--primary-blue); }
+        .sol-dot.active { background: var(--taino-gold); border-color: var(--taino-gold); box-shadow: 0 0 18px rgba(212,175,55,0.6); }
+        .sol-dot.locked { opacity: 0.4; }
+        .sol-info { text-align: center; }
+        .sol-name {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+        }
+        .sol-status {
+            font-size: 11px;
+            color: rgba(212,175,55,0.7);
+            display: block;
+            margin-top: 2px;
+        }
+        .sol-status.done { color: #5bc8f5; }
+        .sol-status.active { color: var(--taino-gold); font-weight: bold; }
+        .sol-status.locked { color: rgba(255,255,255,0.3); }
+        .sol-connector {
+            flex: 1;
+            height: 2px;
+            background: rgba(212,175,55,0.2);
+            max-width: 60px;
+            margin-bottom: 20px;
+            transition: background 0.4s;
+        }
+        .sol-connector.filled { background: rgba(212,175,55,0.6); }
+
+        /* ══════════════════════════════════════
+           PARADA CARDS — GOLD HEADER
+        ══════════════════════════════════════ */
         .parada-wrapper { position: relative; margin-bottom: 30px; }
-        .parada { background: rgba(250, 249, 246, 0.9); padding: 30px; border-radius: 15px; border-left: 5px solid var(--taino-gold); }
-        .parada.locked { filter: blur(4px); opacity: 0.8; }
-        
-        .locked-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--locked-overlay); display: flex; justify-content: center; align-items: center; flex-direction: column; z-index: 10; border-radius: 15px; backdrop-filter: blur(2px); }
-        .locked-overlay .lock-icon { font-size: 40px; margin-bottom: 10px; }
-        .locked-overlay .lock-text { font-size: 20px; font-weight: bold; color: var(--primary-red); }
 
+        .parada {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            border: 1px solid rgba(212,175,55,0.2);
+            transition: filter 0.3s, opacity 0.3s;
+        }
+        .parada.locked { filter: blur(4px); opacity: 0.75; }
+
+        .parada-header {
+            background: var(--taino-gold);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .parada-header h3,
+        .parada-header h4 {
+            margin: 0 !important;
+            padding: 0 !important;
+            color: var(--taino-dark) !important;
+            font-size: 15px;
+            font-family: 'Cinzel', serif;
+        }
+        .parada-body { padding: 25px 28px; }
+        .parada-body h3,
+        .parada-body h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-red);
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .parada-body p { margin-bottom: 12px; }
+
+        /* ══════════════════════════════════════
+           LOCKED OVERLAY — DARK
+        ══════════════════════════════════════ */
+        .locked-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(30,35,38,0.88) 0%, rgba(20,25,28,0.95) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10;
+            border-radius: 15px;
+            gap: 12px;
+        }
+        .locked-overlay .lock-icon { font-size: 36px; opacity: 0.8; }
+        .locked-overlay .lock-badge {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--taino-dark);
+            background: var(--taino-gold);
+            padding: 7px 22px;
+            border-radius: 30px;
+            letter-spacing: 1px;
+        }
+        .locked-overlay .lock-pts {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            font-family: 'Philosopher', sans-serif;
+        }
+
+        /* ══════════════════════════════════════
+           UNLOCK ANIMATION
+        ══════════════════════════════════════ */
+        @keyframes unlockFlash {
+            0%   { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+            30%  { box-shadow: 0 0 30px 10px rgba(212,175,55,0.6); }
+            100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+        }
+        .just-unlocked { animation: unlockFlash 1s ease forwards; }
+
+        /* ══════════════════════════════════════
+           DECRETO FINAL
+        ══════════════════════════════════════ */
+        #decreto-final {
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+            transition: filter 0.3s, opacity 0.3s;
+        }
+        #decreto-final.locked { filter: blur(4px); opacity: 0.75; }
+        #decreto-final .parada-header { background: var(--primary-red); }
+        #decreto-final .parada-header h3 { color: #fff !important; }
+
+        /* ══════════════════════════════════════
+           GALERÍA
+        ══════════════════════════════════════ */
         .decada-container { margin-bottom: 50px; }
         .decada-title { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--taino-gold); padding-bottom: 10px; }
-        
         .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px; }
-        .galeria-grid .foto-card { background: #111; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; display: flex; flex-direction: column; cursor: pointer;}
+        .galeria-grid .foto-card { background: #111; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; display: flex; flex-direction: column; cursor: pointer; }
         .galeria-grid .foto-card:hover { transform: translateY(-5px); }
         .galeria-grid img { width: 100%; height: 350px; object-fit: contain; display: block; background: #222; }
-        .galeria-grid .foto-caption { padding: 15px; text-align: center; color: var(--taino-gold); font-weight: bold; font-size: 0.9em; background: var(--card-bg); margin-top: auto;}
+        .galeria-grid .foto-caption { padding: 15px; text-align: center; color: var(--taino-gold); font-weight: bold; font-size: 0.9em; background: var(--card-bg); margin-top: auto; }
 
-        .btn-drive { display: block; width: 100%; text-align: center; background: #0F9D58; color: white; padding: 15px; border-radius: 30px; font-weight: bold; font-size: 18px; text-decoration: none; margin: 20px 0; box-shadow: 0 4px 10px rgba(15, 157, 88, 0.3); transition: 0.3s;}
-        .btn-drive:hover { background: #0b7a44; transform: scale(1.02); color: white;}
+        /* ══════════════════════════════════════
+           BUTTONS & FORMS
+        ══════════════════════════════════════ */
+        .btn-drive { display: block; width: 100%; text-align: center; background: #0F9D58; color: white; padding: 15px; border-radius: 30px; font-weight: bold; font-size: 18px; text-decoration: none; margin: 20px 0; box-shadow: 0 4px 10px rgba(15,157,88,0.3); transition: 0.3s; }
+        .btn-drive:hover { background: #0b7a44; transform: scale(1.02); color: white; }
         .btn-maps { display: inline-block; background: var(--primary-blue); color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; text-decoration: none; font-size: 14px; margin-left: 10px; transition: 0.3s; }
-        .btn-maps:hover { background: var(--primary-red); color: white;}
-
-        .modal { display: none; position: fixed; z-index: 2000; padding-top: 50px; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(5px); }
-        .modal-content { margin: auto; display: block; max-width: 95%; max-height: 85vh; border-radius: 10px; object-fit: contain; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .close-modal { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .close-modal:hover { color: var(--primary-red); }
-
-        .password-box { text-align: center; margin: 20px 0; padding: 40px; background: rgba(250, 249, 246, 0.9); border-radius: 15px; border: 1px solid #ddd;}
-        input[type="password"] { font-family: 'Philosopher', sans-serif; padding: 15px; font-size: 16px; width: 80%; max-width: 300px; border: 1px solid #ccc; border-radius: 30px; margin-bottom: 20px; text-align: center; outline: none; }
-        input[type="password"]:focus { border-color: var(--primary-blue); }
+        .btn-maps:hover { background: var(--primary-red); color: white; }
         button.btn-submit { font-family: 'Philosopher', sans-serif; padding: 15px 40px; background: var(--primary-blue); color: white; border: none; font-size: 18px; cursor: pointer; border-radius: 30px; font-weight: bold; transition: 0.3s; }
         button.btn-submit:hover { background: var(--primary-red); }
         .error-msg { color: var(--primary-red); font-weight: bold; display: none; margin-top: 15px; }
 
-        .admin-panel { background: rgba(255, 245, 245, 0.95); padding: 30px; border-radius: 15px; }
+        .password-box { text-align: center; margin: 20px 0; padding: 40px; background: rgba(250,249,246,0.9); border-radius: 15px; border: 1px solid #ddd; }
+        input[type="password"] { font-family: 'Philosopher', sans-serif; padding: 15px; font-size: 16px; width: 80%; max-width: 300px; border: 1px solid #ccc; border-radius: 30px; margin-bottom: 20px; text-align: center; outline: none; }
+        input[type="password"]:focus { border-color: var(--primary-blue); }
+
+        .admin-panel { background: rgba(255,245,245,0.95); padding: 30px; border-radius: 15px; }
         .admin-controls button { font-family: 'Philosopher', sans-serif; margin: 5px; padding: 10px 20px; background: white; color: var(--primary-blue); border: 1px solid var(--primary-blue); cursor: pointer; border-radius: 20px; transition: 0.3s; font-weight: bold; }
         .admin-controls button:hover { background: var(--primary-blue); color: white; }
-        .btn-reset { background: var(--primary-red) !important; color: white !important; width: 100%; margin-top: 30px !important; font-size: 18px; padding: 15px !important; }
-        
+        .btn-reset { background: var(--primary-red) !important; color: white !important; width: 100%; margin-top: 30px !important; font-size: 18px; padding: 15px !important; border-radius: 20px; cursor: pointer; font-family: 'Philosopher', sans-serif; font-weight: bold; border: none; }
+
+        /* ══════════════════════════════════════
+           MODAL
+        ══════════════════════════════════════ */
+        .modal { display: none; position: fixed; z-index: 2000; padding-top: 50px; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(5px); }
+        .modal-content { margin: auto; display: block; max-width: 95%; max-height: 85vh; border-radius: 10px; object-fit: contain; }
+        .close-modal { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .close-modal:hover { color: var(--primary-red); }
+
+        /* ══════════════════════════════════════
+           LISTS
+        ══════════════════════════════════════ */
         ul { list-style-type: none; padding-left: 0; }
         ul li { position: relative; padding-left: 20px; margin-bottom: 10px; }
         ul li::before { content: "•"; color: var(--taino-gold); position: absolute; left: 0; font-size: 1.5em; line-height: 1; top: -2px; }
@@ -183,15 +512,40 @@
 </head>
 <body>
 
-<div id="imageModal" class="modal">
-  <span class="close-modal" onclick="closeModal()">×</span>
-  <img class="modal-content" id="img01">
+<!-- ════════════════════════════════════════
+     VIDEO SPLASH SCREEN
+════════════════════════════════════════ -->
+<div id="video-splash">
+    <video id="intro-video" autoplay muted playsinline>
+        <source src="Openning_Mision_45.mp4" type="video/mp4">
+    </video>
+    <div class="splash-overlay"></div>
+    <div class="splash-content">
+        <div class="splash-title">Gesta de los 45 Soles</div>
+        <div class="splash-subtitle">Cacique Francisco · Borikén te espera</div>
+        <button class="btn-enter" onclick="enterApp()">⚔ Comenzar la Gesta ⚔</button>
+        <button class="btn-skip" onclick="enterApp()">Saltar intro</button>
+    </div>
 </div>
 
+<!-- ════════════════════════════════════════
+     MODAL GALERÍA
+════════════════════════════════════════ -->
+<div id="imageModal" class="modal">
+    <span class="close-modal" onclick="closeModal()">×</span>
+    <img class="modal-content" id="img01">
+</div>
+
+<!-- ════════════════════════════════════════
+     HEADER
+════════════════════════════════════════ -->
 <header class="banner">
     <img src="header.jpg" alt="Misión 45 - Cacique de Quisqueya y Borikén">
 </header>
 
+<!-- ════════════════════════════════════════
+     NAV — DARK THEME
+════════════════════════════════════════ -->
 <nav>
     <button onclick="showPage('inicio')" class="active" id="nav-inicio">Inicio</button>
     <button onclick="showPage('agenda')" id="nav-agenda">Mi Agenda</button>
@@ -201,18 +555,41 @@
 </nav>
 
 <main>
+
+    <!-- ════════ INICIO ════════ -->
     <section id="inicio" class="page active">
         <h2>El Ciclo de los 3 Soles</h2>
-        
+
         <div id="countdown-container">
-            <h3>⏳ Tiempo hasta el Despertar de Guahayona:</h3>
+            <h3>⏳ Tiempo hasta el Despertar de Guahayona</h3>
             <div id="countdown">Calculando...</div>
         </div>
-        
+
         <div class="progress-container">
             <h3>Progreso de la Gesta</h3>
-            <progress id="progressBar" value="0" max="1000"></progress>
-            <strong id="puntosTexto">0 / 1000 Puntos Completados</strong>
+            <div class="progress-bar-wrap">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+            </div>
+            <div class="progress-milestones">
+                <div class="milestone-item" id="ms-jp1">
+                    <span>☀️</span><span>J·P1<br>40pts</span>
+                </div>
+                <div class="milestone-item" id="ms-jp2">
+                    <span>☀️</span><span>J·P2<br>105pts</span>
+                </div>
+                <div class="milestone-item" id="ms-vie">
+                    <span>🌿</span><span>Vie<br>250pts</span>
+                </div>
+                <div class="milestone-item" id="ms-sab">
+                    <span>🔥</span><span>Sáb<br>550pts</span>
+                </div>
+                <div class="milestone-item" id="ms-fin">
+                    <span>👑</span><span>Final<br>1000pts</span>
+                </div>
+            </div>
+            <strong id="puntosTexto"><span id="ptsCurrent">0</span> / 1000 Puntos</strong>
         </div>
 
         <h3>Introducción de la Gesta:</h3>
@@ -227,183 +604,246 @@
             <li><strong>El Reto de Sabiduría (Prueba):</strong> Es el desafío que debes resolver en el sitio. Observa, pregunta y descubre los secretos del lugar para ganar tus Puntos de Valor.</li>
             <li><strong>El Registro del Guerrero (Documentación):</strong> Para desbloquear el siguiente paso, deberás dejar constancia de tu hazaña con una foto o video y cumplir la Ofrenda de acción. Una vez documentado, la Guaca validará tu progreso.</li>
         </ul>
-        
-        <div style="text-align: center; margin-top: 40px;">
+
+        <div style="text-align:center; margin-top:40px;">
             <button class="btn-submit" onclick="showPage('agenda')">Comenzar Gesta</button>
         </div>
     </section>
 
+    <!-- ════════ AGENDA ════════ -->
     <section id="agenda" class="page">
         <h2>Agenda de la Gesta</h2>
-        
+
+        <!-- TIMELINE 3 SOLES -->
+        <div class="sol-timeline">
+            <div class="sol-item">
+                <div class="sol-dot locked" id="tl-dot-jueves">☀️</div>
+                <div class="sol-info">
+                    <div class="sol-name">Sol 1 · Jueves</div>
+                    <span class="sol-status locked" id="tl-status-jueves">Bloqueado</span>
+                </div>
+            </div>
+            <div class="sol-connector" id="tl-conn-1"></div>
+            <div class="sol-item">
+                <div class="sol-dot locked" id="tl-dot-viernes">🌿</div>
+                <div class="sol-info">
+                    <div class="sol-name">Sol 2 · Viernes</div>
+                    <span class="sol-status locked" id="tl-status-viernes">Bloqueado</span>
+                </div>
+            </div>
+            <div class="sol-connector" id="tl-conn-2"></div>
+            <div class="sol-item">
+                <div class="sol-dot locked" id="tl-dot-sabado">🔥</div>
+                <div class="sol-info">
+                    <div class="sol-name">Sol 3 · Sábado</div>
+                    <span class="sol-status locked" id="tl-status-sabado">Bloqueado</span>
+                </div>
+            </div>
+        </div>
+
         <h3>☀️ SOL 1 (Jueves 2 de Abril): El Despertar de Guahayona</h3>
         <p><strong>La Bendición de Atabey:</strong><br>"Como la Diosa Madre y señora de las aguas dulces, Atabey bendice hoy tu inicio. Todo gran imperio comienza con un cimiento sólido, y hoy regresas al origen para reconocer tu fuerza. Que las aguas de Borikén limpien tu camino y el sol de la mañana ilumine tu rastro."</p>
-        
         <p class="quote">"Quererse a uno mismo es el principio de una historia de amor que dura toda la vida." — Oscar Wilde.</p>
         <p>"Baby, ¡Feliz cumpleaños! A tus 45 años, has construido una versión de ti que admiro profundamente. El amor propio no es egoísmo, es saber cuidar el templo que eres para poder entregarte a los demás. Que este nuevo año de vida sea para seguir priorizando tu paz, tus sueños y esa fuerza interna que te hace único. Celebro tu resiliencia y el gran hombre que eres hoy. Eres el Cacique de tu propio destino."</p>
-
         <p><strong>(Guía Espiritual) La Leyenda del Día: Guahayona, el Guerrero-Navegante Rebelde</strong><br>
         Hoy caminas bajo la sombra de Guahayona, el cacique que rompió el maleficio de la cueva y se atrevió a llevar a su pueblo más allá del mundo conocido, abandonando lo familiar para explorar lo desconocido. Como el Venus matutino, hoy íntegras tus opuestos: la fuerza del guerrero y la sabiduría del navegante. Eres el símbolo vivo de la resiliencia; aquel que muere y renace con más poder en cada ciclo.</p>
 
+        <!-- JUEVES P1 -->
         <div class="parada-wrapper">
             <div id="jueves-p1" class="parada">
-                <h4>📍 Parada 1: Ubicación Sagrada</h4>
-                <p><strong>Umbral del Yucayeque:</strong> Como Guahayona en busca de la esencia de la tierra, has cruzado el portal hacia tu primer gran batey. Atabey te recibe en este rincón de Palmer, donde el aroma a grano tostado y pan recién horneado confirma que la travesía de la Guaca ha comenzado bajo su protección.</p>
-                <p><strong>La Señal:</strong> Busca el tesoro blanco que nace de la palma y se adorna con los frutos de la tierra lejana. No es pan, pero alimenta el alma; es una joya de nieve que cruje al morder y guarda el dulzor de los ancestros.</p>
-                <p><strong>Reto de Sabiduría (La Alquimia del Manjar):</strong> La Ceremonia del Gusto (20 pts): Debes reclamar y degustar el Dulce de la Casa. No es un simple bocado; es una prueba de tus sentidos. Tu lengua debe ser el instrumento tras el primer bocado, deberás identificar los elementos ocultos que componen este postre.</p>
-                <p><strong>El Registro (10 pts):</strong> Captura del Dulce de la Casa antes de que su rastro desaparezca de la tierra junto a tu primer café de la Odisea.</p>
-                <p><strong>Ofrenda (10 pts):</strong> Beso de impacto para que el Oráculo abra los senderos hacia la montaña sagrada.</p>
-                <p><em>Subtotal Parada 1: 40 pts</em></p>
+                <div class="parada-header">
+                    <h4>📍 Parada 1: Ubicación Sagrada — Palmer</h4>
+                </div>
+                <div class="parada-body">
+                    <p><strong>Umbral del Yucayeque:</strong> Como Guahayona en busca de la esencia de la tierra, has cruzado el portal hacia tu primer gran batey. Atabey te recibe en este rincón de Palmer, donde el aroma a grano tostado y pan recién horneado confirma que la travesía de la Guaca ha comenzado bajo su protección.</p>
+                    <p><strong>La Señal:</strong> Busca el tesoro blanco que nace de la palma y se adorna con los frutos de la tierra lejana. No es pan, pero alimenta el alma; es una joya de nieve que cruje al morder y guarda el dulzor de los ancestros.</p>
+                    <p><strong>Reto de Sabiduría (La Alquimia del Manjar):</strong> La Ceremonia del Gusto (20 pts): Debes reclamar y degustar el Dulce de la Casa. No es un simple bocado; es una prueba de tus sentidos. Tu lengua debe ser el instrumento tras el primer bocado, deberás identificar los elementos ocultos que componen este postre.</p>
+                    <p><strong>El Registro (10 pts):</strong> Captura del Dulce de la Casa antes de que su rastro desaparezca de la tierra junto a tu primer café de la Odisea.</p>
+                    <p><strong>Ofrenda (10 pts):</strong> Beso de impacto para que el Oráculo abra los senderos hacia la montaña sagrada.</p>
+                    <p><em>Subtotal Parada 1: 40 pts</em></p>
+                </div>
             </div>
         </div>
 
+        <!-- JUEVES P2 -->
         <div class="parada-wrapper">
             <div id="jueves-p2" class="parada locked">
-                <h4>📍 Parada 2: Ubicación Sagrada</h4>
-                <p><strong>Umbral del Yucayeque:</strong> Has dejado atrás el aroma del pan para encontrarte con el abrazo de Karaya (la luna/el mar). En Ceiba, donde los vientos cuentan historias de Roosevelt Roads, la costa te espera para purificar el espíritu.</p>
-                <p><strong>La Señal:</strong> Busca el camino donde el metal de los carros descansa sobre la arena. No busques portones ni muros; el refugio es un bohío de madera que mira fijamente hacia donde nace el sol sobre las aguas.</p>
-                <p><strong>Reto de Sabiduría (10 pts):</strong> La Vigilancia del Guerrero: Al estacionarte, identifica cuántos bohíos (gazebos) de madera protegen la orilla en tu zona inmediata.</p>
-                <p><strong>El Secreto de la Arena (10 pts):</strong> Camina hacia la orilla y encuentra una piedra o caracol que haya sido "esculpido" por el mar. El Oráculo validará tu hallazgo si logras describir su forma única.</p>
-                <p><strong>El Registro:</strong> Foto de tu nombre "Cacique 45" escrito en la arena con uvas de playa (20 pts). El Sello de la Guaca: Reportar el número de bohíos contados (5 pts).</p>
-                <p><strong>Ofrenda:</strong> Cargar a la Guaca 20 pasos. (20 pts)</p>
-                <p><em>Subtotal Parada 2: 65 pts</em></p>
+                <div class="parada-header">
+                    <h4>📍 Parada 2: Ubicación Sagrada — Ceiba</h4>
+                </div>
+                <div class="parada-body">
+                    <p><strong>Umbral del Yucayeque:</strong> Has dejado atrás el aroma del pan para encontrarte con el abrazo de Karaya (la luna/el mar). En Ceiba, donde los vientos cuentan historias de Roosevelt Roads, la costa te espera para purificar el espíritu.</p>
+                    <p><strong>La Señal:</strong> Busca el camino donde el metal de los carros descansa sobre la arena. No busques portones ni muros; el refugio es un bohío de madera que mira fijamente hacia donde nace el sol sobre las aguas.</p>
+                    <p><strong>Reto de Sabiduría (10 pts):</strong> La Vigilancia del Guerrero: Al estacionarte, identifica cuántos bohíos (gazebos) de madera protegen la orilla en tu zona inmediata.</p>
+                    <p><strong>El Secreto de la Arena (10 pts):</strong> Camina hacia la orilla y encuentra una piedra o caracol que haya sido "esculpido" por el mar. El Oráculo validará tu hallazgo si logras describir su forma única.</p>
+                    <p><strong>El Registro:</strong> Foto de tu nombre "Cacique 45" escrito en la arena con uvas de playa (20 pts). El Sello de la Guaca: Reportar el número de bohíos contados (5 pts).</p>
+                    <p><strong>Ofrenda:</strong> Cargar a la Guaca 20 pasos. (20 pts)</p>
+                    <p><em>Subtotal Parada 2: 65 pts</em></p>
+                </div>
             </div>
             <div id="lock-jueves-p2" class="locked-overlay">
-                <span class="lock-icon">🔒</span><span class="lock-text">MISIÓN BLOQUEADA</span>
+                <span class="lock-icon">🔒</span>
+                <span class="lock-badge">Misión Bloqueada</span>
+                <span class="lock-pts">Requiere completar Parada 1</span>
             </div>
         </div>
 
+        <!-- JUEVES P3 -->
         <div class="parada-wrapper">
             <div id="jueves-p3" class="parada locked">
-                <h4>📍 Parada 3: Ubicación Sagrada</h4>
-                <p><strong>Umbral del Yucayeque:</strong> Has navegado las aguas de Ceiba y ahora, transformado en lucero de la tarde, arribas al Batey de las Sombras Luminosas. En Fajardo, las cuevas se vuelven templos de cristal y el fuego brilla en hilos de luz (neón) sobre las paredes.</p>
-                <p><strong>La Señal:</strong> Busca el caney donde los espíritus del teatro susurran historias de otros mundos. No busques el sol de Atabey, busca la luz que imita a las luciérnagas gigantes y el muro que guarda la memoria de los maestros del escenario.</p>
-                <p><strong>Reto de Sabiduría:</strong> 1. Invocar al Phantom of the Opera. 2. El Descifrado de la Sombra (15 pts): Identificar qué elementos de la tierra y el bosque (ingredientes) componen su esencia.</p>
-                <p><strong>El Registro:</strong> Evidencia del Guerrero (15 pts): Inmortalizar tu imagen en el Mural Clásico del local.</p>
-                <p><strong>El Sello de la Sabiduría (30 pts):</strong> Grabar El Discurso de Guahayona y brindar. (Sigue las instrucciones del libreto sagrado).</p>
-                <p><strong>Ofrenda:</strong> Beso de Victoria + Abrazo de 45 segundos. (20 pts)</p>
-                <p><em>Subtotal Parada 3: 80 pts</em></p>
+                <div class="parada-header">
+                    <h4>📍 Parada 3: Ubicación Sagrada — Fajardo</h4>
+                </div>
+                <div class="parada-body">
+                    <p><strong>Umbral del Yucayeque:</strong> Has navegado las aguas de Ceiba y ahora, transformado en lucero de la tarde, arribas al Batey de las Sombras Luminosas. En Fajardo, las cuevas se vuelven templos de cristal y el fuego brilla en hilos de luz (neón) sobre las paredes.</p>
+                    <p><strong>La Señal:</strong> Busca el caney donde los espíritus del teatro susurran historias de otros mundos. No busques el sol de Atabey, busca la luz que imita a las luciérnagas gigantes y el muro que guarda la memoria de los maestros del escenario.</p>
+                    <p><strong>Reto de Sabiduría:</strong> 1. Invocar al Phantom of the Opera. 2. El Descifrado de la Sombra (15 pts): Identificar qué elementos de la tierra y el bosque (ingredientes) componen su esencia.</p>
+                    <p><strong>El Registro:</strong> Evidencia del Guerrero (15 pts): Inmortalizar tu imagen en el Mural Clásico del local.</p>
+                    <p><strong>El Sello de la Sabiduría (30 pts):</strong> Grabar El Discurso de Guahayona y brindar. (Sigue las instrucciones del libreto sagrado).</p>
+                    <p><strong>Ofrenda:</strong> Beso de Victoria + Abrazo de 45 segundos. (20 pts)</p>
+                    <p><em>Subtotal Parada 3: 80 pts</em></p>
+                </div>
             </div>
             <div id="lock-jueves-p3" class="locked-overlay">
-                <span class="lock-icon">🔒</span><span class="lock-text">MISIÓN BLOQUEADA</span>
+                <span class="lock-icon">🔒</span>
+                <span class="lock-badge">Misión Bloqueada</span>
+                <span class="lock-pts">Requiere 105 puntos</span>
             </div>
         </div>
 
-      <div class="parada-wrapper">
+        <!-- VIERNES -->
+        <div class="parada-wrapper">
             <div id="viernes" class="parada locked">
-                <h3>🌿 Día 2 (Viernes): El Reposo de Anacaona</h3>
-                <p><strong>La Leyenda:</strong> Mientras Guahayona es la acción, Anacaona es la belleza, el arte y la armonía. Hoy, en el silencio del Viernes Santo, el Yucayeque se detiene. No hay rutas externas, solo el viaje hacia el interior y hacia la conexión con la Guaca. Es el día de honrar el templo (el cuerpo) y celebrar el amor en el refugio sagrado.</p>
+                <div class="parada-header">
+                    <h3>🌿 SOL 2 (Viernes): El Reposo de Anacaona</h3>
+                </div>
+                <div class="parada-body">
+                    <p><strong>La Leyenda:</strong> Mientras Guahayona es la acción, Anacaona es la belleza, el arte y la armonía. Hoy, en el silencio del Viernes Santo, el Yucayeque se detiene. No hay rutas externas, solo el viaje hacia el interior y hacia la conexión con la Guaca. Es el día de honrar el templo (el cuerpo) y celebrar el amor en el refugio sagrado.</p>
 
-                <h4>📍 Parada 1: El Saludo a Karaya (Picnic de Café en la Arena)</h4>
-                <p><strong>Umbral del Yucayeque:</strong> El sol nace sobre las aguas frente a tu bohío. Como los antiguos que agradecían el nuevo día, tu primera misión es salir al encuentro del mar antes de que el mundo despierte.</p>
-                <p><strong>La Señal:</strong> "Busca el lugar donde la espuma besa la tierra. Allí, sobre un manto tejido, el grano sagrado (café) te espera para despertar tus sentidos frente al horizonte infinito."</p>
-                <ul>
-                    <li><strong>Reto de Sabiduría (Meditación del Guerrero):</strong> Identifica 3 sonidos distintos de la naturaleza que no sean el mar. Debes reportarlos al Oráculo para validar tu presencia en el presente. (30 pts)</li>
-                    <li><strong>El Registro:</strong> Foto del Cacique mirando al horizonte con su cuenco de café, con los pies enterrados en la arena sagrada. (20 pts)</li>
-                    <li><strong>Ofrenda:</strong> Escribir en la arena un agradecimiento a Atabey por el Sol 45 y dejar que la marea se lo lleve. (15 pts)</li>
-                </ul>
+                    <h4>📍 Parada 1: El Saludo a Karaya (Picnic de Café en la Arena)</h4>
+                    <p><strong>Umbral del Yucayeque:</strong> El sol nace sobre las aguas frente a tu bohío. Como los antiguos que agradecían el nuevo día, tu primera misión es salir al encuentro del mar antes de que el mundo despierte.</p>
+                    <p><strong>La Señal:</strong> "Busca el lugar donde la espuma besa la tierra. Allí, sobre un manto tejido, el grano sagrado (café) te espera para despertar tus sentidos frente al horizonte infinito."</p>
+                    <ul>
+                        <li><strong>Reto de Sabiduría (Meditación del Guerrero):</strong> Identifica 3 sonidos distintos de la naturaleza que no sean el mar. Debes reportarlos al Oráculo para validar tu presencia en el presente. (30 pts)</li>
+                        <li><strong>El Registro:</strong> Foto del Cacique mirando al horizonte con su cuenco de café, con los pies enterrados en la arena sagrada. (20 pts)</li>
+                        <li><strong>Ofrenda:</strong> Escribir en la arena un agradecimiento a Atabey por el Sol 45 y dejar que la marea se lo lleve. (15 pts)</li>
+                    </ul>
 
-                <h4>📍 Parada 2: El Manjar del Bohío y la Caricia de la Guaca (Spa en Casa)</h4>
-                <p><strong>Umbral del Yucayeque:</strong> Regresas al refugio donde el fuego de la cocina ya ha preparado el sustento. Tras el alimento, viene la purificación del cuerpo a través del tacto.</p>
-                <p><strong>La Señal:</strong> "Busca el aroma a canela y frutas frescas en la mesa. Tras el banquete, el ambiente cambiará: aceites y esencias marcarán el inicio de la Ceremonia del Tacto."</p>
-                <ul>
-                    <li><strong>Reto de Sabiduría (El Banquete de Atabey):</strong> Desayuno hecho en casa. El Cacique debe identificar el ingrediente "secreto" que la Cacica añadió para darle fuerza. (30 pts)</li>
-                    <li><strong>La Ceremonia del Tacto:</strong> Sesión de Masaje, Manicura y Pedicura. El reto es el Silencio Sagrado: durante el masaje, el Cacique no puede hablar, solo sentir la energía que fluye. (40 pts)</li>
-                    <li><strong>El Registro:</strong> Foto de las manos/pies del Cacique tras la purificación o una imagen del ambiente del spa (velas/aceites). (20 pts)</li>
-                    <li><strong>Ofrenda:</strong> Un masaje recíproco de 5 minutos en las manos de la Cacica, honrando su labor de guía. (20 pts)</li>
-                </ul>
+                    <h4>📍 Parada 2: El Manjar del Bohío y la Caricia de la Guaca (Spa en Casa)</h4>
+                    <p><strong>Umbral del Yucayeque:</strong> Regresas al refugio donde el fuego de la cocina ya ha preparado el sustento. Tras el alimento, viene la purificación del cuerpo a través del tacto.</p>
+                    <p><strong>La Señal:</strong> "Busca el aroma a canela y frutas frescas en la mesa. Tras el banquete, el ambiente cambiará: aceites y esencias marcarán el inicio de la Ceremonia del Tacto."</p>
+                    <ul>
+                        <li><strong>Reto de Sabiduría (El Banquete de Atabey):</strong> Desayuno hecho en casa. El Cacique debe identificar el ingrediente "secreto" que la Cacica añadió para darle fuerza. (30 pts)</li>
+                        <li><strong>La Ceremonia del Tacto:</strong> Sesión de Masaje, Manicura y Pedicura. El reto es el Silencio Sagrado: durante el masaje, el Cacique no puede hablar, solo sentir la energía que fluye. (40 pts)</li>
+                        <li><strong>El Registro:</strong> Foto de las manos/pies del Cacique tras la purificación o una imagen del ambiente del spa (velas/aceites). (20 pts)</li>
+                        <li><strong>Ofrenda:</strong> Un masaje recíproco de 5 minutos en las manos de la Cacica, honrando su labor de guía. (20 pts)</li>
+                    </ul>
 
-                <h4>📍 Parada 3: El Areyto de los Cuerpos (Las 5 Estampas de la Pasión)</h4>
-                <p><strong>Umbral del Yucayeque:</strong> Cuando las sombras se alargan y el bohío se ilumina solo con fuego tenue, comienza la danza prohibida de los sentidos. Es el momento de la unión total, donde Guahayona y Anacaona se funden en un solo espíritu. Ya no hay mapas externos, solo el relieve de la piel y el latido compartido.</p>
-                <p><strong>La Señal:</strong> "Busca el rincón del deseo, donde la piel es el mapa y el susurro es la brújula. No busques respuestas en la mente, búscalas en el calor del encuentro. El conocimiento de tu pareja no se dice, se siente. La noche es vuestra y el tiempo se detiene en el año 45."</p>
-                <ul>
-                    <li><strong>Reto de Sabiduría (Las 5 Estampas de la Pasión):</strong> Para ganar tus Puntos de Valor y demostrar tu maestría como Guerrero de la Pasión, el Cacique debe navegar y conquistar los 5 actos sagrados de la entrega. Cada estampa debe vivirse en total presencia:
-                        <ul style="margin-top: 10px;">
-                            <li><strong>1. El Susurro de Atabey:</strong> El Cacique debe acercarse al oído de la Cacica y pronunciar tres verdades profundas que solo su corazón conozca, verdades que estremezcan el alma antes de tocar el cuerpo.</li>
-                            <li><strong>2. El Fluido Sagrado:</strong> Utilizando los aceites o néctares de la tierra preparados en el spa, el Cacique realizará la unción. Debe recorrer con sus manos y el fluido cada camino de la piel de la Cacica, preparando el templo para la unión.</li>
-                            <li><strong>3. El Abrazo de la Ceiba:</strong> Una unión física inquebrantable. Deben permanecer fundidos en un abrazo total durante 5 minutos de reloj, respirando al unísono, sintiendo cómo los dos pechos se vuelven un solo latido sin mediar palabra.</li>
-                            <li><strong>4. La Ofrenda de Cacao:</strong> El deleite del gusto. El Cacique alimentará a la Cacica con el fruto sagrado, explorando los sabores y la dulzura como preámbulo a la entrega final.</li>
-                            <li><strong>5. La Danza de Coaybay:</strong> La consagración definitiva. La entrega total de los cuerpos bajo la ley del deseo puro, donde el Cacique Francisco reclama su derecho al deleite y la abundancia en los brazos de su Cacica. (100 pts)</li>
-                        </ul>
-                    </li>
-                    <li><strong>El Registro:</strong> Una foto sugerente de la atmósfera (el juego de luces de las velas, las copas brindando o las sombras proyectadas) que capture la esencia mística del ritual sin romper la privacidad sagrada de la Guaca. (25 pts)</li>
-                    <li><strong>Ofrenda Final (El Sello de la Alianza):</strong> Beso de victoria de 45 segundos exactos y un pacto de intimidad absoluta donde el Cacique, con voz de autoridad, declare una nueva "ley de placer" o un deseo secreto que regirá su relación durante este nuevo ciclo de vida. (25 pts)</li>
-                </ul>
-                <p><em>Subtotal Viernes: 300 pts</em></p>
+                    <h4>📍 Parada 3: El Areyto de los Cuerpos (Las 5 Estampas de la Pasión)</h4>
+                    <p><strong>Umbral del Yucayeque:</strong> Cuando las sombras se alargan y el bohío se ilumina solo con fuego tenue, comienza la danza prohibida de los sentidos. Es el momento de la unión total, donde Guahayona y Anacaona se funden en un solo espíritu. Ya no hay mapas externos, solo el relieve de la piel y el latido compartido.</p>
+                    <p><strong>La Señal:</strong> "Busca el rincón del deseo, donde la piel es el mapa y el susurro es la brújula. No busques respuestas en la mente, búscalas en el calor del encuentro. El conocimiento de tu pareja no se dice, se siente. La noche es vuestra y el tiempo se detiene en el año 45."</p>
+                    <ul>
+                        <li><strong>Reto de Sabiduría (Las 5 Estampas de la Pasión):</strong> Para ganar tus Puntos de Valor y demostrar tu maestría como Guerrero de la Pasión, el Cacique debe navegar y conquistar los 5 actos sagrados de la entrega. Cada estampa debe vivirse en total presencia:
+                            <ul style="margin-top:10px;">
+                                <li><strong>1. El Susurro de Atabey:</strong> El Cacique debe acercarse al oído de la Cacica y pronunciar tres verdades profundas que solo su corazón conozca, verdades que estremezcan el alma antes de tocar el cuerpo.</li>
+                                <li><strong>2. El Fluido Sagrado:</strong> Utilizando los aceites o néctares de la tierra preparados en el spa, el Cacique realizará la unción. Debe recorrer con sus manos y el fluido cada camino de la piel de la Cacica, preparando el templo para la unión.</li>
+                                <li><strong>3. El Abrazo de la Ceiba:</strong> Una unión física inquebrantable. Deben permanecer fundidos en un abrazo total durante 5 minutos de reloj, respirando al unísono, sintiendo cómo los dos pechos se vuelven un solo latido sin mediar palabra.</li>
+                                <li><strong>4. La Ofrenda de Cacao:</strong> El deleite del gusto. El Cacique alimentará a la Cacica con el fruto sagrado, explorando los sabores y la dulzura como preámbulo a la entrega final.</li>
+                                <li><strong>5. La Danza de Coaybay:</strong> La consagración definitiva. La entrega total de los cuerpos bajo la ley del deseo puro, donde el Cacique Francisco reclama su derecho al deleite y la abundancia en los brazos de su Cacica. (100 pts)</li>
+                            </ul>
+                        </li>
+                        <li><strong>El Registro:</strong> Una foto sugerente de la atmósfera (el juego de luces de las velas, las copas brindando o las sombras proyectadas) que capture la esencia mística del ritual sin romper la privacidad sagrada de la Guaca. (25 pts)</li>
+                        <li><strong>Ofrenda Final (El Sello de la Alianza):</strong> Beso de victoria de 45 segundos exactos y un pacto de intimidad absoluta donde el Cacique, con voz de autoridad, declare una nueva "ley de placer" o un deseo secreto que regirá su relación durante este nuevo ciclo de vida. (25 pts)</li>
+                    </ul>
+                    <p><em>Subtotal Viernes: 300 pts</em></p>
+                </div>
             </div>
             <div id="lock-viernes" class="locked-overlay">
-                <span class="lock-icon">🔒</span><span class="lock-text">MISIÓN BLOQUEADA</span>
+                <span class="lock-icon">🔒</span>
+                <span class="lock-badge">Misión Bloqueada</span>
+                <span class="lock-pts">Requiere 250 puntos del Jueves</span>
             </div>
         </div>
 
+        <!-- SÁBADO -->
         <div class="parada-wrapper">
             <div id="sabado" class="parada locked">
-                <h3>☀️ SOL 3 (Sábado): La Consagración de Agüeybaná en Loíza</h3>
-                <p><strong>La Leyenda:</strong> Agüeybaná, el Gran Cacique, es el sol del centro que irradia luz a su tribu. Hoy, tras la exploración y la purificación, regresas a la tierra de tus ancestros en Loíza. Es un día de comunidad, de fuego y de reconocer que el mayor imperio es aquel que se construye con amor en los pequeños detalles.</p>
+                <div class="parada-header">
+                    <h3>🔥 SOL 3 (Sábado): La Consagración de Agüeybaná en Loíza</h3>
+                </div>
+                <div class="parada-body">
+                    <p><strong>La Leyenda:</strong> Agüeybaná, el Gran Cacique, es el sol del centro que irradia luz a su tribu. Hoy, tras la exploración y la purificación, regresas a la tierra de tus ancestros en Loíza. Es un día de comunidad, de fuego y de reconocer que el mayor imperio es aquel que se construye con amor en los pequeños detalles.</p>
 
-                <h4>📍 Parada 1: El Sustento del Guerrero (Desayuno en el Bohío)</h4>
-                <ul>
-                    <li><strong>Reto de Sabiduría:</strong> Mencionar tres momentos de los últimos dos días que te hayan hecho sentir más fuerte. (50 pts)</li>
-                    <li><strong>El Registro:</strong> Foto del Cacique en su mesa, listo para la conquista de Loíza. (25 pts)</li>
-                    <li><strong>Ofrenda:</strong> Un gesto de servicio hacia la familia en la mesa. (15 pts)</li>
-                </ul>
+                    <h4>📍 Parada 1: El Sustento del Guerrero (Desayuno en el Bohío)</h4>
+                    <ul>
+                        <li><strong>Reto de Sabiduría:</strong> Mencionar tres momentos de los últimos dos días que te hayan hecho sentir más fuerte. (50 pts)</li>
+                        <li><strong>El Registro:</strong> Foto del Cacique en su mesa, listo para la conquista de Loíza. (25 pts)</li>
+                        <li><strong>Ofrenda:</strong> Un gesto de servicio hacia la familia en la mesa. (15 pts)</li>
+                    </ul>
 
-                <h4>📍 Parada 2: El Batey de Vacia Talega (Ritual del Fuego y Sal)</h4>
-                <ul>
-                    <li><strong>Reto de Sabiduría — El Dominio del Fuego (Liderar el BBQ):</strong> Lograr el término perfecto en la ofrenda sagrada (la carne). (100 pts)</li>
-                    <li><strong>El Registro:</strong> Foto frente a las brasas con el mar de Vacia Talega de fondo. (50 pts)</li>
-                    <li><strong>Ofrenda:</strong> Compartir el primer bocado con la Guaca. (25 pts)</li>
-                </ul>
+                    <h4>📍 Parada 2: El Batey de Vacia Talega (Ritual del Fuego y Sal)</h4>
+                    <ul>
+                        <li><strong>Reto de Sabiduría — El Dominio del Fuego (Liderar el BBQ):</strong> Lograr el término perfecto en la ofrenda sagrada (la carne). (100 pts)</li>
+                        <li><strong>El Registro:</strong> Foto frente a las brasas con el mar de Vacia Talega de fondo. (50 pts)</li>
+                        <li><strong>Ofrenda:</strong> Compartir el primer bocado con la Guaca. (25 pts)</li>
+                    </ul>
 
-                <h4>📍 Parada 3: El Remanso de la Guaca (Piscina y Visión Nocturna)</h4>
-                <ul>
-                    <li><strong>Reto de Sabiduría:</strong> Flotación silenciosa de 3 minutos en la piscina para disolver el peso de los 45 años. (50 pts)</li>
-                    <li><strong>El Registro:</strong> Foto del brindis nocturno junto al agua o de la "fogata moderna" (Netflix). (50 pts)</li>
-                    <li><strong>Ofrenda Final:</strong> Entrega simbólica del mando a la Cacica. (35 pts)</li>
-                </ul>
-                <p><em>Subtotal Sábado: 450 pts</em></p>
+                    <h4>📍 Parada 3: El Remanso de la Guaca (Piscina y Visión Nocturna)</h4>
+                    <ul>
+                        <li><strong>Reto de Sabiduría:</strong> Flotación silenciosa de 3 minutos en la piscina para disolver el peso de los 45 años. (50 pts)</li>
+                        <li><strong>El Registro:</strong> Foto del brindis nocturno junto al agua o de la "fogata moderna" (Netflix). (50 pts)</li>
+                        <li><strong>Ofrenda Final:</strong> Entrega simbólica del mando a la Cacica. (35 pts)</li>
+                    </ul>
+                    <p><em>Subtotal Sábado: 450 pts</em></p>
+                </div>
             </div>
             <div id="lock-sabado" class="locked-overlay">
-                <span class="lock-icon">🔒</span><span class="lock-text">MISIÓN BLOQUEADA</span>
+                <span class="lock-icon">🔒</span>
+                <span class="lock-badge">Misión Bloqueada</span>
+                <span class="lock-pts">Requiere 550 puntos totales</span>
             </div>
         </div>
 
-        <div id="decreto-final" class="parada locked" style="border-left-color: var(--primary-red); background: white;">
-            <h3>📜 El Decreto Final del Oráculo</h3>
-            <p>"Francisco, en lo simple, en lo cotidiano y en los pequeños detalles es que se demuestra el amor que sentimos. A través de estos 3 días, hemos recordado que nuestra historia no se escribe con grandes monumentos, sino con cada paso que damos. Gracias a la vida por el regalo de haberme cruzado contigo y por la oportunidad de redescubrir y crecer juntos. <strong>¡Felices 45 Soles, mi Cacique Eterno!</strong>"</p>
+        <!-- DECRETO FINAL -->
+        <div id="decreto-final" class="parada locked">
+            <div class="parada-header">
+                <h3>📜 El Decreto Final del Oráculo</h3>
+            </div>
+            <div class="parada-body">
+                <p>"Francisco, en lo simple, en lo cotidiano y en los pequeños detalles es que se demuestra el amor que sentimos. A través de estos 3 días, hemos recordado que nuestra historia no se escribe con grandes monumentos, sino con cada paso que damos. Gracias a la vida por el regalo de haberme cruzado contigo y por la oportunidad de redescubrir y crecer juntos. <strong>¡Felices 45 Soles, mi Cacique Eterno!</strong>"</p>
+            </div>
         </div>
     </section>
 
+    <!-- ════════ GALERÍA ════════ -->
     <section id="galeria" class="page">
         <h2>El Camino de los 45 Soles</h2>
-        
-        <div class="decada-container"> 
-            <h3 class="decada-title">Las Raíces en Quisqueya & Boriquén </h3>
-            <p style="text-align: center; color: var(--primary-blue); padding: 0 15px; margin-bottom: 25px; font-weight: bold;">Todo gran árbol necesita raíces fuertes. Estos años sembraron la nobleza en tu corazón. En la simpleza del campo y cobijado por el amor incondicional de tu mamá Andrea,tus abuelos, tu tía Reyna, tu tío Feliz y tu tía Rosa, aprendiste el verdadero valor de la familia, el respeto y el trabajo. Ellos forjaron los cimientos de amor y los profundos valores del gran hombre que eres hoy.</p>
-            
+        <div class="decada-container">
+            <h3 class="decada-title">Las Raíces en Quisqueya & Boriquén</h3>
+            <p style="text-align:center; color:var(--primary-blue); padding:0 15px; margin-bottom:25px; font-weight:bold;">Todo gran árbol necesita raíces fuertes. Estos años sembraron la nobleza en tu corazón. En la simpleza del campo y cobijado por el amor incondicional de tu mamá Andrea, tus abuelos, tu tía Reyna, tu tío Feliz y tu tía Rosa, aprendiste el verdadero valor de la familia, el respeto y el trabajo. Ellos forjaron los cimientos de amor y los profundos valores del gran hombre que eres hoy.</p>
             <div class="galeria-grid">
-                <div class="foto-card" onclick="openModal(this)"><img src="foto1.jpeg" alt="Sol 1"><div class="foto-caption">En casa de Tia Rosalia/1981 RD </div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto1.jpeg" alt="Sol 1"><div class="foto-caption">En casa de Tia Rosalia/1981 RD</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto2.jpeg" alt="Sol 2"><div class="foto-caption">En casa de Abuela/1981 RD</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto3.jpeg" alt="Sol 3"><div class="foto-caption">En Casa de Tia Ana 1983/RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto4.jpeg" alt="Sol 4"><div class="foto-caption">1983/RD </div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto5.jpeg" alt="Sol 5"><div class="foto-caption">Colegio Giselo 1986/PR </div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto4.jpeg" alt="Sol 4"><div class="foto-caption">1983/RD</div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto5.jpeg" alt="Sol 5"><div class="foto-caption">Colegio Giselo 1986/PR</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto6.jpeg" alt="Sol 6"><div class="foto-caption">Cumpleaños 1986/PR</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto7.jpeg" alt="Sol 7"><div class="foto-caption">Vuelo a RD 1986</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto8.jpeg" alt="Sol 8"><div class="foto-caption">Con tioo Carlos 1989 RD </div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto8.jpeg" alt="Sol 8"><div class="foto-caption">Con tio Carlos 1989 RD</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto9.jpeg" alt="Sol 9"><div class="foto-caption">Con tio Feliz 1989 RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto10.jpeg" alt="Sol 10"><div class="foto-caption">Con Mami(Andrea)en 1987 en RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto11.jpeg" alt="Sol 11"><div class="foto-caption">Con tia Reyna en pR 1989</div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto10.jpeg" alt="Sol 10"><div class="foto-caption">Con Mami(Andrea) 1987 RD</div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto11.jpeg" alt="Sol 11"><div class="foto-caption">Con tia Reyna en PR 1989</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto12.jpeg" alt="Sol 12"><div class="foto-caption">Dos Pinos 1989 PR</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto13.jpeg" alt="Sol 13"><div class="foto-caption">Dos Pinos 1989 PR  </div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto14.jpeg" alt="Sol 14"><div class="foto-caption">Con Adony PR 1989 </div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto15.jpeg" alt="Sol 15"><div class="foto-caption">Dos Pinos PR 1990 </div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto13.jpeg" alt="Sol 13"><div class="foto-caption">Dos Pinos 1989 PR</div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto14.jpeg" alt="Sol 14"><div class="foto-caption">Con Adony PR 1989</div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto15.jpeg" alt="Sol 15"><div class="foto-caption">Dos Pinos PR 1990</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto16.jpeg" alt="Sol 16"><div class="foto-caption">Sol 16</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto17.jpeg" alt="Sol 17"><div class="foto-caption">Sol 17</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto18.jpeg" alt="Sol 18"><div class="foto-caption">Sol 18</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto19.jpeg" alt="Sol 19"><div class="foto-caption">Sol 19</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto20.jpeg" alt="Sol 20"><div class="foto-caption">Sol 20</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto21.jpeg" alt="Sol 21"><div class="foto-caption">Sol 21</div></div>
-               <div class="foto-card" onclick="openModal(this)"><img src="foto22.jpeg" alt="Sol 22"><div class="foto-caption">Sol 22</div></div>
+                <div class="foto-card" onclick="openModal(this)"><img src="foto22.jpeg" alt="Sol 22"><div class="foto-caption">Sol 22</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto23.jpeg" alt="Sol 23"><div class="foto-caption">Sol 23</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto24.jpeg" alt="Sol 24"><div class="foto-caption">Sol 24</div></div>
                 <div class="foto-card" onclick="openModal(this)"><img src="foto25.jpeg" alt="Sol 25"><div class="foto-caption">Sol 25</div></div>
@@ -431,6 +871,7 @@
         </div>
     </section>
 
+    <!-- ════════ GLOSARIO ════════ -->
     <section id="glosario" class="page">
         <h2>Glosario del Yucayeque</h2>
         <ul>
@@ -448,40 +889,36 @@
         </ul>
     </section>
 
+    <!-- ════════ BÓVEDA & ADMIN ════════ -->
     <section id="boveda-admin" class="page">
         <h2>Herramientas y Panel de Control</h2>
-        
-        <div id="content-boveda" style="padding-bottom: 30px; border-bottom: 2px solid var(--taino-gold);">
+
+        <div id="content-boveda" style="padding-bottom:30px; border-bottom:2px solid var(--taino-gold);">
             <h3>🗺️ Navegación y Evidencias</h3>
             <p>Cacique, utiliza estas herramientas para subir tus evidencias y abrir tu mapa cuando el Oráculo te revele tu próximo destino.</p>
-            
             <a href="https://drive.google.com/drive/folders/1o1qTpO5G13CM8vzafOngWgpVtjZxBPBx?usp=sharing" target="_blank" class="btn-drive">☁️ Nube de Evidencias (Subir fotos/videos)</a>
-            
-            <a href="https://maps.google.com" target="_blank" class="btn-drive" style="background: var(--primary-blue);">📍 Abrir Google Maps</a>
+            <a href="https://maps.google.com" target="_blank" class="btn-drive" style="background:var(--primary-blue);">📍 Abrir Google Maps</a>
         </div>
 
-        <div id="login-admin" class="password-box" style="margin-top: 40px; border-color: var(--primary-red);">
-            <h3 style="color: var(--primary-red);">👑 Acceso de la Cacica (Oráculo)</h3>
+        <div id="login-admin" class="password-box" style="margin-top:40px; border-color:var(--primary-red);">
+            <h3 style="color:var(--primary-red);">👑 Acceso de la Cacica (Oráculo)</h3>
             <p>Panel maestro para ver las rutas secretas y asignar puntos.</p>
             <input type="password" id="pass-admin" placeholder="Contraseña de la Cacica...">
             <br>
-            <button class="btn-submit" onclick="checkAdmin()" style="background: var(--primary-red);">Ingresar al Panel</button>
+            <button class="btn-submit" onclick="checkAdmin()" style="background:var(--primary-red);">Ingresar al Panel</button>
             <p id="error-admin" class="error-msg">Acceso denegado.</p>
         </div>
 
         <div id="content-admin" style="display:none;" class="admin-panel">
             <h2>Panel de Control Maestro</h2>
-            
-            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; border: 1px solid #ccc;">
-                <h3 style="color: var(--primary-blue); margin-top: 0;">🗺️ Rutas Secretas (Oráculo)</h3>
+
+            <div style="background:white; padding:20px; border-radius:15px; margin-bottom:30px; border:1px solid #ccc;">
+                <h3 style="color:var(--primary-blue); margin-top:0;">🗺️ Rutas Secretas (Oráculo)</h3>
                 <p><em>Estas son las direcciones para dictarle al Cacique cuando sea el momento:</em></p>
                 <ul>
-                    <li><strong>Parada 1: RICO PAN BAKERY 2 (Palmer)</strong> <a href="https://maps.app.goo.gl/198S5Nj7GLL6oU53A" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
-                    <br>
-                    <li><strong>Parada 2: Playa Los Machos, Ceiba.</strong> <a href="https://maps.app.goo.gl/tsdLthiZpy4XnPdcA" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
-                    <br>
-                    <li><strong>Parada 3: Broadway Gastro Bar, Fajardo.</strong> <a href="https://maps.app.goo.gl/ossfGS31HX5SNEpE8" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
-                    <br>
+                    <li><strong>Parada 1: RICO PAN BAKERY 2 (Palmer)</strong> <a href="https://maps.app.goo.gl/198S5Nj7GLL6oU53A" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li><br>
+                    <li><strong>Parada 2: Playa Los Machos, Ceiba.</strong> <a href="https://maps.app.goo.gl/tsdLthiZpy4XnPdcA" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li><br>
+                    <li><strong>Parada 3: Broadway Gastro Bar, Fajardo.</strong> <a href="https://maps.app.goo.gl/ossfGS31HX5SNEpE8" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li><br>
                     <li><strong>OBJETIVO 4: Villas del Mar, Loiza</strong> <a href="https://maps.app.goo.gl/tGoJVgGQjUTtqNbe" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
                 </ul>
             </div>
@@ -498,70 +935,138 @@
             <button class="btn-reset" onclick="resetGesta()">⚠️ RESETEAR PUNTOS A 0</button>
         </div>
     </section>
+
 </main>
 
 <script>
+    /* ── VIDEO SPLASH ─────────────────────── */
+    function enterApp() {
+        const splash = document.getElementById('video-splash');
+        const video  = document.getElementById('intro-video');
+        splash.classList.add('fade-out');
+        video.pause();
+        setTimeout(() => { splash.style.display = 'none'; }, 850);
+    }
+    // Auto-enter when video ends
+    document.getElementById('intro-video').addEventListener('ended', enterApp);
+
+    /* ── NAV & PAGES ──────────────────────── */
     function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-        document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
         document.getElementById('nav-' + pageId).classList.add('active');
         window.scrollTo(0, 0);
     }
 
-    function openModal(element) {
-        var modal = document.getElementById("imageModal");
-        var modalImg = document.getElementById("img01");
-        var clickedImg = element.querySelector("img");
-        modal.style.display = "block";
-        modalImg.src = clickedImg.src;
+    /* ── MODAL ────────────────────────────── */
+    function openModal(el) {
+        document.getElementById('imageModal').style.display = 'block';
+        document.getElementById('img01').src = el.querySelector('img').src;
     }
     function closeModal() {
-        document.getElementById("imageModal").style.display = "none";
+        document.getElementById('imageModal').style.display = 'none';
     }
 
+    /* ── POINTS & STATE ───────────────────── */
     let totalPuntos = parseInt(localStorage.getItem('caciquePuntos')) || 0;
 
     function updateUI() {
-        document.getElementById('progressBar').value = totalPuntos;
-        document.getElementById('puntosTexto').innerText = totalPuntos + " / 1000 Puntos Completados";
+        // Progress bar fill
+        const pct = Math.min((totalPuntos / 1000) * 100, 100);
+        document.getElementById('progressBar').style.width = pct + '%';
+        document.getElementById('ptsCurrent').textContent = totalPuntos;
 
-        if(totalPuntos >= 40) unlock('jueves-p2', 'lock-jueves-p2'); else lock('jueves-p2', 'lock-jueves-p2');
-        if(totalPuntos >= 105) unlock('jueves-p3', 'lock-jueves-p3'); else lock('jueves-p3', 'lock-jueves-p3');
-        if(totalPuntos >= 250) unlock('viernes', 'lock-viernes'); else lock('viernes', 'lock-viernes');
-        if(totalPuntos >= 550) unlock('sabado', 'lock-sabado'); else lock('sabado', 'lock-sabado');
-        if(totalPuntos >= 1000) unlock('decreto-final'); else lock('decreto-final');
+        // Milestone highlights
+        if (totalPuntos >= 40)   document.getElementById('ms-jp1').classList.add('reached');
+        if (totalPuntos >= 105)  document.getElementById('ms-jp2').classList.add('reached');
+        if (totalPuntos >= 250)  document.getElementById('ms-vie').classList.add('reached');
+        if (totalPuntos >= 550)  document.getElementById('ms-sab').classList.add('reached');
+        if (totalPuntos >= 1000) document.getElementById('ms-fin').classList.add('reached');
+
+        // Paradas unlock
+        if (totalPuntos >= 40)   unlock('jueves-p2', 'lock-jueves-p2'); else lock('jueves-p2', 'lock-jueves-p2');
+        if (totalPuntos >= 105)  unlock('jueves-p3', 'lock-jueves-p3'); else lock('jueves-p3', 'lock-jueves-p3');
+        if (totalPuntos >= 250)  unlock('viernes',   'lock-viernes');   else lock('viernes',   'lock-viernes');
+        if (totalPuntos >= 550)  unlock('sabado',    'lock-sabado');    else lock('sabado',    'lock-sabado');
+        if (totalPuntos >= 1000) unlock('decreto-final'); else lock('decreto-final');
+
+        // Timeline 3 soles
+        updateTimeline();
+    }
+
+    function updateTimeline() {
+        const tlItems = [
+            { dot: 'tl-dot-jueves',  status: 'tl-status-jueves',  pts: 0,   doneAt: 250 },
+            { dot: 'tl-dot-viernes', status: 'tl-status-viernes', pts: 250, doneAt: 550 },
+            { dot: 'tl-dot-sabado',  status: 'tl-status-sabado',  pts: 550, doneAt: 1000 },
+        ];
+        tlItems.forEach((item, i) => {
+            const dot    = document.getElementById(item.dot);
+            const status = document.getElementById(item.status);
+            dot.className = 'sol-dot';
+            status.className = 'sol-status';
+            if (totalPuntos >= item.doneAt) {
+                dot.classList.add('done');
+                status.classList.add('done');
+                status.textContent = 'Completado ✓';
+            } else if (totalPuntos >= item.pts) {
+                dot.classList.add('active');
+                status.classList.add('active');
+                status.textContent = 'Activo · En curso';
+            } else {
+                dot.classList.add('locked');
+                status.classList.add('locked');
+                status.textContent = 'Bloqueado · ' + item.pts + ' pts';
+            }
+        });
+        // Connectors
+        const c1 = document.getElementById('tl-conn-1');
+        const c2 = document.getElementById('tl-conn-2');
+        if (totalPuntos >= 250) c1.classList.add('filled'); else c1.classList.remove('filled');
+        if (totalPuntos >= 550) c2.classList.add('filled'); else c2.classList.remove('filled');
     }
 
     function lock(elementId, lockId) {
-        document.getElementById(elementId).classList.add('locked');
-        if(lockId) document.getElementById(lockId).style.display = 'flex';
+        const el = document.getElementById(elementId);
+        if (el) el.classList.add('locked');
+        if (lockId) { const lk = document.getElementById(lockId); if(lk) lk.style.display = 'flex'; }
     }
+
     function unlock(elementId, lockId) {
-        document.getElementById(elementId).classList.remove('locked');
-        if(lockId) document.getElementById(lockId).style.display = 'none';
+        const el = document.getElementById(elementId);
+        if (el && el.classList.contains('locked')) {
+            el.classList.remove('locked');
+            // Flash animation on unlock
+            el.classList.add('just-unlocked');
+            setTimeout(() => el.classList.remove('just-unlocked'), 1000);
+        }
+        if (lockId) { const lk = document.getElementById(lockId); if(lk) lk.style.display = 'none'; }
     }
 
     function addPoints(pts) {
         totalPuntos += pts;
-        if(totalPuntos > 1000) totalPuntos = 1000;
+        if (totalPuntos > 1000) totalPuntos = 1000;
         localStorage.setItem('caciquePuntos', totalPuntos);
         updateUI();
-        alert("¡Puntos asignados! Total: " + totalPuntos);
+        alert('¡Puntos asignados! Total: ' + totalPuntos);
     }
 
     function resetGesta() {
-        if(confirm("¿Segura que quieres borrar el progreso?")) {
+        if (confirm('¿Segura que quieres borrar el progreso?')) {
             totalPuntos = 0;
             localStorage.setItem('caciquePuntos', totalPuntos);
+            // Reset milestones
+            ['ms-jp1','ms-jp2','ms-vie','ms-sab','ms-fin'].forEach(id => {
+                document.getElementById(id).classList.remove('reached');
+            });
             updateUI();
         }
     }
 
     const PASSWORD_ADMIN = "oraculo2026";
-
     function checkAdmin() {
-        if(document.getElementById('pass-admin').value === PASSWORD_ADMIN) {
+        if (document.getElementById('pass-admin').value === PASSWORD_ADMIN) {
             document.getElementById('login-admin').style.display = 'none';
             document.getElementById('content-admin').style.display = 'block';
         } else {
@@ -569,16 +1074,16 @@
         }
     }
 
+    /* ── COUNTDOWN ────────────────────────── */
     const targetDate = new Date(2026, 3, 2, 8, 0, 0).getTime();
     setInterval(function() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        if (distance < 0) { document.getElementById("countdown").innerHTML = "¡LA GESTA HA COMENZADO!"; return; }
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        const distance = targetDate - new Date().getTime();
+        if (distance < 0) { document.getElementById('countdown').innerHTML = '¡LA GESTA HA COMENZADO!'; return; }
+        const d = Math.floor(distance / 86400000);
+        const h = Math.floor((distance % 86400000) / 3600000);
+        const m = Math.floor((distance % 3600000) / 60000);
+        const s = Math.floor((distance % 60000) / 1000);
+        document.getElementById('countdown').innerHTML = d + 'd ' + h + 'h ' + m + 'm ' + s + 's';
     }, 1000);
 
     updateUI();
