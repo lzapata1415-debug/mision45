@@ -56,7 +56,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* NAVEGACIÓN PARA CELULAR */
         nav {
             max-width: 900px;
             margin: 20px auto;
@@ -438,25 +437,16 @@
         
         <div id="content-boveda" style="padding-bottom: 30px; border-bottom: 2px solid var(--taino-gold);">
             <h3>🗺️ Navegación y Evidencias</h3>
-            <p>Cacique, utiliza estas herramientas abiertas para guiarte en tu camino y guardar el registro de tu gesta.</p>
+            <p>Cacique, utiliza estas herramientas para subir tus evidencias y abrir tu mapa cuando el Oráculo te revele tu próximo destino.</p>
             
-            <a href="AQUI_PONES_TU_ENLACE_DE_DRIVE" target="_blank" class="btn-drive">☁️ Nube de Evidencias (Subir fotos y videos aquí)</a>
+            <a href="AQUI_PONES_TU_ENLACE_DE_DRIVE" target="_blank" class="btn-drive">☁️ Nube de Evidencias (Subir fotos/videos)</a>
             
-            <p><strong>Rutas Sagradas (GPS):</strong></p>
-            <ul>
-                <li><strong>Parada 1: RICO PAN BAKERY 2 (Palmer)</strong> <a href="https://maps.app.goo.gl/198S5Nj7GLL6oU53A" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
-                <br>
-                <li><strong>Parada 2: Playa Los Machos, Ceiba.</strong> <a href="https://maps.app.goo.gl/tsdLthiZpy4XnPdcA" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
-                <br>
-                <li><strong>Parada 3: Broadway Gastro Bar, Fajardo.</strong> <a href="https://maps.app.goo.gl/ossfGS31HX5SNEpE8" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
-                <br>
-                <li><strong>OBJETIVO 4: Villas del Mar, Loiza</strong> <a href="https://maps.app.goo.gl/tGoJVgGQjUTtqNbe" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
-            </ul>
+            <a href="https://maps.google.com" target="_blank" class="btn-drive" style="background: var(--primary-blue);">📍 Abrir Google Maps</a>
         </div>
 
         <div id="login-admin" class="password-box" style="margin-top: 40px; border-color: var(--primary-red);">
             <h3 style="color: var(--primary-red);">👑 Acceso de la Cacica (Oráculo)</h3>
-            <p>Panel maestro para asignar puntos y desbloquear la agenda.</p>
+            <p>Panel maestro para ver las rutas secretas y asignar puntos.</p>
             <input type="password" id="pass-admin" placeholder="Contraseña de la Cacica...">
             <br>
             <button class="btn-submit" onclick="checkAdmin()" style="background: var(--primary-red);">Ingresar al Panel</button>
@@ -465,6 +455,21 @@
 
         <div id="content-admin" style="display:none;" class="admin-panel">
             <h2>Panel de Control Maestro</h2>
+            
+            <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; border: 1px solid #ccc;">
+                <h3 style="color: var(--primary-blue); margin-top: 0;">🗺️ Rutas Secretas (Oráculo)</h3>
+                <p><em>Estas son las direcciones para dictarle al Cacique cuando sea el momento:</em></p>
+                <ul>
+                    <li><strong>Parada 1: RICO PAN BAKERY 2 (Palmer)</strong> <a href="https://maps.app.goo.gl/198S5Nj7GLL6oU53A" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
+                    <br>
+                    <li><strong>Parada 2: Playa Los Machos, Ceiba.</strong> <a href="https://maps.app.goo.gl/tsdLthiZpy4XnPdcA" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
+                    <br>
+                    <li><strong>Parada 3: Broadway Gastro Bar, Fajardo.</strong> <a href="https://maps.app.goo.gl/ossfGS31HX5SNEpE8" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
+                    <br>
+                    <li><strong>OBJETIVO 4: Villas del Mar, Loiza</strong> <a href="https://maps.app.goo.gl/tGoJVgGQjUTtqNbe" target="_blank" class="btn-maps">📍 Abrir Ruta</a></li>
+                </ul>
+            </div>
+
             <div class="admin-controls">
                 <h3>Asignar Puntos a Francisco:</h3>
                 <button onclick="addPoints(40)">Jueves P1 (+40)</button>
