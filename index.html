@@ -69,11 +69,13 @@
         .splash-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+            background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.0) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
         .splash-content {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             text-align: center;
             padding: 40px 20px 60px;
             width: 100%;
