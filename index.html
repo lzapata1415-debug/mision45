@@ -535,10 +535,14 @@
      VIDEO SPLASH SCREEN
 ════════════════════════════════════════ -->
 <div id="video-splash">
-    <video id="intro-video" autoplay muted playsinline>
-        <source src="intro.mp4" type="video/mp4">
-    </video>
-    <button class="btn-mute" id="btn-mute" onclick="toggleMute()" title="Activar/Silenciar sonido">🔇</button>
+    <iframe
+        id="intro-video"
+        src="https://share.descript.com/embed/2dxG5eibjeA"
+        allow="autoplay; fullscreen"
+        allowfullscreen
+        frameborder="0"
+        style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:0;">
+    </iframe>
     <div class="splash-overlay"></div>
     <div class="splash-content">
         <div class="splash-title">Gesta de los 45 Soles</div>
@@ -961,22 +965,13 @@
 
 <script>
     /* ── VIDEO SPLASH ─────────────────────── */
-    function toggleMute() {
-        const video = document.getElementById('intro-video');
-        const btn   = document.getElementById('btn-mute');
-        video.muted = !video.muted;
-        btn.textContent = video.muted ? '🔇' : '🔊';
-        if (!video.muted) video.play();
-    }
     function enterApp() {
         const splash = document.getElementById('video-splash');
-        const video  = document.getElementById('intro-video');
         splash.classList.add('fade-out');
-        video.pause();
         setTimeout(() => { splash.style.display = 'none'; }, 850);
     }
-    // Auto-enter when video ends
-    document.getElementById('intro-video').addEventListener('ended', enterApp);
+    // Auto-skip after 3 minutes max
+    setTimeout(enterApp, 180000);
 
     /* ── NAV & PAGES ──────────────────────── */
     function showPage(pageId) {
