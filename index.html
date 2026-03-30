@@ -126,6 +126,25 @@
             transition: color 0.2s;
         }
         .btn-skip:hover { color: rgba(255,255,255,0.9); }
+        .btn-mute {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: rgba(0,0,0,0.45);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            font-size: 22px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .btn-mute:hover { background: rgba(212,175,55,0.6); }
 
         /* ══════════════════════════════════════
            HEADER & NAV
@@ -519,6 +538,7 @@
     <video id="intro-video" autoplay muted playsinline>
         <source src="Openning_Mision_45.mp4" type="video/mp4">
     </video>
+    <button class="btn-mute" id="btn-mute" onclick="toggleMute()" title="Activar/Silenciar sonido">🔇</button>
     <div class="splash-overlay"></div>
     <div class="splash-content">
         <div class="splash-title">Gesta de los 45 Soles</div>
@@ -540,7 +560,8 @@
      HEADER
 ════════════════════════════════════════ -->
 <header class="banner">
-    <img src="header.jpg" alt="Misión 45 - Cacique de Quisqueya y Borikén">
+    <img src="header.jpg" alt="Misión 45 - Cacique de Quisqueya y Borikén"
+         onerror="this.style.display='none'; document.querySelector('header.banner').style.background='linear-gradient(135deg,#005697,#2C3539)'; document.querySelector('header.banner').style.minHeight='80px'; document.querySelector('header.banner').style.borderRadius='0 0 20px 20px';">
 </header>
 
 <!-- ════════════════════════════════════════
@@ -940,6 +961,13 @@
 
 <script>
     /* ── VIDEO SPLASH ─────────────────────── */
+    function toggleMute() {
+        const video = document.getElementById('intro-video');
+        const btn   = document.getElementById('btn-mute');
+        video.muted = !video.muted;
+        btn.textContent = video.muted ? '🔇' : '🔊';
+        if (!video.muted) video.play();
+    }
     function enterApp() {
         const splash = document.getElementById('video-splash');
         const video  = document.getElementById('intro-video');
