@@ -371,53 +371,49 @@
             color: rgba(255,255,255,0.9);
         }
         .sol-status {
+            font-family: 'Philosopher', sans-serif;
             font-size: 11px;
-            color: rgba(212,175,55,0.7);
-            display: block;
-            margin-top: 2px;
+            color: rgba(255,255,255,0.5);
         }
-        .sol-status.done { color: #5bc8f5; }
-        .sol-status.active { color: var(--taino-gold); font-weight: bold; }
+        .sol-status.done { color: var(--primary-blue); }
+        .sol-status.active { color: var(--taino-gold); }
         .sol-status.locked { color: rgba(255,255,255,0.3); }
         .sol-connector {
             flex: 1;
             height: 2px;
             background: rgba(212,175,55,0.2);
-            max-width: 60px;
-            margin-bottom: 20px;
+            position: relative;
             transition: background 0.4s;
         }
-        .sol-connector.filled { background: rgba(212,175,55,0.6); }
+        .sol-connector.filled { background: var(--taino-gold); }
 
         /* ══════════════════════════════════════
-           PARADA CARDS — GOLD HEADER
+           PARADAS CARDS
         ══════════════════════════════════════ */
-        .parada-wrapper { position: relative; margin-bottom: 30px; }
-
+        .parada-wrapper { position: relative; margin-bottom: 25px; }
         .parada {
-            background: #fff;
+            background: white;
             border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-            border: 1px solid rgba(212,175,55,0.2);
+            position: relative;
             transition: filter 0.3s, opacity 0.3s;
         }
-        .parada.locked { filter: blur(4px); opacity: 0.75; }
-
+        .parada.locked { filter: blur(3px); opacity: 0.8; }
         .parada-header {
-            background: var(--taino-gold);
-            padding: 12px 20px;
+            background: var(--primary-blue);
+            padding: 20px 28px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            gap: 14px;
         }
-        .parada-header h3,
-        .parada-header h4 {
-            margin: 0 !important;
-            padding: 0 !important;
-            color: var(--taino-dark) !important;
-            font-size: 15px;
-            font-family: 'Cinzel', serif;
+        .parada-header h3 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 18px;
+            color: white;
+            margin: 0;
+            flex: 1;
         }
         .parada-body { padding: 25px 28px; }
         .parada-body h3,
@@ -485,15 +481,20 @@
         #decreto-final .parada-header h3 { color: #fff !important; }
 
         /* ══════════════════════════════════════
-           GALERÍA
+           GALERÍA - AHORA CON WIDGET ELFSIGHT
         ══════════════════════════════════════ */
-        .decada-container { margin-bottom: 50px; }
-        .decada-title { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--taino-gold); padding-bottom: 10px; }
-        .galeria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px; }
-        .galeria-grid .foto-card { background: #111; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; display: flex; flex-direction: column; cursor: pointer; }
-        .galeria-grid .foto-card:hover { transform: translateY(-5px); }
-        .galeria-grid img { width: 100%; height: 350px; object-fit: contain; display: block; background: #222; }
-        .galeria-grid .foto-caption { padding: 15px; text-align: center; color: var(--taino-gold); font-weight: bold; font-size: 0.9em; background: var(--card-bg); margin-top: auto; }
+        .galeria-elfsight-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .galeria-intro {
+            text-align: center;
+            color: var(--primary-blue);
+            padding: 0 15px;
+            margin-bottom: 35px;
+            font-weight: bold;
+            line-height: 1.8;
+        }
 
         /* ══════════════════════════════════════
            BUTTONS & FORMS
@@ -717,268 +718,389 @@
             margin: 22px 0 12px;
         }
         .sub-parada-header h4 {
-            margin: 0 !important;
-            padding: 0 !important;
-            color: var(--taino-dark) !important;
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            color: var(--primary-blue);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        /* ══════════════════════════════════════
+           JUEGO DE CARTAS - EL AREITO DE LOS ENAMORADOS
+        ══════════════════════════════════════ */
+        .areito-container {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(0,86,151,0.05));
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+        .areito-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .areito-title {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--primary-blue);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .areito-subtitle {
+            font-family: 'Philosopher', serif;
+            font-style: italic;
+            color: var(--taino-dark);
+            font-size: 16px;
+        }
+        
+        .carta-display {
+            min-height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .carta-display::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(2px);
+        }
+        .carta-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+        }
+        .carta-categoria {
+            font-family: 'Cinzel', serif;
             font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--taino-gold);
+            margin-bottom: 15px;
+        }
+        .carta-pregunta {
+            font-family: 'Philosopher', serif;
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        .carta-puntos {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            background: var(--taino-gold);
+            color: var(--taino-dark);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+        
+        .areito-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .areito-btn {
+            font-family: 'Cinzel', serif;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        .areito-btn:hover {
+            background: var(--taino-gold);
+            color: var(--taino-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .areito-btn.secondary {
+            background: var(--taino-dark);
+        }
+        .areito-btn.secondary:hover {
+            background: var(--primary-red);
+        }
+        
+        .areito-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: var(--taino-dark);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+        }
+        .stat-item {
+            flex: 1;
+            min-width: 120px;
+        }
+        .stat-label {
+            font-family: 'Philosopher', serif;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            color: var(--taino-gold);
+            font-weight: 700;
+        }
+
+        .mensaje-inicial {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .mensaje-inicial h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-blue);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .mensaje-inicial p {
+            font-family: 'Philosopher', serif;
+            font-size: 16px;
+            color: var(--taino-dark);
+            line-height: 1.8;
+        }
+
+        /* Estilos de impresión */
+        @media print {
+            body * { visibility: hidden; }
+            .print-area, .print-area * { visibility: visible; }
+            .print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .areito-controls, .areito-stats { display: none !important; }
         }
     </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════
-     VIDEO SPLASH SCREEN
-════════════════════════════════════════ -->
+<!-- VIDEO SPLASH -->
 <div id="video-splash">
-    <iframe
-        id="intro-video"
-        src="https://share.descript.com/embed/2dxG5eibjeA"
-        allow="autoplay; fullscreen"
-        allowfullscreen
-        frameborder="0"
-        style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:0;">
-    </iframe>
+    <video id="intro-video" autoplay muted loop playsinline controls>
+        <source src="intro.mp4" type="video/mp4">
+    </video>
     <div class="splash-overlay"></div>
+    <button class="btn-mute" onclick="document.getElementById('intro-video').muted = !document.getElementById('intro-video').muted">🔇</button>
     <div class="splash-content">
-        <div class="splash-title">Gesta de los 45 Soles</div>
-        <div class="splash-subtitle">Cacique Francisco · Borikén te espera</div>
-        <button class="btn-enter" onclick="enterApp()">⚔ Comenzar la Gesta ⚔</button>
-        <button class="btn-skip" onclick="enterApp()">Saltar intro</button>
+        <h1 class="splash-title">La Gesta de los 45 Soles</h1>
+        <p class="splash-subtitle">Una Odisea Taína para Cacique Francisco</p>
+        <button class="btn-enter" onclick="enterApp()">Entrar al Yucayeque</button>
+        <button class="btn-skip" onclick="enterApp()">Saltar introducción</button>
     </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     MODAL GALERÍA
-════════════════════════════════════════ -->
-<div id="imageModal" class="modal">
-    <span class="close-modal" onclick="closeModal()">×</span>
-    <img class="modal-content" id="img01">
-</div>
-
-<!-- ════════════════════════════════════════
-     HEADER
-════════════════════════════════════════ -->
+<!-- BANNER -->
 <header class="banner">
-    <img src="header.jpg" alt="Misión 45 - Cacique de Quisqueya y Borikén"
-         onerror="this.style.display='none'; document.querySelector('header.banner').style.background='linear-gradient(135deg,#005697,#2C3539)'; document.querySelector('header.banner').style.minHeight='80px'; document.querySelector('header.banner').style.borderRadius='0 0 20px 20px';">
+    <img src="banner.jpg" alt="Banner Gesta de los 45 Soles">
 </header>
 
-<!-- ════════════════════════════════════════
-     NAV — DARK THEME
-════════════════════════════════════════ -->
+<!-- NAV -->
 <nav>
-    <button onclick="showPage('inicio')" class="active" id="nav-inicio">Inicio</button>
-    <button onclick="showPage('agenda')" id="nav-agenda">Mi Agenda</button>
-    <button onclick="showPage('galeria')" id="nav-galeria">Galería 45 Soles</button>
-    <button onclick="showPage('glosario')" id="nav-glosario">Glosario</button>
-    <button onclick="showPage('boveda-admin')" id="nav-boveda-admin">Bóveda & Admin</button>
+    <button id="nav-inicio" class="active" onclick="showPage('inicio')">🏠 Inicio</button>
+    <button id="nav-agenda" onclick="showPage('agenda')">📜 La Gesta</button>
+    <button id="nav-bonificaciones" onclick="showPage('bonificaciones')">🗺️ Bonificaciones</button>
+    <button id="nav-galeria" onclick="showPage('galeria')">📷 Los 45 Soles</button>
+    <button id="nav-areito" onclick="showPage('areito')">🎴 Areito del Saber</button>
+    <button id="nav-glosario" onclick="showPage('glosario')">📖 Glosario</button>
+    <button id="nav-boveda-admin" onclick="showPage('boveda-admin')">⚙️ Bóveda & Admin</button>
 </nav>
 
 <main>
-
     <!-- ════════ INICIO ════════ -->
     <section id="inicio" class="page active">
-        <h2>El Ciclo de los 3 Soles</h2>
+        <h1>Bienvenido, Cacique Francisco</h1>
 
         <div id="countdown-container">
-            <h3>⏳ Tiempo hasta el Despertar de Guahayona</h3>
-            <div id="countdown">Calculando...</div>
+            <h3>Cuenta Regresiva a tu Gran Gesta</h3>
+            <div id="countdown">Cargando...</div>
         </div>
 
+        <div class="quote">"Cada sol que pasa deja una huella en tu corazón. Hoy celebramos 45 años de luz, sabiduría y valentía."</div>
+
+        <p>Durante tres días, del <strong>Jueves 2 al Sábado 4 de abril de 2026</strong>, emprenderás una aventura épica bajo el manto de los antiguos dioses taínos. Tu misión: acumular <strong>1,000 puntos de valor</strong> en tu viaje a través de paradas secretas y retos sagrados que solo el Oráculo (tu Cacica) te revelará.</p>
+
         <div class="progress-container">
-            <h3>Progreso de la Gesta</h3>
+            <h3>🏆 Progreso del Cacique</h3>
             <div class="progress-bar-wrap">
                 <div class="progress-track">
-                    <div class="progress-fill" id="progressBar"></div>
+                    <div id="progressBar" class="progress-fill"></div>
                 </div>
             </div>
             <div class="progress-milestones">
-                <div class="milestone-item" id="ms-jp1">
-                    <span>☀️</span><span>J·P1<br>40pts</span>
-                </div>
-                <div class="milestone-item" id="ms-jp2">
-                    <span>☀️</span><span>J·P2<br>105pts</span>
-                </div>
-                <div class="milestone-item" id="ms-vie">
-                    <span>🌿</span><span>Vie<br>250pts</span>
-                </div>
-                <div class="milestone-item" id="ms-sab">
-                    <span>🔥</span><span>Sáb<br>550pts</span>
-                </div>
-                <div class="milestone-item" id="ms-fin">
-                    <span>👑</span><span>Final<br>1000pts</span>
-                </div>
+                <div id="ms-jp1" class="milestone-item"><span>🌅</span><span>JP1</span></div>
+                <div id="ms-jp2" class="milestone-item"><span>🌄</span><span>JP2</span></div>
+                <div id="ms-vie" class="milestone-item"><span>🌿</span><span>Viernes</span></div>
+                <div id="ms-sab" class="milestone-item"><span>🔥</span><span>Sábado</span></div>
+                <div id="ms-fin" class="milestone-item"><span>👑</span><span>Final</span></div>
             </div>
-            <strong id="puntosTexto"><span id="ptsCurrent">0</span> / 1000 Puntos</strong>
+            <div id="puntosTexto">Puntos Actuales: <span id="ptsCurrent">0</span> / 1000</div>
         </div>
 
-        <h3>Introducción de la Gesta:</h3>
-        <p>"¡Hau, Cacique Francisco! Escucha la voz de Yocahú, que sopla a través del mar, desde las altas montañas de Quisqueya (tu tierra natal) hasta las costas de Borikén (la tierra que te forjó). Eres un Cacique de dos Yucayeques, unido por la misma sangre taína y las mismas estrellas." Has completado cuarenta y cinco soles sobre la tierra.</p>
-        <p>Cacique Francisco, tu destino no se labra en un solo día. Esta gesta se compone de 3 Soles Sagrados. El Jueves es tu Rebelión y Retorno, el Viernes es tu Purificación y Deleite, y el Sábado será tu Consagración Final.</p>
-        <p>Solo si acumulas los puntos de cada jornada, serás digno de los misterios del tercer día. <strong>¡Meta Final: 1,000 Puntos!</strong></p>
-
-        <h3>Las Reglas de la Gesta:</h3>
-        <ul>
-            <li><strong>Ubicación Sagrada:</strong> El mapa es secreto. Tu Guaca te guiará por las sendas de Borikén. Solo cuando lleguen al punto exacto, se revelará la energía del lugar.</li>
-            <li><strong>La Señal Ancestral (Oráculo):</strong> Al llegar a cada parada, aparecerá un mensaje enigmático. Deberás leerlo para entender la esencia de ese batey y lo que los ancestros esperan de ti allí.</li>
-            <li><strong>El Reto de Sabiduría (Prueba):</strong> Es el desafío que debes resolver en el sitio. Observa, pregunta y descubre los secretos del lugar para ganar tus Puntos de Valor.</li>
-            <li><strong>El Registro del Guerrero (Documentación):</strong> Para desbloquear el siguiente paso, deberás dejar constancia de tu hazaña con una foto o video y cumplir la Ofrenda de acción. Una vez documentado, la Guaca validará tu progreso.</li>
-        </ul>
-
-        <div style="text-align:center; margin-top:40px;">
-            <button class="btn-submit" onclick="showPage('agenda')">Comenzar Gesta</button>
-        </div>
-    </section>
-
-    <!-- ════════ AGENDA ════════ -->
-    <section id="agenda" class="page">
-        <h2>Agenda de la Gesta</h2>
-
-        <!-- TIMELINE 3 SOLES -->
         <div class="sol-timeline">
             <div class="sol-item">
-                <div class="sol-dot locked" id="tl-dot-jueves">☀️</div>
+                <div id="tl-dot-jueves" class="sol-dot">🌅</div>
                 <div class="sol-info">
                     <div class="sol-name">Sol 1 · Jueves</div>
-                    <span class="sol-status locked" id="tl-status-jueves">Bloqueado</span>
+                    <div id="tl-status-jueves" class="sol-status">—</div>
                 </div>
             </div>
-            <div class="sol-connector" id="tl-conn-1"></div>
+            <div id="tl-conn-1" class="sol-connector"></div>
             <div class="sol-item">
-                <div class="sol-dot locked" id="tl-dot-viernes">🌿</div>
+                <div id="tl-dot-viernes" class="sol-dot">🌿</div>
                 <div class="sol-info">
                     <div class="sol-name">Sol 2 · Viernes</div>
-                    <span class="sol-status locked" id="tl-status-viernes">Bloqueado</span>
+                    <div id="tl-status-viernes" class="sol-status">—</div>
                 </div>
             </div>
-            <div class="sol-connector" id="tl-conn-2"></div>
+            <div id="tl-conn-2" class="sol-connector"></div>
             <div class="sol-item">
-                <div class="sol-dot locked" id="tl-dot-sabado">🔥</div>
+                <div id="tl-dot-sabado" class="sol-dot">🔥</div>
                 <div class="sol-info">
                     <div class="sol-name">Sol 3 · Sábado</div>
-                    <span class="sol-status locked" id="tl-status-sabado">Bloqueado</span>
+                    <div id="tl-status-sabado" class="sol-status">—</div>
                 </div>
             </div>
         </div>
 
-        <!-- SOL 1 BANNER -->
-        <div class="sol-banner">
-            <div class="sol-banner-icon">☀️</div>
-            <div class="sol-banner-info">
-                <div class="sol-banner-title">Sol 1 · Jueves 2 de Abril</div>
-                <div class="sol-banner-subtitle">El Despertar de Guahayona</div>
-            </div>
-            <div class="sol-banner-pts">185 pts</div>
-        </div>
+        <p><strong>Importante:</strong> Las rutas y direcciones de tus paradas permanecerán ocultas hasta que el Oráculo (Cacica) las revele en el momento preciso. Solo ella posee el mapa completo de esta odisea sagrada.</p>
+    </section>
 
-        <div class="bendicion-box">
-            <p><strong>La Bendición de Atabey:</strong><br>"Como la Diosa Madre y señora de las aguas dulces, Atabey bendice hoy tu inicio. Todo gran imperio comienza con un cimiento sólido, y hoy regresas al origen para reconocer tu fuerza. Que las aguas de Borikén limpien tu camino y el sol de la mañana ilumine tu rastro."</p>
-            <div class="quote-line">"Quererse a uno mismo es el principio de una historia de amor que dura toda la vida." — Oscar Wilde.</div>
-            <p>"Baby, ¡Feliz cumpleaños! A tus 45 años, has construido una versión de ti que admiro profundamente. El amor propio no es egoísmo, es saber cuidar el templo que eres para poder entregarte a los demás. Que este nuevo año de vida sea para seguir priorizando tu paz, tus sueños y esa fuerza interna que te hace único. Celebro tu resiliencia y el gran hombre que eres hoy. Eres el Cacique de tu propio destino."</p>
-            <span class="leyenda-label">⚔ Guía Espiritual</span>
-            <p><strong>La Leyenda del Día: Guahayona, el Guerrero-Navegante Rebelde</strong><br>
-            Hoy caminas bajo la sombra de Guahayona, el cacique que rompió el maleficio de la cueva y se atrevió a llevar a su pueblo más allá del mundo conocido, abandonando lo familiar para explorar lo desconocido. Como el Venus matutino, hoy íntegras tus opuestos: la fuerza del guerrero y la sabiduría del navegante. Eres el símbolo vivo de la resiliencia; aquel que muere y renace con más poder en cada ciclo.</p>
-        </div>
+    <!-- ════════ LA GESTA (AGENDA) ════════ -->
+    <section id="agenda" class="page">
+        <h2>📜 La Gesta de los 45 Soles</h2>
 
-        <!-- JUEVES P1 -->
+        <!-- JUEVES -->
         <div class="parada-wrapper">
             <div id="jueves-p1" class="parada">
-                <div class="parada-header">
-                    <h4>📍 Parada 1: Ubicación Sagrada — Palmer</h4>
+                <div class="parada-header" style="background:var(--taino-dark); padding:0; border-radius:0;">
+                    <div class="sol-banner" style="margin:0; border-radius:0; box-shadow:none;">
+                        <div class="sol-banner-icon">🌅</div>
+                        <div class="sol-banner-info">
+                            <div class="sol-banner-title">Sol 1 · Jueves</div>
+                            <div class="sol-banner-subtitle">El Despertar de Guahayona</div>
+                        </div>
+                        <div class="sol-banner-pts">250 pts</div>
+                    </div>
                 </div>
                 <div class="parada-body">
+                    <div class="bendicion-box">
+                        <p><strong>La Bendición de Yúcahu:</strong><br>
+                        "Cacique Francisco, el dios de la yuca y las cosechas bendice hoy tu camino. Que cada paso te acerque a los tesoros ocultos que solo tu corazón puede descifrar."</p>
+                        <div class="quote-line">"No es el destino quien hace al guerrero, sino el camino que recorre." — <strong>Proverbio Taíno</strong></div>
+                        <p>"Hoy despiertas con el primer sol de una aventura sagrada. Prepárate para descubrir no solo los lugares de tu isla, sino los rincones más profundos de tu espíritu."</p>
+                        <span class="leyenda-label">🌅 Guía Espiritual</span>
+                        <p><strong>La Leyenda del Día: El Despertar de Guahayona</strong><br>
+                        Guahayona fue el primer héroe taíno que se atrevió a explorar lo desconocido. Hoy tú, Cacique Francisco, encarnas su espíritu al adentrarte en un viaje que desafiará tu coraje, tu ingenio y tu conexión con los elementos sagrados de Borikén.</p>
+                    </div>
+
+                    <h4>📍 Parada 1: El Umbral del Yucayeque (Hora del desayuno)</h4>
                     <div class="sec-row">
                         <div class="sec-icon umbral">🏛️</div>
-                        <div class="sec-content"><span class="sec-label umbral">Umbral del Yucayeque</span>Como Guahayona en busca de la esencia de la tierra, has cruzado el portal hacia tu primer gran batey. Atabey te recibe en este rincón de Palmer, donde el aroma a grano tostado y pan recién horneado confirma que la travesía de la Guaca ha comenzado bajo su protección.</div>
+                        <div class="sec-content"><span class="sec-label umbral">Umbral del Yucayeque</span>Tu punto de partida será revelado por el Oráculo cuando amanezca.</div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon senal">🔮</div>
-                        <div class="sec-content"><span class="sec-label senal">La Señal</span>Busca el tesoro blanco que nace de la palma y se adorna con los frutos de la tierra lejana. No es pan, pero alimenta el alma; es una joya de nieve que cruje al morder y guarda el dulzor de los ancestros.</div>
+                        <div class="sec-content"><span class="sec-label senal">La Señal</span>"Busca el lugar donde el maíz se convierte en oro y el grano sagrado despierta los sentidos del Cacique. Allí, el pan de los dioses te espera con canela y miel."</div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon reto">🧠</div>
-                        <div class="sec-content"><span class="sec-label reto">Reto de Sabiduría — La Alquimia del Manjar</span>La Ceremonia del Gusto: Debes reclamar y degustar el Dulce de la Casa. No es un simple bocado; es una prueba de tus sentidos. Tu lengua debe ser el instrumento — tras el primer bocado, deberás identificar los elementos ocultos que componen este postre. <span class="pts-badge">🏅 20 pts</span></div>
+                        <div class="sec-content"><span class="sec-label reto">Reto de Sabiduría</span>Identifica dos ingredientes en tu desayuno que simbolicen abundancia y compártelos en un brindis con el Oráculo. <span class="pts-badge">🏅 20 pts</span></div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon registro">📸</div>
-                        <div class="sec-content"><span class="sec-label registro">El Registro</span>Captura del Dulce de la Casa antes de que su rastro desaparezca de la tierra junto a tu primer café de la Odisea. <span class="pts-badge">🏅 10 pts</span></div>
+                        <div class="sec-content"><span class="sec-label registro">El Registro</span>Foto del Cacique frente a su primer alimento sagrado del día. <span class="pts-badge">🏅 10 pts</span></div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon ofrenda">🌿</div>
-                        <div class="sec-content"><span class="sec-label ofrenda">Ofrenda</span>Beso de impacto para que el Oráculo abra los senderos hacia la montaña sagrada. <span class="pts-badge">🏅 10 pts</span></div>
+                        <div class="sec-content"><span class="sec-label ofrenda">Ofrenda</span>Dejar una propina generosa al servidor, honrando la labor de quien sirve. <span class="pts-badge">🏅 10 pts</span></div>
                     </div>
-                    <div class="subtotal-bar"><span>⚔ Subtotal Parada 1</span><span>40 pts</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- JUEVES P2 -->
         <div class="parada-wrapper">
             <div id="jueves-p2" class="parada locked">
                 <div class="parada-header">
-                    <h4>📍 Parada 2: Ubicación Sagrada — Ceiba</h4>
+                    <h3>📍 Parada 2: El Encuentro con Karaya (La Playa Mística)</h3>
                 </div>
                 <div class="parada-body">
                     <div class="sec-row">
                         <div class="sec-icon umbral">🏛️</div>
-                        <div class="sec-content"><span class="sec-label umbral">Umbral del Yucayeque</span>Has dejado atrás el aroma del pan para encontrarte con el abrazo de Karaya (la luna/el mar). En Ceiba, donde los vientos cuentan historias de Roosevelt Roads, la costa te espera para purificar el espíritu.</div>
+                        <div class="sec-content"><span class="sec-label umbral">Umbral del Yucayeque</span>Tras el primer alimento, el camino se abre hacia las aguas sagradas de Karaya (el mar).</div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon senal">🔮</div>
-                        <div class="sec-content"><span class="sec-label senal">La Señal</span>Busca el camino donde el metal de los carros descansa sobre la arena. No busques portones ni muros; el refugio es un bohío de madera que mira fijamente hacia donde nace el sol sobre las aguas.</div>
+                        <div class="sec-content"><span class="sec-label senal">La Señal</span>"Busca las aguas que besan la tierra del antiguo pueblo de Ceiba. Donde las olas susurran secretos, allí encontrarás el descanso del guerrero antes de la Gran Odisea."</div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon reto">🧠</div>
-                        <div class="sec-content"><span class="sec-label reto">Reto de Sabiduría — La Vigilancia del Guerrero</span>Al estacionarte, identifica cuántos bohíos (gazebos) de madera protegen la orilla en tu zona inmediata. <span class="pts-badge">🏅 10 pts</span><br><br>
-                        <strong>El Secreto de la Arena:</strong> Camina hacia la orilla y encuentra una piedra o caracol que haya sido "esculpido" por el mar. El Oráculo validará tu hallazgo si logras describir su forma única. <span class="pts-badge">🏅 10 pts</span></div>
+                        <div class="sec-content"><span class="sec-label reto">Reto de Sabiduría — La Ofrenda al Mar</span>Recoger 3 piedras de la orilla y lanzarlas al agua con una intención personal para cada una (amor, salud, prosperidad). <span class="pts-badge">🏅 25 pts</span></div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon registro">📸</div>
-                        <div class="sec-content"><span class="sec-label registro">El Registro</span>Foto de tu nombre "Cacique 45" escrito en la arena con uvas de playa. <span class="pts-badge">🏅 20 pts</span> &nbsp; El Sello de la Guaca: Reportar el número de bohíos contados. <span class="pts-badge">🏅 5 pts</span></div>
+                        <div class="sec-content"><span class="sec-label registro">El Registro</span>Foto del Cacique con los pies en el agua o contemplando el horizonte marino. <span class="pts-badge">🏅 20 pts</span></div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon ofrenda">🌿</div>
-                        <div class="sec-content"><span class="sec-label ofrenda">Ofrenda</span>Cargar a la Guaca 20 pasos. <span class="pts-badge">🏅 20 pts</span></div>
+                        <div class="sec-content"><span class="sec-label ofrenda">Ofrenda</span>Escribir en la arena un mensaje de gratitud hacia alguien importante en tu vida. <span class="pts-badge">🏅 20 pts</span></div>
                     </div>
-                    <div class="subtotal-bar"><span>⚔ Subtotal Parada 2</span><span>65 pts</span></div>
                 </div>
             </div>
             <div id="lock-jueves-p2" class="locked-overlay">
                 <span class="lock-icon">🔒</span>
                 <span class="lock-badge">Misión Bloqueada</span>
-                <span class="lock-pts">Requiere completar Parada 1</span>
+                <span class="lock-pts">Requiere 40 puntos</span>
             </div>
         </div>
 
-        <!-- JUEVES P3 -->
         <div class="parada-wrapper">
             <div id="jueves-p3" class="parada locked">
                 <div class="parada-header">
-                    <h4>📍 Parada 3: Ubicación Sagrada — Fajardo</h4>
+                    <h3>📍 Parada 3: El Batey de los Sabores (Almuerzo Ceremonial)</h3>
                 </div>
                 <div class="parada-body">
                     <div class="sec-row">
                         <div class="sec-icon umbral">🏛️</div>
-                        <div class="sec-content"><span class="sec-label umbral">Umbral del Yucayeque</span>Has navegado las aguas de Ceiba y ahora, transformado en lucero de la tarde, arribas al Batey de las Sombras Luminosas. En Fajardo, las cuevas se vuelven templos de cristal y el fuego brilla en hilos de luz (neón) sobre las paredes.</div>
+                        <div class="sec-content"><span class="sec-label umbral">Umbral del Yucayeque</span>Mediodía. El sol está en lo alto y tu cuerpo necesita reponer energías en un lugar donde la comida se convierte en celebración.</div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon senal">🔮</div>
-                        <div class="sec-content"><span class="sec-label senal">La Señal</span>Busca el caney donde los espíritus del teatro susurran historias de otros mundos. No busques el sol de Atabey, busca la luz que imita a las luciérnagas gigantes y el muro que guarda la memoria de los maestros del escenario.</div>
+                        <div class="sec-content"><span class="sec-label senal">La Señal</span>"Busca el lugar donde los frutos del mar se fusionan con el fuego de la tierra. Donde el arte del sabor encuentra su máxima expresión en la costa del este."</div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon reto">🧠</div>
-                        <div class="sec-content"><span class="sec-label reto">Reto de Sabiduría</span>1. Invocar al Phantom of the Opera.<br>2. El Descifrado de la Sombra: Identificar qué elementos de la tierra y el bosque (ingredientes) componen su esencia. <span class="pts-badge">🏅 15 pts</span></div>
+                        <div class="sec-content"><span class="sec-label reto">Reto de Sabiduría — El Banquete del Cacique</span>Probar un plato que nunca antes hayas ordenado en ese restaurante. <span class="pts-badge">🏅 30 pts</span></div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon registro">📸</div>
-                        <div class="sec-content"><span class="sec-label registro">El Registro</span>Evidencia del Guerrero: Inmortalizar tu imagen en el Mural Clásico del local. <span class="pts-badge">🏅 15 pts</span><br><br>
-                        <strong>El Sello de la Sabiduría:</strong> Grabar El Discurso de Guahayona y brindar. (Sigue las instrucciones del libreto sagrado). <span class="pts-badge">🏅 30 pts</span></div>
+                        <div class="sec-content"><span class="sec-label registro">El Registro</span>Foto del Cacique frente a su festín. <span class="pts-badge">🏅 25 pts</span></div>
                     </div>
                     <div class="sec-row">
                         <div class="sec-icon ofrenda">🌿</div>
-                        <div class="sec-content"><span class="sec-label ofrenda">Ofrenda</span>Beso de Victoria + Abrazo de 45 segundos. <span class="pts-badge">🏅 20 pts</span></div>
+                        <div class="sec-content"><span class="sec-label ofrenda">Ofrenda</span>Compartir una historia sobre cómo ese día ha ido bien hasta el momento con tu acompañante (Oráculo). <span class="pts-badge">🏅 25 pts</span></div>
                     </div>
-                    <div class="subtotal-bar"><span>⚔ Subtotal Parada 3</span><span>80 pts</span></div>
+                    <div class="subtotal-bar"><span>🌅 Subtotal Paradas Jueves</span><span>250 pts</span></div>
                 </div>
             </div>
             <div id="lock-jueves-p3" class="locked-overlay">
@@ -1113,9 +1235,25 @@
                     </div>
                 </div>
                 <div class="parada-body">
-                    <div class="bendicion-box">
-                        <span class="leyenda-label">🔥 Guía Espiritual</span>
-                        <p><strong>La Leyenda:</strong> Agüeybaná, el Gran Cacique, es el sol del centro que irradia luz a su tribu. Hoy, tras la exploración y la purificación, regresas a la tierra de tus ancestros en Loíza. Es un día de comunidad, de fuego y de reconocer que el mayor imperio es aquel que se construye con amor en los pequeños detalles.</p>
+                    <!-- NUEVA INTRODUCCIÓN DEL SÁBADO -->
+                    <div class="bendicion-box" style="background: linear-gradient(135deg, rgba(237,28,36,0.08) 0%, rgba(212,175,55,0.08) 100%); border-left: 4px solid var(--primary-red);">
+                        <p><strong>La Bendición de Yúcahu:</strong><br>
+                        "En el día sagrado del Sábado, Yúcahu, señor de la yuca y protector de los guerreros, derrama su fuerza sobre ti. Hoy no solo celebras 45 soles de vida, sino la forja de un hombre íntegro, justo y valiente. Que cada paso que des hoy reafirme tu compromiso con la verdad, el honor y el amor."</p>
+                        
+                        <div class="quote-line" style="border-left-color: var(--primary-red);">
+                            "Quien mira hacia afuera, sueña; quien mira hacia adentro, despierta." — <strong>Herman Hesse</strong>
+                        </div>
+                        
+                        <p><strong>Mensaje a los 45 Años:</strong><br>
+                        Francisco, hoy llegas a una edad en la que la sabiduría y la experiencia se encuentran con la fuerza renovada del espíritu. Los 45 años no son un ocaso, sino un amanecer dorado donde todo lo vivido se convierte en cimiento para lo que está por venir. Has caminado con integridad, has protegido a los tuyos, has amado con pasión y has enfrentado cada reto con valentía.</p>
+                        
+                        <p>En este tercer sol de tu gesta, te consagras como Agüeybaná, el Gran Cacique que ilumina a su tribu no con conquistas externas, sino con la luz interior de sus valores. Hoy regresas a Loíza, tierra de tus raíces, no como visitante sino como señor de tu propio destino. Que el fuego que enciendas hoy sea testimonio de tu grandeza y que cada acto de servicio, generosidad y amor reafirme el legado que dejarás a las generaciones que vienen.</p>
+                        
+                        <span class="leyenda-label" style="background: var(--primary-red);">🔥 Guía Espiritual</span>
+                        <p><strong>La Leyenda del Día: Agüeybaná y el Fuego del Centro</strong><br>
+                        Agüeybaná, el Gran Cacique, no era el más fuerte ni el más rápido, pero era el sol del centro que irradiaba luz a toda su tribu. Su poder no residía en la espada sino en su integridad inquebrantable, en su palabra que era ley y en su capacidad de unir a los suyos bajo el manto del amor y la justicia.</p>
+                        
+                        <p>Hoy, Cacique Francisco, tú encarnas ese espíritu. Tras la exploración del Jueves y la purificación del Viernes, regresas fortalecido a la tierra de tus ancestros para demostrar que el mayor imperio es aquel que se construye con amor en los pequeños detalles, con servicio en los gestos cotidianos y con fuego en el corazón que nunca se apaga.</p>
                     </div>
 
                     <div class="sub-parada-header"><h4>📍 Parada 1: El Sustento del Guerrero (Desayuno en el Bohío)</h4></div>
@@ -1180,58 +1318,204 @@
         </div>
     </section>
 
-    <!-- ════════ GALERÍA ════════ -->
+    <!-- ════════ GALERÍA (AHORA CON WIDGET ELFSIGHT) ════════ -->
+    <!-- ════════ BONIFICACIONES - RUTAS ALTERNAS ════════ -->
+    <section id="bonificaciones" class="page">
+        <h2>🗺️ Misiones Secundarias del Este</h2>
+        
+        <div style="text-align: center; margin-bottom: 40px;">
+            <p class="quote">"Cacique, si el camino se tuerce o el destino te llama por otras rutas, el Oráculo te revela tres senderos alternos donde también podrás cosechar honor y puntos."</p>
+        </div>
+
+        <!-- Bonificación 1 -->
+        <div class="parada" style="margin-bottom: 30px;">
+            <div class="parada-header" style="background: linear-gradient(135deg, #005697 0%, #0077b6 100%);">
+                <h3>🌟 Bonificación 1: "El Refugio de Yúcahu"</h3>
+                <span style="background: var(--taino-gold); color: var(--taino-dark); padding: 6px 14px; border-radius: 20px; font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;">100 pts</span>
+            </div>
+            <div class="parada-body">
+                <div class="bendicion-box" style="background: linear-gradient(135deg, rgba(0,86,151,0.08), rgba(212,175,55,0.05));">
+                    <p><strong>La Pista del Oráculo:</strong><br>
+                    "Guerrero, el dios de la montaña llora agua cristalina para fortalecer a sus hijos. Busca la falda del Yunque y el fuego de la costa."</p>
+                    <span class="leyenda-label">🗺️ Ruta: Río Grande / Luquillo</span>
+                </div>
+
+                <div class="sub-parada-header"><h4>🌿 La Excursión</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon umbral">🏔️</div>
+                    <div class="sec-content">
+                        Adéntrate en las faldas de la montaña hacia <strong>Charco Las Pailas, Luquillo</strong>. Respira la humedad de la selva y escucha el canto del coquí, los espíritus de la isla.
+                        <span class="pts-badge">🏅 45 pts</span>
+                    </div>
+                </div>
+
+                <div class="sub-parada-header"><h4>⚔️ La Prueba</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon reto">💧</div>
+                    <div class="sec-content">
+                        Deberás sumergirte en las aguas frías del río. Deja que la corriente se lleve cualquier rastro de cansancio de los últimos 45 ciclos.
+                        <span class="pts-badge">🏅 35 pts</span>
+                    </div>
+                </div>
+
+                <div class="sub-parada-header"><h4>🔥 La Ofrenda</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon ofrenda">🌮</div>
+                    <div class="sec-content">
+                        Baja de la montaña victorioso y dirígete a los <strong>Kioskos de Luquillo</strong>. Tu ofrenda será el "Oro Frito": una alcapurria crujiente y una bebida helada frente al mar.
+                        <span class="pts-badge">🏅 20 pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bonificación 2 -->
+        <div class="parada" style="margin-bottom: 30px;">
+            <div class="parada-header" style="background: linear-gradient(135deg, #2a9d8f 0%, #06d6a0 100%);">
+                <h3>🌟 Bonificación 2: "El Despertar del Agua"</h3>
+                <span style="background: var(--taino-gold); color: var(--taino-dark); padding: 6px 14px; border-radius: 20px; font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;">100 pts</span>
+            </div>
+            <div class="parada-body">
+                <div class="bendicion-box" style="background: linear-gradient(135deg, rgba(42,157,143,0.08), rgba(6,214,160,0.05));">
+                    <p><strong>La Pista del Oráculo:</strong><br>
+                    "El sonido del agua fluyendo sobre las rocas te guiará. Donde el río se esconde y el mar ofrece sus tesoros, ahí encontrarás tu centro."</p>
+                    <span class="leyenda-label">🗺️ Ruta: Naguabo / Ceiba</span>
+                </div>
+
+                <div class="sub-parada-header"><h4>🌿 La Excursión</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon umbral">🏞️</div>
+                    <div class="sec-content">
+                        Navega el camino montañoso hasta encontrar el estanque escondido: <strong>Charco El Hippie en Naguabo</strong>. Un santuario de piedra rodeado por la inmensidad de la naturaleza.
+                        <span class="pts-badge">🏅 45 pts</span>
+                    </div>
+                </div>
+
+                <div class="sub-parada-header"><h4>⚔️ La Prueba</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon reto">🧘</div>
+                    <div class="sec-content">
+                        Encuentra una roca grande frente a la cascada. Tu prueba es mantener <strong>10 minutos de silencio absoluto</strong>, escuchando solo el rugido del agua, conectando con el presente y visualizando tu nuevo ciclo.
+                        <span class="pts-badge">🏅 35 pts</span>
+                    </div>
+                </div>
+
+                <div class="sub-parada-header"><h4>🔥 La Ofrenda</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon ofrenda">🦐</div>
+                    <div class="sec-content">
+                        Desciende hacia <strong>El Malecón de Naguabo</strong>. En uno de sus famosos kioskos o bares criollos (como El Makito), reclama "El tesoro del mar encerrado en masa": una auténtica empanadilla de chapín y un festín de mariscos frescos, celebrando con la brisa salada.
+                        <span class="pts-badge">🏅 20 pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bonificación 3 -->
+        <div class="parada" style="margin-bottom: 30px;">
+            <div class="parada-header" style="background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);">
+                <h3>🌟 Bonificación 3: "El Eco del Tambor"</h3>
+                <span style="background: var(--taino-dark); color: var(--taino-gold); padding: 6px 14px; border-radius: 20px; font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;">100 pts</span>
+            </div>
+            <div class="parada-body">
+                <div class="bendicion-box" style="background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(184,134,11,0.08));">
+                    <p><strong>La Pista del Oráculo:</strong><br>
+                    "Escucha, Cacique. Donde el río abraza el mar y la gran ceiba vigila, yace la fuerza de los antiguos. Sigue el humo y el sonido del barril."</p>
+                    <span class="leyenda-label">🗺️ Ruta: Loíza / Piñones</span>
+                </div>
+
+                <div class="sub-parada-header"><h4>🌿 La Excursión</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon umbral">🌳</div>
+                    <div class="sec-content">
+                        Tu expedición te llevará a la <strong>Cueva Histórica María de la Cruz</strong>. Camina bajo la sombra de la ceiba gigante y entra al santuario de piedra donde los primeros ancestros dejaron su huella.
+                        <span class="pts-badge">🏅 45 pts</span>
+                    </div>
+                </div>
+
+                <div class="sub-parada-header"><h4>⚔️ La Prueba</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon reto">👣</div>
+                    <div class="sec-content">
+                        Camina descalzo por la arena en la <strong>Playa Vacia Talega</strong>, permitiendo que el Atlántico se lleve las cargas. Siente la tierra firme bajo tus pies y agradece por la estabilidad de tu propio yucayeque.
+                        <span class="pts-badge">🏅 35 pts</span>
+                    </div>
+                </div>
+
+                <div class="sub-parada-header"><h4>🔥 La Ofrenda</h4></div>
+                <div class="sec-row">
+                    <div class="sec-icon ofrenda">🔥</div>
+                    <div class="sec-content">
+                        Sigue el olor a leña hasta <strong>El Burén de Lula</strong> o tu kiosco criollo favorito en Piñones. Tu ofrenda es el sabor ancestral: saborear el fuego hecho comida sobre la hoja de plátano, brindando por la abundancia que te rodea.
+                        <span class="pts-badge">🏅 20 pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: var(--taino-dark); border-radius: 15px;">
+            <p style="color: var(--taino-gold); font-family: 'Cinzel', serif; font-size: 18px; margin: 0;">
+                <strong>Total de Bonificaciones Disponibles: 300 Puntos</strong>
+            </p>
+            <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 10px;">
+                Estas rutas son opcionales y te permiten ganar puntos adicionales si el camino principal se ve alterado.
+            </p>
+        </div>
+    </section>
     <section id="galeria" class="page">
         <h2>El Camino de los 45 Soles</h2>
-        <div class="decada-container">
-            <h3 class="decada-title">Las Raíces en Quisqueya & Boriquén</h3>
-            <p style="text-align:center; color:var(--primary-blue); padding:0 15px; margin-bottom:25px; font-weight:bold;">Todo gran árbol necesita raíces fuertes. Estos años sembraron la nobleza en tu corazón. En la simpleza del campo y cobijado por el amor incondicional de tu mamá Andrea, tus abuelos, tu tía Reyna, tu tío Feliz y tu tía Rosa, aprendiste el verdadero valor de la familia, el respeto y el trabajo. Ellos forjaron los cimientos de amor y los profundos valores del gran hombre que eres hoy.</p>
-            <div class="galeria-grid">
-                <div class="foto-card" onclick="openModal(this)"><img src="foto1.jpeg" alt="Sol 1"><div class="foto-caption">En casa de Tia Rosalia/1981 RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto2.jpeg" alt="Sol 2"><div class="foto-caption">En casa de Abuela/1981 RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto3.jpeg" alt="Sol 3"><div class="foto-caption">En Casa de Tia Ana 1983/RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto4.jpeg" alt="Sol 4"><div class="foto-caption">1983/RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto5.jpeg" alt="Sol 5"><div class="foto-caption">Colegio Giselo 1986/PR</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto6.jpeg" alt="Sol 6"><div class="foto-caption">Cumpleaños 1986/PR</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto7.jpeg" alt="Sol 7"><div class="foto-caption">Vuelo a RD 1986</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto8.jpeg" alt="Sol 8"><div class="foto-caption">Con tio Carlos 1989 RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto9.jpeg" alt="Sol 9"><div class="foto-caption">Con tio Feliz 1989 RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto10.jpeg" alt="Sol 10"><div class="foto-caption">Con Mami(Andrea) 1987 RD</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto11.jpeg" alt="Sol 11"><div class="foto-caption">Con tia Reyna en PR 1989</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto12.jpeg" alt="Sol 12"><div class="foto-caption">Dos Pinos 1989 PR</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto13.jpeg" alt="Sol 13"><div class="foto-caption">Dos Pinos 1989 PR</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto14.jpeg" alt="Sol 14"><div class="foto-caption">Con Adony PR 1989</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto15.jpeg" alt="Sol 15"><div class="foto-caption">Dos Pinos PR 1990</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto16.jpeg" alt="Sol 16"><div class="foto-caption">Sol 16</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto17.jpeg" alt="Sol 17"><div class="foto-caption">Sol 17</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto18.jpeg" alt="Sol 18"><div class="foto-caption">Sol 18</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto19.jpeg" alt="Sol 19"><div class="foto-caption">Sol 19</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto20.jpeg" alt="Sol 20"><div class="foto-caption">Sol 20</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto21.jpeg" alt="Sol 21"><div class="foto-caption">Sol 21</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto22.jpeg" alt="Sol 22"><div class="foto-caption">Sol 22</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto23.jpeg" alt="Sol 23"><div class="foto-caption">Sol 23</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto24.jpeg" alt="Sol 24"><div class="foto-caption">Sol 24</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto25.jpeg" alt="Sol 25"><div class="foto-caption">Sol 25</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto26.jpg" alt="Sol 26"><div class="foto-caption">Sol 26</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto27.jpg" alt="Sol 27"><div class="foto-caption">Sol 27</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto28.jpg" alt="Sol 28"><div class="foto-caption">Sol 28</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto29.jpg" alt="Sol 29"><div class="foto-caption">Sol 29</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto30.jpg" alt="Sol 30"><div class="foto-caption">Sol 30</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto31.jpg" alt="Sol 31"><div class="foto-caption">Sol 31</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto32.jpg" alt="Sol 32"><div class="foto-caption">Sol 32</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto33.jpg" alt="Sol 33"><div class="foto-caption">Sol 33</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto34.jpg" alt="Sol 34"><div class="foto-caption">Sol 34</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto35.jpg" alt="Sol 35"><div class="foto-caption">Sol 35</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto36.jpg" alt="Sol 36"><div class="foto-caption">Sol 36</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto37.jpg" alt="Sol 37"><div class="foto-caption">Sol 37</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto38.jpg" alt="Sol 38"><div class="foto-caption">Sol 38</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto39.jpg" alt="Sol 39"><div class="foto-caption">Sol 39</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto40.jpg" alt="Sol 40"><div class="foto-caption">Sol 40</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto41.jpg" alt="Sol 41"><div class="foto-caption">Sol 41</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto42.jpg" alt="Sol 42"><div class="foto-caption">Sol 42</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto43.jpg" alt="Sol 43"><div class="foto-caption">Sol 43</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto44.jpg" alt="Sol 44"><div class="foto-caption">Sol 44</div></div>
-                <div class="foto-card" onclick="openModal(this)"><img src="foto45.jpg" alt="Sol 45"><div class="foto-caption">Sol 45</div></div>
+        
+        <div class="galeria-intro">
+            Todo gran árbol necesita raíces fuertes. Estos años sembraron la nobleza en tu corazón. En la simpleza del campo y cobijado por el amor incondicional de tu mamá Andrea, tus abuelos, tu tía Reyna, tu tío Feliz y tu tía Rosa, aprendiste el verdadero valor de la familia, el respeto y el trabajo. Ellos forjaron los cimientos de amor y los profundos valores del gran hombre que eres hoy.
+        </div>
+
+        <!-- WIDGET DE ELFSIGHT -->
+        <div class="galeria-elfsight-container">
+            <script src="https://static.elfsight.com/platform/platform.js" async></script>
+            <div class="elfsight-app-5935e692-d6ab-4983-8e59-c55a5c607adb" data-elfsight-app-lazy></div>
+        </div>
+    </section>
+
+    <!-- ════════ JUEGO EL AREITO DE LOS ENAMORADOS ════════ -->
+    <section id="areito" class="page">
+        <h2>🎴 El Areito del Saber</h2>
+        
+        <div class="areito-container">
+            <div class="areito-header">
+                <h3 class="areito-title">El Juego de las 45 Cartas Sagradas</h3>
+                <p class="areito-subtitle">Bonificación de 500 puntos distribuidos en preguntas de intimidad y conocimiento mutuo</p>
+            </div>
+
+            <div id="carta-area" class="carta-display" style="background-image: url('image_0.png');">
+                <div class="mensaje-inicial">
+                    <h3>Bienvenidos al Areito del Saber</h3>
+                    <p>Este es un juego sagrado de 45 cartas divididas en tres categorías:</p>
+                    <p><strong>🌺 Atabey</strong> - Preguntas sobre intimidad emocional y conexión profunda</p>
+                    <p><strong>⚔️ Guahayona</strong> - Preguntas sobre aventuras compartidas y sueños</p>
+                    <p><strong>🏆 Reto del Cacique</strong> - Desafíos creativos y divertidos</p>
+                    <p style="margin-top: 20px; font-weight: bold;">Presiona "Sacar Carta" para comenzar tu viaje de 500 puntos de bonificación.</p>
+                </div>
+            </div>
+
+            <div class="areito-controls">
+                <button class="areito-btn" onclick="sacarCarta()">🎴 Sacar Carta</button>
+                <button class="areito-btn secondary" onclick="reiniciarMazo()">🔄 Reiniciar Mazo</button>
+                <button class="areito-btn secondary" onclick="imprimirCartas()">🖨️ Imprimir Cartas</button>
+            </div>
+
+            <div class="areito-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Cartas Restantes</div>
+                    <div class="stat-value" id="cartas-restantes">45</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Puntos Ganados</div>
+                    <div class="stat-value" id="puntos-ganados">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Progreso</div>
+                    <div class="stat-value" id="progreso-porcentaje">0%</div>
+                </div>
             </div>
         </div>
     </section>
@@ -1296,12 +1580,22 @@
                 <button onclick="addPoints(65)">Jueves P4 (+65)</button>
                 <button onclick="addPoints(300)">Viernes (+300)</button>
                 <button onclick="addPoints(450)">Sábado (+450)</button>
+                <button onclick="addPoints(500)">Areito Completo (+500)</button>
+                <button onclick="addPoints(100)">Bonif. Yúcahu (+100)</button>
+                <button onclick="addPoints(100)">Bonif. Agua (+100)</button>
+                <button onclick="addPoints(100)">Bonif. Tambor (+100)</button>
             </div>
             <button class="btn-reset" onclick="resetGesta()">⚠️ RESETEAR PUNTOS A 0</button>
         </div>
     </section>
 
 </main>
+
+<!-- MODAL -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close-modal">×</span>
+    <img class="modal-content" id="img01">
+</div>
 
 <script>
     /* ── VIDEO SPLASH ─────────────────────── */
@@ -1409,7 +1703,7 @@
 
     function addPoints(pts) {
         totalPuntos += pts;
-        if (totalPuntos > 1000) totalPuntos = 1000;
+        if (totalPuntos > 1800) totalPuntos = 1800; // Total: 1000 Gesta + 500 Areito + 300 Bonificaciones
         localStorage.setItem('caciquePuntos', totalPuntos);
         updateUI();
         alert('¡Puntos asignados! Total: ' + totalPuntos);
@@ -1419,11 +1713,14 @@
         if (confirm('¿Segura que quieres borrar el progreso?')) {
             totalPuntos = 0;
             localStorage.setItem('caciquePuntos', totalPuntos);
+            localStorage.removeItem('areito-mazo');
+            localStorage.removeItem('areito-puntos');
             // Reset milestones
             ['ms-jp1','ms-jp2','ms-vie','ms-sab','ms-fin'].forEach(id => {
                 document.getElementById(id).classList.remove('reached');
             });
             updateUI();
+            reiniciarMazo();
         }
     }
 
@@ -1449,6 +1746,268 @@
         document.getElementById('countdown').innerHTML = d + 'd ' + h + 'h ' + m + 'm ' + s + 's';
     }, 1000);
 
+    /* ══════════════════════════════════════════════════════
+       JUEGO DE CARTAS - EL AREITO DE LOS ENAMORADOS
+    ══════════════════════════════════════════════════════ */
+
+    const cartasAreito = [
+        // ATABEY - 15 cartas (10 pts cada una = 150 pts)
+        { categoria: "Atabey", pregunta: "¿Cuál es el momento más vulnerable que has compartido conmigo?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Qué es lo que más te gusta de cómo te hago sentir?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Cuál ha sido el gesto más pequeño pero significativo que he tenido contigo?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿En qué momento supiste que querías que yo formara parte de tu vida?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Qué miedo tuyo te gustaría que yo conociera más profundamente?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Cómo crees que hemos crecido como pareja en este tiempo?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Qué palabra o frase mía llevas siempre en tu corazón?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Cuál es tu mayor sueño para nosotros como pareja?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Qué cualidad mía admiras en secreto pero nunca me has dicho?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Cuál es la canción que mejor describe nuestro amor?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Qué te hace sentir más amado/a cuando estamos juntos?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿En qué momento del día piensas más en mí?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Qué tradición te gustaría crear solo para nosotros dos?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Cuál es el recuerdo más íntimo y precioso que guardas de nosotros?", puntos: 10, fondo: "image_0.png" },
+        { categoria: "Atabey", pregunta: "¿Qué aspecto de mi personalidad te sorprendió gratamente al conocerme mejor?", puntos: 10, fondo: "image_0.png" },
+
+        // GUAHAYONA - 15 cartas (12 pts cada una = 180 pts)
+        { categoria: "Guahayona", pregunta: "¿Cuál es el viaje o aventura que más deseas vivir conmigo?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "Si pudieras revivir un día completo de nuestra relación, ¿cuál sería?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Qué nueva experiencia te gustaría explorar juntos?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Cuál ha sido nuestro momento más espontáneo y divertido?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Qué actividad compartida nos hace más felices?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "Si tuviéramos un día completamente libre, ¿cómo lo pasarías conmigo?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Qué reto o desafío te gustaría que superáramos juntos?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Cuál es el lugar más especial donde hemos estado juntos?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Qué proyecto o meta compartida te emociona más?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Cuál ha sido nuestra aventura más memorable hasta ahora?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Qué tradición familiar te gustaría comenzar conmigo?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "Si pudieras planear una sorpresa perfecta para nosotros, ¿qué sería?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Qué habilidad nueva te gustaría aprender junto a mí?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Cuál es el sueño más loco que tenemos en común?", puntos: 12, fondo: "image_2.png" },
+        { categoria: "Guahayona", pregunta: "¿Qué aventura cotidiana disfrutas más cuando estamos juntos?", puntos: 12, fondo: "image_2.png" },
+
+        // RETO DEL CACIQUE - 15 cartas (variados para totalizar 170 pts)
+        { categoria: "Reto del Cacique", pregunta: "Imita mi expresión favorita o mi gesto característico", puntos: 8, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Di tres cumplidos genuinos mirándome a los ojos sin reírte", puntos: 10, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Canta una canción que te recuerde a nosotros", puntos: 12, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Describe nuestro primer beso en tres palabras", puntos: 8, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Baila conmigo durante 2 minutos sin música", puntos: 15, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Cuenta un chiste o algo gracioso que solo yo entendería", puntos: 10, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Dibuja nuestro futuro ideal en 1 minuto", puntos: 12, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Recrea nuestra foto favorita juntos", puntos: 15, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Escribe un haiku sobre nuestro amor en 30 segundos", puntos: 12, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Cuenta la historia de cómo nos conocimos como si fuera un cuento de hadas", puntos: 15, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Haz una promesa romántica para los próximos 45 días", puntos: 10, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Inventa un apodo nuevo y único para mí", puntos: 8, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Da un masaje de 3 minutos en las manos mientras dices cosas que amas de mí", puntos: 15, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Menciona 5 razones por las que eres la mejor pareja para mí", puntos: 10, fondo: "image_4.png" },
+        { categoria: "Reto del Cacique", pregunta: "Crea una regla nueva y divertida para nuestra relación", puntos: 10, fondo: "image_4.png" }
+    ];
+
+    let mazoActual = [];
+    let puntosAreito = 0;
+
+    function inicializarMazo() {
+        // Cargar estado guardado
+        const savedMazo = localStorage.getItem('areito-mazo');
+        const savedPuntos = localStorage.getItem('areito-puntos');
+        
+        if (savedMazo) {
+            mazoActual = JSON.parse(savedMazo);
+        } else {
+            // Barajar cartas
+            mazoActual = [...cartasAreito].sort(() => Math.random() - 0.5);
+            localStorage.setItem('areito-mazo', JSON.stringify(mazoActual));
+        }
+        
+        if (savedPuntos) {
+            puntosAreito = parseInt(savedPuntos);
+        }
+        
+        actualizarEstadisticas();
+    }
+
+    function sacarCarta() {
+        if (mazoActual.length === 0) {
+            alert('¡Felicidades! Has completado todas las cartas del Areito. Puntos ganados: ' + puntosAreito);
+            return;
+        }
+        
+        const carta = mazoActual.pop();
+        puntosAreito += carta.puntos;
+        
+        // Guardar estado
+        localStorage.setItem('areito-mazo', JSON.stringify(mazoActual));
+        localStorage.setItem('areito-puntos', puntosAreito);
+        
+        // Mostrar carta
+        const cartaArea = document.getElementById('carta-area');
+        cartaArea.style.backgroundImage = `url('${carta.fondo}')`;
+        cartaArea.innerHTML = `
+            <div class="carta-content">
+                <div class="carta-categoria">${carta.categoria}</div>
+                <div class="carta-pregunta">${carta.pregunta}</div>
+                <div class="carta-puntos">+${carta.puntos} puntos</div>
+            </div>
+        `;
+        
+        actualizarEstadisticas();
+        
+        // Si completó todas las cartas, ofrecer añadir puntos
+        if (mazoActual.length === 0) {
+            setTimeout(() => {
+                if (confirm('¡Has completado el Areito del Saber! ¿Deseas agregar los ' + puntosAreito + ' puntos de bonificación a tu total de la Gesta?')) {
+                    addPoints(puntosAreito);
+                }
+            }, 2000);
+        }
+    }
+
+    function actualizarEstadisticas() {
+        document.getElementById('cartas-restantes').textContent = mazoActual.length;
+        document.getElementById('puntos-ganados').textContent = puntosAreito;
+        const progreso = Math.round(((45 - mazoActual.length) / 45) * 100);
+        document.getElementById('progreso-porcentaje').textContent = progreso + '%';
+    }
+
+    function reiniciarMazo() {
+        if (confirm('¿Estás seguro de que quieres reiniciar el juego de cartas? Perderás el progreso actual.')) {
+            localStorage.removeItem('areito-mazo');
+            localStorage.removeItem('areito-puntos');
+            mazoActual = [...cartasAreito].sort(() => Math.random() - 0.5);
+            puntosAreito = 0;
+            localStorage.setItem('areito-mazo', JSON.stringify(mazoActual));
+            
+            // Restaurar mensaje inicial
+            const cartaArea = document.getElementById('carta-area');
+            cartaArea.style.backgroundImage = "url('image_0.png')";
+            cartaArea.innerHTML = `
+                <div class="mensaje-inicial">
+                    <h3>Bienvenidos al Areito del Saber</h3>
+                    <p>Este es un juego sagrado de 45 cartas divididas en tres categorías:</p>
+                    <p><strong>🌺 Atabey</strong> - Preguntas sobre intimidad emocional y conexión profunda</p>
+                    <p><strong>⚔️ Guahayona</strong> - Preguntas sobre aventuras compartidas y sueños</p>
+                    <p><strong>🏆 Reto del Cacique</strong> - Desafíos creativos y divertidos</p>
+                    <p style="margin-top: 20px; font-weight: bold;">Presiona "Sacar Carta" para comenzar tu viaje de 500 puntos de bonificación.</p>
+                </div>
+            `;
+            
+            actualizarEstadisticas();
+        }
+    }
+
+    function imprimirCartas() {
+        // Crear ventana de impresión
+        const ventanaImpresion = window.open('', '_blank', 'width=800,height=600');
+        
+        let htmlImpresion = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>El Areito del Saber - Todas las Cartas</title>
+                <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@600;700&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+                <style>
+                    body {
+                        font-family: 'Philosopher', sans-serif;
+                        padding: 20px;
+                        max-width: 900px;
+                        margin: 0 auto;
+                    }
+                    h1 {
+                        font-family: 'Cinzel Decorative', serif;
+                        color: #005697;
+                        text-align: center;
+                        margin-bottom: 30px;
+                    }
+                    .categoria-section {
+                        margin-bottom: 40px;
+                        page-break-inside: avoid;
+                    }
+                    .categoria-title {
+                        font-family: 'Cinzel', serif;
+                        color: #D4AF37;
+                        font-size: 20px;
+                        margin-bottom: 15px;
+                        padding-bottom: 10px;
+                        border-bottom: 2px solid #D4AF37;
+                    }
+                    .carta-item {
+                        margin-bottom: 15px;
+                        padding: 15px;
+                        background: #f4f1ea;
+                        border-radius: 10px;
+                        border-left: 4px solid #D4AF37;
+                        page-break-inside: avoid;
+                    }
+                    .carta-numero {
+                        font-family: 'Cinzel', serif;
+                        font-weight: bold;
+                        color: #005697;
+                        margin-bottom: 5px;
+                    }
+                    .carta-texto {
+                        font-size: 16px;
+                        line-height: 1.6;
+                        margin-bottom: 5px;
+                    }
+                    .carta-puntos {
+                        font-family: 'Cinzel', serif;
+                        color: #D4AF37;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }
+                    @media print {
+                        .no-print { display: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>🎴 El Areito del Saber</h1>
+                <p style="text-align: center; font-style: italic; margin-bottom: 30px;">45 Cartas Sagradas - 500 Puntos de Bonificación</p>
+                <button class="no-print" onclick="window.print()" style="display: block; margin: 0 auto 30px; padding: 15px 30px; background: #005697; color: white; border: none; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 16px; cursor: pointer;">🖨️ Imprimir</button>
+        `;
+        
+        // Agrupar por categoría
+        const categorias = {
+            'Atabey': [],
+            'Guahayona': [],
+            'Reto del Cacique': []
+        };
+        
+        cartasAreito.forEach(carta => {
+            categorias[carta.categoria].push(carta);
+        });
+        
+        // Generar HTML para cada categoría
+        for (const [categoria, cartas] of Object.entries(categorias)) {
+            htmlImpresion += `
+                <div class="categoria-section">
+                    <h2 class="categoria-title">${categoria}</h2>
+            `;
+            
+            cartas.forEach((carta, index) => {
+                htmlImpresion += `
+                    <div class="carta-item">
+                        <div class="carta-numero">Carta ${index + 1} de ${cartas.length}</div>
+                        <div class="carta-texto">${carta.pregunta}</div>
+                        <div class="carta-puntos">+${carta.puntos} puntos</div>
+                    </div>
+                `;
+            });
+            
+            htmlImpresion += `</div>`;
+        }
+        
+        htmlImpresion += `
+            </body>
+            </html>
+        `;
+        
+        ventanaImpresion.document.write(htmlImpresion);
+        ventanaImpresion.document.close();
+    }
+
+    // Inicializar el mazo al cargar la página
+    inicializarMazo();
     updateUI();
 </script>
 </body>
